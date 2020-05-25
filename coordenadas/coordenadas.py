@@ -8,7 +8,7 @@ from decouple import config
 
 
 def coordenadas(endereco):
-    key = (config"KEY_GOOGLE_MAPS")
+    key = config("KEY_GOOGLE_MAPS")
     r = requests.get("https://maps.googleapis.com/maps/api/geocode/json?address=" + str(endereco) + "&key=" + key)
     results = r.json()['results']
     location = results [0] ['geometry'] ['location']
