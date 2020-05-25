@@ -200,7 +200,7 @@ def criar_varios_produtos(req):
 def cadastrando(req):
     #arq = get_object_or_404(arquivos,cliente=req.user.id)
     a = arquivos.objects.filter(arquivos,cliente=req.user.id)
-    arq = a[-1].arquivo
+    arq = a[len(a)-1].arquivo
     loj = get_object_or_404(Lojas,pk=req.user.id)
     i = 0
     x = pd.read_excel(arq.arquivo)
