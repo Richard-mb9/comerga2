@@ -220,8 +220,8 @@ def cadastrando(req):
         try:
             os.remove(arq.arquivo)
             arq.delete()
-    except:
-        pass  
+        except:
+            pass  
     return redirect('produtos-cadastrados', req.user.id)
 
 
