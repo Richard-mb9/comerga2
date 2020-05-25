@@ -218,8 +218,8 @@ def cadastrando(req):
         f.save()
         i += 1
         try:
-        os.remove(arq.arquivo)
-        arq.delete()
+            os.remove(arq.arquivo)
+            arq.delete()
     except:
         pass  
     return redirect('produtos-cadastrados', req.user.id)
