@@ -215,10 +215,7 @@ def cadastrando(req):
             imagem = "#"
         )
         f.save()
-        print('cadastrou; ' + str(i))
         i += 1
-
-    print("fechou")
     
     return redirect('produtos-cadastrados', req.user.id)
 
