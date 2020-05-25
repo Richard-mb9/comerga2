@@ -4,6 +4,7 @@ from .models import Lojas
 from .models import enderecos
 from .models import arquivos
 from .models import categorias_lojas
+from .models import horarios
 
 admin.site.register(usuarios)
 admin.site.register(Lojas)

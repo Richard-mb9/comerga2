@@ -91,9 +91,11 @@ class horarios(models.Model):
     sab_fecha = models.DecimalField(max_digits=4,decimal_places=2)
     dom_abre = models.DecimalField(max_digits=4,decimal_places=2)
     dom_fecha = models.DecimalField(max_digits=4,decimal_places=2)
+    objects = models.Manager()
     
 
 class arquivos(models.Model):
     cliente = models.ForeignKey(Lojas,on_delete=models.CASCADE)
     arquivo = models.FileField(upload_to="arquivos_excel", null=False, blank=False)
+    objects = models.Manager()
 
