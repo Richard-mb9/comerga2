@@ -199,9 +199,9 @@ def criar_varios_produtos(req):
 @login_required
 def cadastrando(req):
     #arq = get_object_or_404(arquivos,cliente=req.user.id)
-    a = arquivos.objects.filter(cliente=req.user.id)  
+    a = arquivos.objects.filter(arquivos,cliente=req.user.id)
+    arq = a[-1].arquivo
     loj = get_object_or_404(Lojas,pk=req.user.id)
-    arq = a[-1]
     i = 0
     x = pd.read_excel(arq.arquivo)
     
@@ -218,7 +218,6 @@ def cadastrando(req):
         )
         f.save()
         i += 1
-    
     return redirect('produtos-cadastrados', req.user.id)
 
 
