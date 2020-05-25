@@ -94,14 +94,14 @@ class horarios(models.Model):
     dom_fecha = models.DecimalField(max_digits=4,decimal_places=2)
     objects = models.Manager()
     
+    def __str__(self):
+        return str(self.loja)
+    
 
 class arquivos(models.Model):
     cliente = models.ForeignKey(Lojas,on_delete=models.CASCADE)
     arquivo = models.FileField(upload_to="arquivos_excel", null=False, blank=False)
     objects = models.Manager()
 
-    def delete(self, using=None, keep_parents=False):
-        self.arquivo.storage.delete()
-        super().delete()
 
 

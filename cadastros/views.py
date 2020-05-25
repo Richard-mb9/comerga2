@@ -181,11 +181,10 @@ def novaLoja(req):
     
 @login_required
 def criar_varios_produtos(req):
+    from django.conf import settings
     try:
         arq = get_object_or_404(arquivos,cliente=req.user.id)
-        #os.remove("media/" + str(arq.arquivo)) 
-        #os.remove(arq.arquivo)
-        arq.arq.delete()
+        arq.delete()
     except:
         pass  
     form = form_arquivos(req.POST or None, req.FILES or None)
@@ -207,15 +206,23 @@ def cadastrando(req):
     print(x)
     #os.remove("media/" + str(arq.arquivo))
     while i < len(x):
-        f = Produtos(
-            id_loja = loj,
-            codigo_de_barras=int(x.loc[i,'codigo']),
-            nome = str(x.loc[i,'descricao']),
-            valor = float((x.loc[i,'valor'])),
-            produto_pesavel = str(x.loc[i,'Pesavel']),
-            imagem = "#"
-        )
-        f.save()
+        try:
+            pesavel = ""
+            if str(x.loc[i,'Pesavel']) != "sim" and str(x.loc[i,'Pesavel']) != "Sim":
+                pesavel = "não"
+            elif str(x.loc[i,'Pesavel']) == "sim" or str(x.loc[i,'Pesavel']) == "Sim":
+                pesavel = "sim"
+            f = Produtos(
+                id_loja = loj,
+                codigo_de_barras=int(x.loc[i,'codigo']),
+                nome = str(x.loc[i,'descricao']),
+                valor = float((x.loc[i,'valor'])),
+                produto_pesavel = pesavel,
+                imagem = "#"
+            )
+            f.save()
+        except:
+            pass
         i += 1
         try:
             #os.remove(arq.arquivo)

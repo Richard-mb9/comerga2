@@ -179,11 +179,11 @@ def home(req,page):
     
 
     a = []
-    for loja in lista_lojas:
-        if verificar_horario(loja) == True:
-            a.append(loja)
+    #for loja in lista_lojas:
+        #if verificar_horario(loja) == True:
+           # a.append(loja)
     
-    lista_lojas = a
+    #lista_lojas = a
     sublistas = dividir_lista(lista_lojas,n)
     lista_lojas = sublistas[page]
     voltar = page - 1
