@@ -185,7 +185,7 @@ def criar_varios_produtos(req):
         arq = get_object_or_404(arquivos,cliente=req.user.id)
         #os.remove("media/" + str(arq.arquivo)) 
         #os.remove(arq.arquivo)
-        arq.delete()
+        arq.arq.delete()
     except:
         pass  
     form = form_arquivos(req.POST or None, req.FILES or None)

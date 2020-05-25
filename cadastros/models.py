@@ -100,4 +100,8 @@ class arquivos(models.Model):
     arquivo = models.FileField(upload_to="arquivos_excel", null=False, blank=False)
     objects = models.Manager()
 
+    def delete(self, using=None, keep_parents=False):
+        self.arquivo.storage.delete()
+        super().delete()
+
 
