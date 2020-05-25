@@ -184,7 +184,7 @@ def criar_varios_produtos(req):
     try:
         arq = get_object_or_404(arquivos,cliente=req.user.id)
         #os.remove("media/" + str(arq.arquivo)) 
-        os.remove(arq.arquivo)
+        #os.remove(arq.arquivo)
         arq.delete()
     except:
         pass  
@@ -218,7 +218,7 @@ def cadastrando(req):
         f.save()
         i += 1
         try:
-            os.remove(arq.arquivo)
+            #os.remove(arq.arquivo)
             arq.delete()
         except:
             pass  

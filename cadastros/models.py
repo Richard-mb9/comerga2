@@ -1,4 +1,5 @@
 from django.db import models
+import os
 
 class categorias_lojas(models.Model):
     categoria = models.CharField(max_length=50)
@@ -98,4 +99,10 @@ class arquivos(models.Model):
     cliente = models.ForeignKey(Lojas,on_delete=models.CASCADE)
     arquivo = models.FileField(upload_to="arquivos_excel", null=False, blank=False)
     objects = models.Manager()
+
+    def delete(self,*args,**kwargs):
+        if os.path.isfile(self.arquivo):
+            os.remove(self.arquivo)
+
+        super(arquivos, self).delete(*args,**kwargs)
 
