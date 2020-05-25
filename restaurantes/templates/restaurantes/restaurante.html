@@ -21,7 +21,7 @@
         <div id="div_produtos">
             {% for produto in produtos %}
             <div id="produto-{{produto.id}}" class="produto">
-                <img class="img-produto" src="/media/{{produto.foto}}">
+                <img class="img-produto" src="{{produto.foto.url}}">
                 <h4>{{produto.nome}}</h4>
                 <p>{{produto.descricao}}</p>
                 <p>R${{produto.valor}}</p>
@@ -38,7 +38,7 @@
             {% for bebida in bebidas %}
                 <div id="bebida-{{bebida.id}}" class="produto">
                     <div class="img-bebida bebida-item">
-                        <img class="img-bebida" src="/media/{{bebida.foto}}">
+                        <img class="img-bebida" src="{{bebida.foto.url}}">
                     </div>
                     <div class="bebida-descricao bebida-item">
                         <h4>{{bebida.nome}}</h4>
@@ -59,7 +59,7 @@
         <div id="div_produtos">
             {% for produto in produtos %}
             <div id="produto-{{produto.id}}" class="produto">
-                <img class="img-produto" src="/media/{{produto.foto}}">
+                <img class="img-produto" src="{{produto.foto.url}}">
                 <h4>{{produto.nome}}</h4>
                 <p>{{produto.descricao}}</p>
                 <p>R${{produto.valor}}</p>
@@ -73,7 +73,7 @@
             {% for bebida in bebidas %}
                 <div id="bebida-{{bebida.id}}" class="produto">
                     <div class="img-bebida bebida-item">
-                        <img class="img-bebida" src="/media/{{bebida.foto}}">
+                        <img class="img-bebida" src="{{bebida.foto.url}}">
                     </div>
                     <div class="bebida-descricao bebida-item">
                         <h4>{{bebida.nome}}</h4>

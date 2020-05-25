@@ -52,7 +52,7 @@
                 {% if img != 'vazio' %}
                     <div class="produto" id="item-{{item.id}}">
                         <div class="div_produto_nome">
-                            <img src="/media/{{img}}" class="img_produto produto-item produto_nome_item">
+                            <img src="{{img.url}}" class="img_produto produto-item produto_nome_item">
                             <li style="font-weight: bold;" class="produto_nome_item produto_nome">{{item.item}}</li>
                         </div>
                         <div class="produto-descricao produto-item">

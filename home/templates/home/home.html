@@ -27,7 +27,7 @@
                     <p class="categoria-item">Farmacias</p>
             </a> 
             <a href="{% url 'home_categoria' 'comida' 0 %}" class="categoria">
-                <img class="img_categoria categoria-item" src="/static/imagens/imagens-restaurantes2.png">
+                <img class="img_categoria categoria-item" src="{% static 'imagens/imagens-restaurantes.png' %}">
                 <p class="categoria-item" style="font-size: 12px;">Restaurantes, Lanchonetes e Pizzarias</p>
         </a>   
             <div id="div_pesquisa">
@@ -35,7 +35,7 @@
                     {%csrf_token%}
                         <div id="div_input_pesquisa">
                             <input type="text" name="pesquisa" id="id_input_pesquisa" placeholder="Nome da Loja">
-                            <button type="submit" id="btn-pesquisar"><img id="img-lupa"src="/static/imagens/lupa.png" alt=""> </button>
+                            <button type="submit" id="btn-pesquisar"><img id="img-lupa"src="{% static 'imagens/lupa.png' %}" alt=""> </button>
                         </div>
                     </form>
             </div>
@@ -50,14 +50,14 @@
                         <h2>{{loja.nome}}</h2>
                         <p>{{loja.bairro}} - {{loja.Cidade}}</p>
                         
-                        <p><img class="logo-loja" src="/media/{{loja.logomarca}}" alt=""></p>
+                        <p><img class="logo-loja" src="{{loja.logomarca.url}}" alt=""></p>
                     </a>
                 {% else %}
                     <a class="loja" href="{% url 'loja' loja.id 'p' 0 %}">
                             <h2>{{loja.nome}}</h2>
                             <p>{{loja.bairro}} - {{loja.Cidade}}</p>
                             
-                            <p><img class="logo-loja" src="/media/{{loja.logomarca}}" alt=""></p>
+                            <p><img class="logo-loja" src="{{loja.logomarca.url}}" alt=""></p>
                     </a>
                     {% endif %}
             {% endif %}

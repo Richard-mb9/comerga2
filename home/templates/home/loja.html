@@ -17,7 +17,7 @@
             <div id="div_pesquisa">
                 <div id="div_input_pesquisa">
                     <input type="text" name="pesquisa" id="id_input_pesquisa" placeholder="Nome do Produto">
-                    <button type="submit" id="btn-pesquisar"><img id="img-lupa"src="/static/imagens/lupa.png" alt=""> </button>
+                    <button type="submit" id="btn-pesquisar"><img id="img-lupa"src="{% static 'imagens/lupa.png' %}"> </button>
                 </div>
             </form>
         </div>
@@ -29,12 +29,12 @@
                         <p>R${{produto.valor}}</p>
                         
                         {% if produto.imagem != '#' %}
-                            <img class="img-produto" src="/media/{{produto.imagem}}">
+                            <img class="img-produto" src="{{produto.imagem.url}}">
                         {% else %}
                             {% if produto in produtos_com_imagem %}
                                 {% for img in imagens %}
                                     {% if produto.codigo_de_barras == img.codigo_de_barras %}
-                                        <img class="img-produto" src="/media/{{img.imagem}}">
+                                        <img class="img-produto" src="{{produto.imagem.url}}">
                                     {% endif %}
                                 {% endfor %}
                             {%else%}
@@ -106,12 +106,12 @@
                         <h3>{{produto.nome}} </h3>
                         <p>R${{produto.valor}}</p>
                         {% if produto.imagem != '#'%}
-                            <img class="img-produto" src="/media/{{produto.imagem}}">
+                            <img class="img-produto" src="{{produto.imagem.url}}">
                         {% else %}
                             {% if produto in produtos_com_imagem %}
                                 {% for img in imagens %}
                                     {% if produto.codigo_de_barras == img.codigo_de_barras %}
-                                        <img class="img-produto" src="/media/{{img.imagem}}">
+                                        <img class="img-produto" src="{{produto.imagem.url}}">
                                     {% endif %}
                                 {% endfor %}
                             {%else%}
@@ -196,12 +196,12 @@
                     <h3>{{produto.nome}} </h3>
                     <p>R${{produto.valor}}</p>
                     {% if produto.imagem != '#' %}
-                            <img class="img-produto" src="/media/{{produto.imagem}}">
+                            <img class="img-produto" src="{{produto.imagem.url}}">
                     {% else %}                
                         {% if produto in produtos_com_imagem %}
                             {% for img in imagens %}
                                 {% if produto.codigo_de_barras == img.codigo_de_barras %}
-                                    <img class="img-produto" src="/media/{{img.imagem}}">
+                                    <img class="img-produto" src="{{img.imagem.url}}">
                                 {% endif %}
                             {% endfor %}
                         {%else%}

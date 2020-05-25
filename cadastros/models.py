@@ -69,7 +69,7 @@ class Lojas(models.Model):
     digito_agencia = models.CharField(max_length=5, null=True, blank=True)
     conta = models.CharField(max_length=20)
     digito_conta = models.CharField(max_length=5, null=True, blank=True )
-    logomarca = models.ImageField( upload_to="%d", null=False, blank=False)
+    logomarca = models.ImageField( upload_to="media/logomarcas/", null=False, blank=False)
     objects = models.Manager()
     
     def __str__(self):

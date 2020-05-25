@@ -18,7 +18,7 @@
             <div id="div_pesquisa" style="width: 100%; text-align: left;">
                 <div id="div_input_pesquisa">
                     <input type="text" name="pesquisa" id="id_input_pesquisa" placeholder="Nome da Loja">
-                    <button type="submit" id="btn-pesquisar"><img id="img-lupa"src="/static/imagens/lupa.png" alt=""> </button>
+                    <button type="submit" id="btn-pesquisar"><img id="img-lupa"src="{% static 'imagens/lupa.png' %}"> </button>
                 </div>
             </form>
         </div>
@@ -29,7 +29,7 @@
                         <h2>{{loja.nome}}</h2>
                         <p>{{loja.bairro}} - {{loja.Cidade}}</p>
                         
-                        <p><img class="logo-loja" src="/media/{{loja.logomarca}}" alt=""></p>
+                        <p><img class="logo-loja" src="{{loja.logomarca.url}}" alt=""></p>
                 </a>
             {% endif %}
         {% endfor %}
