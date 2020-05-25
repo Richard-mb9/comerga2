@@ -183,7 +183,8 @@ def novaLoja(req):
 def criar_varios_produtos(req):
     try:
         arq = get_object_or_404(arquivos,cliente=req.user.id)
-        os.remove("media/" + str(arq.arquivo)) 
+        #os.remove("media/" + str(arq.arquivo)) 
+        os.remove(arq.arquivo)
         arq.delete()
     except:
         pass  
@@ -198,9 +199,7 @@ def criar_varios_produtos(req):
 #cadastra varios produtos de uma unica vez por meio de um arquivo excel
 @login_required
 def cadastrando(req):
-    #arq = get_object_or_404(arquivos,cliente=req.user.id)
-    a = arquivos.objects.filter(arquivos,cliente=req.user.id)
-    arq = a[len(a)-1]
+    arq = get_object_or_404(arquivos,cliente=req.user.id)
     loj = get_object_or_404(Lojas,pk=req.user.id)
     i = 0
     x = pd.read_excel(arq.arquivo)
@@ -218,6 +217,11 @@ def cadastrando(req):
         )
         f.save()
         i += 1
+        try:
+        os.remove(arq.arquivo)
+        arq.delete()
+    except:
+        pass  
     return redirect('produtos-cadastrados', req.user.id)
 
 
