@@ -1,0 +1,80 @@
+{% load static %}
+{% load tags %}
+<!DOCTYPE html>
+<html lang="PT-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todas as Lojas</title>
+    <!--<link rel="stylesheet" href="{% static 'css/home.css '%}">-->
+    <link rel="stylesheet" media="screen and (min-width: 700px)" href="{% static 'css/home.css' %}">
+    <link rel="stylesheet" media="screen and (max-width: 699px)" href="{% static 'css/home-responsivo.css' %}">
+</head>
+    {% include 'header.html' %}
+<body>
+    <div id="div_conteudo">
+        <div id="div_categorias">
+            <a href="{% url 'home_categoria' 'Super Mercado' 0 %}" class="categoria">
+                    <img class="img_categoria categoria-item" src="{% static 'imagens/imagem-supermercado.png'%}">
+                    <p class="categoria-item">Supermercados</p>
+            </a>          
+            <a href="{% url 'home_categoria' 'Loja de ração' 0 %}" class="categoria">
+                    <img class="img_categoria categoria-item" src="{% static 'imagens/imagem-petshop.png'%}">
+                    <p class="categoria-item">Lojas de ração e Petshops</p>
+            </a>            
+            <a href="{% url 'home_categoria' 'Farmacia' 0 %}" class="categoria">
+                    <img class="img_categoria categoria-item" src="{% static 'imagens/imagem-farmacia.png'%}">
+                    <p class="categoria-item">Farmacias</p>
+            </a> 
+            <a href="{% url 'home_categoria' 'comida' 0 %}" class="categoria">
+                <img class="img_categoria categoria-item" src="/static/imagens/imagens-restaurantes2.png">
+                <p class="categoria-item" style="font-size: 12px;">Restaurantes, Lanchonetes e Pizzarias</p>
+        </a>   
+            <div id="div_pesquisa">
+                <form method="POST">
+                    {%csrf_token%}
+                        <div id="div_input_pesquisa">
+                            <input type="text" name="pesquisa" id="id_input_pesquisa" placeholder="Nome da Loja">
+                            <button type="submit" id="btn-pesquisar"><img id="img-lupa"src="/static/imagens/lupa.png" alt=""> </button>
+                        </div>
+                    </form>
+            </div>
+        </div>
+        
+        <h1>Selecione a loja em que deseja fazer as suas compras</h1>
+        {% for loja in lojas %}
+            {% if loja.ativa == 'sim' %}
+            {% categoria loja.categoria.categoria as cat %}
+                {% if cat == 'comida' %}
+                    <a class="loja" href="{% url 'restaurante' loja.id %}">
+                        <h2>{{loja.nome}}</h2>
+                        <p>{{loja.bairro}} - {{loja.Cidade}}</p>
+                        
+                        <p><img class="logo-loja" src="/media/{{loja.logomarca}}" alt=""></p>
+                    </a>
+                {% else %}
+                    <a class="loja" href="{% url 'loja' loja.id 'p' 0 %}">
+                            <h2>{{loja.nome}}</h2>
+                            <p>{{loja.bairro}} - {{loja.Cidade}}</p>
+                            
+                            <p><img class="logo-loja" src="/media/{{loja.logomarca}}" alt=""></p>
+                    </a>
+                    {% endif %}
+            {% endif %}
+        {% endfor %}
+        <div id="div_navegar_paginas">
+            {% if voltar > -1 %}
+                <a href="{% url 'index'  voltar %}">Voltar</a>
+            {% endif %}
+            {% if carregar_mais != 'ultima' %}
+                <a style="margin-left: 30px;" href="{% url 'index' carregar_mais %}">Carregar mais</a>
+            {% endif %}
+       
+        </div>
+    </div>
+
+    {% include 'footer.html'%}
+</body>
+
+</html>
+   

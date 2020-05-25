@@ -1,0 +1,53 @@
+{% load static %}
+{% load tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Produtos</title>
+</head>
+    {% include 'header.html' %}
+<body>
+    <div id="div_conteudo">
+        <a class="loja" href="{% url 'produtos-cadastrados' user.id %}">
+            <div class="div_conteudo">
+                <p class="conteudo_link">
+                   Consultar todos os produtos cadastrados
+                </p>
+            </div>
+        </a>
+        <a class="loja" href="{% url 'novo-produto'%}">
+            <div class="div_conteudo">
+                <p class="conteudo_link">
+                    Cadastrar Novos Produtos Manualmente
+                </p>
+            </div>
+            
+            
+        </a>
+        {% categoria loja.categoria.categoria as cat %}
+        {% if cat != 'comida' %}
+            <a class="loja" href="{% url 'cadastrar-varios' %}">
+                <div class="div_conteudo">
+                    <p class="conteudo_link">
+                        Cadastrar varios produtos de uma unica vez por meio de uma Planilha Excel
+                    </p>
+                </div>
+            </a> 
+        {% else %}
+            <a class="loja" href="{% url 'cad_bebida' %}">
+                <div class="div_conteudo">
+                    <p class="conteudo_link">
+                        Cadastre Suas Bebidas
+                    </p>
+                </div>
+            </a> 
+        {% endif %}   
+    </div>
+   
+    
+</body>
+{% include 'footer.html'%}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+</html>

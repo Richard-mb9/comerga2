@@ -1,0 +1,104 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="PT-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- <link rel="stylesheet" href="{% static 'css/pedidos.css'%}">
+    <link rel="stylesheet" href="{% static 'css/lista.css' %}">-->
+    <link rel="stylesheet" media="screen and (min-width: 700px)" href="{% static 'css/pedido_cliente.css' %}">
+    <link rel="stylesheet" media="screen and (max-width: 699px)" href="{% static 'css/pedido_cliente-responsivo.css' %}">
+</head>
+{% include 'header.html'%}
+<body>
+    <div id="div_conteudo">
+        <h1>Pedido N°:{{pedido.pedido}}</h1>
+        {% if pedido.pedido_cancelado == 'não' %}
+            {%if pedido.pedidofechado == 'não' %}
+                {% if pedido.total < loja.valor_minimo_compra %}
+                <div style="background-color: white; height: max-content; width:95%; padding: 10px;
+                text-align: left; border-radius: 20px;">
+                    <h4>
+                        Para conseguir fechar este pedido, a loja {{loja}}, 
+                        estipulou um valor minimo de compras de R${{loja.valor_minimo_compra}}
+                    </h4> 
+                    <div id="div_btn_fechar_pedido" >
+                        <a href="{% url 'loja' loja.id 'p' 0%}">
+                            <button id="btn_fechar-pedido" 
+                            style="margin-top: 0px;"> comprar mais</button>
+                        </a>
+                        <legend style="font-family: Arial;">Você só podera comprar em {{loja.nome}}, ou va até o seu carrinho e limpe o seu pedido</legend>
+                    </div>
+                </div>      
+                {% else %}
+                    <div id="div_btn_fechar_pedido">
+                        <a href="{% url 'confirmar_endereco' pedido.pedido %}">
+                            <button id="btn_fechar-pedido"> Fechar Pedido</button>
+                        </a>
+                    </div>
+                    <br><br>
+                {% endif %}
+            {% else %}
+                {% if pedido.status_entrega == 'não entregue' %}
+                    <h3>Aguardando entrega</h3>
+                    <button onclick="alterar_status_entrega()" 
+                        class="btn-comum">
+                        Ja recebi o Pedido
+                    </button>
+                    <br><br>            
+                {% endif %}
+
+            {% endif %}
+        {% else %}
+            <h1>Pedido Cancelado</h1>
+            <p>{{pedido.motivo_cancelamento}}</p>
+        {% endif %}
+        
+        
+        <table>
+            <br>
+            <caption> Total: R${{pedido.total}}
+                <p style="font-size: 15px;">
+                    <legend>ainda podem ser acrescentadas algumas taxas de serviço</legend>
+                </p>
+                <div style="text-align: left; margin-left: 20px; width: 100%;">
+                    <p style="font-size: 15px;"><b>Obserbação:</b> {{pedido.observacao}}</p>
+                </div>
+            </caption>
+            
+            <th>Produto</th>
+            <th>QT</th>
+            <th>V. Unitario</th>
+            <th>V. Total</th>
+            {% for sub in subpedido %}
+            <tr>
+                <td>{{sub.item}}</td>
+                <td>{{sub.Quantidade}}</td>
+                <td>{{sub.item.valor}}</td>
+                <td>{{sub.total}}</td>
+            </tr>
+            {% endfor%}
+        </table>
+    </div>
+
+</body>
+{% include 'footer.html'%}
+</html>
+
+<script>
+    function alterar_status_entrega(){
+        var url = "{% url 'lista-pedidos' %}"
+        var dados = {'id':'{{pedido.pedido}}',
+            'status':'entregue'}
+        fetch(url,{
+            method:'POST',
+            body: JSON.stringify(dados)
+        }).then(function(response){
+            //return response.json()
+        }).then(function(response){
+            console.log(response)
+            window.location.reload()
+        })
+    }
+</script>

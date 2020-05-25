@@ -1,0 +1,65 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-bre">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!--<link rel="stylesheet" href="{% static 'css/formularios.css'%}">-->
+    <link rel="stylesheet" media="screen and (min-width: 700px)" href="{% static 'css/formularios.css' %}">
+    <link rel="stylesheet" media="screen and (max-width: 699px)" href="{% static 'css/formularios-responsivo.css' %}">
+</head>
+{% include 'header.html'%}
+<body>
+    <div id="div_conteudo">
+        <div id="div_form">
+            <form method="POST" onsubmit="form_submit(this); return false" enctype="multipart/form-data"> 
+                {% csrf_token %}
+                <p>
+                    <label for="">Primeiro Nome:</label>            
+                    <input type="text" name="Primeiro_nome" maxlength="50" id="id_primeiro_nome" required placeholder="Digite Seu Primeiro Nome">
+                </p>
+                <p>       
+                    <label for="">Ultimo Nome:</label>
+                    <input type="text" name="Ultimo_nome" maxlength="50" required id="id_Ultimo_nome" placeholder="Digite seu Ultimo Nome">
+                </p>
+                <p>
+                    <label for="">Email:</label>
+                    <input type="email" name="email" required id="id_email" placeholder="Digite seu email">
+                </p>
+                <p>          
+                    <label for="">Senha:</label>
+                    <input maxlength="12" id="id_senha" name="senha" type="password" required>
+                </p>
+                <p>
+                    <label for="">Confirmação de Senha:</label>
+                    <input maxlength="12" id="id_confirm" name="confirm" type="password" required>
+                </p>
+
+                <p> <label id="label_telefone">Celular:</label></p> 
+                <p> 
+                    <select name="DDD_cel" id="input_DDD_cel">
+                        <option value="21">21</option>
+                        <option value="22">22</option>
+                        <option value="24">24</option>
+                    </select>
+                    <input type="text" name="celular" required id="id_celular" onkeypress="mascaraCel(this)" placeholder="00000-0000">
+                </p>
+                <p><label id="label_telefone">Telefone:</label></p>           
+                <p>  
+                    <select name="DDD_tel" id=" input_DDD_tel">
+                        <option value="21">21</option>
+                        <option value="22">22</option>
+                        <option value="24">24</option>
+                    </select>
+                    <input type="text" name="telefone" id="id_Telefone" onkeypress="mascaraTel(this)" placeholder="0000-0000">
+                </p>
+                <button id="btn-cadastrar" type="submit">Cadastrar</button>
+            </form>
+        </div>
+    </div>
+    
+</body>
+{% include 'footer.html'%}
+<script src="{% static 'js/formularios.js'%}"></script>
+</html>

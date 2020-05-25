@@ -1,0 +1,85 @@
+{%load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/lista.css'%}">
+</head>
+<style>
+    .produto, .cabeca-linha{
+        font-family: Arial;
+        display: inline-block;
+        width: 150px;
+    }
+    .cabeca-linha{
+        font-weight: bold;
+    }
+    .linha{
+        border-bottom: solid 1px blue;
+        width: max-content;
+    }
+    .img-op{
+        width: 20px;
+        cursor: pointer;
+    }
+    .op{
+        background-color: white;
+        border: none;
+        text-align: center;
+        width: 40px;
+    }
+</style>
+
+{% include 'header.html' %}
+
+<body>
+    <div id="div_conteudo" style="width: 100%;">
+        <table style="background-color: white;">
+            <th>C. barras</th>
+            <th>Descrição</th>
+            <th>valor</th>
+            {% for produto in lista %}
+            <tr id="produto-{{produto.id}}">
+                <td>{{produto.codigo_de_barras}}</td>
+                <td style="font-size: 13px;">{{produto.nome}}</td>
+                <td style="font-size: 13px;">R${{produto.valor}}</td>
+                <td class="op"> 
+                    <img  id="{{produto.id}}" onclick="deletarProduto(id)" class="img-op" src="{% static 'imagens/lixeira.png' %}">
+                </td>
+                <td class="op" > 
+                    <a href="{% url 'editar_produto' produto.id %}" >
+                        <img class="img-op" src="{% static 'imagens/editar.png' %}"/>
+                    </a>
+                    
+                </td>
+            </tr>
+        {% endfor%}
+        </table>
+    </div>
+    
+</body>
+{% include 'footer.html' %}
+</html>
+<script>
+    function deletarProduto(id){
+    var url = "{% url 'excluir_produto' %}"
+    var produto = document.getElementById("produto-"+id)
+    
+    addEventListener("",function(event){
+        event.preventDefault();
+    })
+    var dados = {"id":id}    
+    fetch(url,{
+        method:'POST',
+        body: JSON.stringify(dados)
+    }).then(function(response){
+        return response.json()
+    }).then(function(response){
+        if(response['resposta'] == true){
+            produto.remove()
+        }
+    })
+}
+</script>

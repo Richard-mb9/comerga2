@@ -1,0 +1,103 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="PT-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmar Dados</title>
+</head>
+{% include 'header.html'%}
+<body>
+    <div id="div_conteudo">
+        <div id="div_central">
+            <h3>Verifique se os dados para entrega estão corretos:</h3>
+            <li>Rua: {{ender.Rua}}</li>
+            <li>Numero: {{ender.numero}}</li>
+            <li>Complemento: {{ender.complemento}}</li>
+            <li>Bairro: {{ender.bairro}}</li>
+            <li>Cidade: {{ender.Cidade}}</li>
+            <li>Estado: {{ender.Estado}}</li>
+            <li>Telefone:({{usuario.DDD_tel}}) {{usuario.telefone}}</li>
+            <li>Celular: ({{usuario.DDD_cel}}) {{usuario.celular}}</li>
+            <br>
+            <label>Adicione uma Observação</label>
+            <form method="POST">
+                {% csrf_token %}
+                <textarea name="obs"cols="30" rows="10" 
+                placeholder="caso esteja comprando alguma comida, adicione se quer que remova ou adicione algum molho ou algo parecido, caso não seja adicione um ponto de referencia do endereço de entrega">{{obs}}</textarea>
+                <button class="btn-cadastrar btn" type="submit">Salvar Observação</button>
+                
+            </form>
+            <div id="div_btns">
+               
+                <a href="{% url 'salvar_endereco_pedido' pedido %}">
+                    <button class="btn-cadastrar" >Confirmar Endereço</button>
+                </a>
+                <a href="{% url 'alterar_endereco_pedido' pedido %}">
+                    <button class="btn-cadastrar">Alterar</button>
+                </a>
+            </div>
+            
+            
+            
+        </div>
+    </div>
+    
+</body>
+{% include 'footer.html'%}
+</html>
+<style>
+    #div_conteudo{
+        text-align: center;
+        width: 100%
+    }
+    @media(max-width: 699px){
+        #div_central{
+        display: inline-block;
+        text-align: left;
+        margin-top: 5px;
+        width: 90%;
+        height: 600;
+        background-color: white;
+        border-radius: 20px;
+        padding: 5%;
+        }
+    }
+    @media(min-width: 700px){
+        #div_central{
+        display: inline-block;
+        text-align: left;
+        margin-top: 30px;
+        width: 300px;
+        height: 600px;
+        background-color: white;
+        border-radius: 20px;
+        padding: 20px;
+        }
+    }
+    
+    #div_btns{
+        text-align: center;
+    }
+    .btn-cadastrar{
+        display: inline-block;
+        cursor: pointer;
+        margin-top: 30px;
+        width: 220px;
+        height: 20px;
+        font-size: 20px;
+        font-weight: bolder;
+        border: none;
+        border-radius: 10px;
+        background-color: black;
+        color: yellow;
+        height: 30px;
+    }
+    
+    .btn{
+        display: block;
+        margin-right: auto;
+        margin-left: auto;
+    }
+
+</style>

@@ -1,0 +1,159 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" media="screen and (min-width: 700px)" href="{% static 'css/restaurante.css' %}">
+    <link rel="stylesheet" media="screen and (max-width: 699px)" href="{% static 'css/restaurante-responsivo.css' %}">
+    <title>Restaurante</title>
+</head>
+{% include 'header.html'%}
+<body>
+    <div id="div_conteudo">
+        <div class="categorias">
+            <button onclick="filtro('todos')" class="categorias-item">Todos</button>
+            <button onclick="filtro('pratos')" class="categorias-item">Pratos</button>
+            <button onclick="filtro('bebidas')" class="categorias-item">Bebidas</button>
+            <p id="ultimo"></p>
+        </div>
+        {% if user.is_authenticated %}
+        <div id="div_produtos">
+            {% for produto in produtos %}
+            <div id="produto-{{produto.id}}" class="produto">
+                <img class="img-produto" src="/media/{{produto.foto}}">
+                <h4>{{produto.nome}}</h4>
+                <p>{{produto.descricao}}</p>
+                <p>R${{produto.valor}}</p>
+                <div class="div_btns">
+                    <button id="subtrair-{{produto.id}}" onclick="subtrair('{{produto.id}}')" class="adicionar">-</button>
+                    <section id="status-{{produto.id}}" class="valor-adicionar">0</section>
+                    <button id="adicionar-{{produto.id}}" onclick="adicionar('{{produto.id}}')" class="adicionar">+</button>
+                    <button id="btn-adicionar-{{produto.id}}" onclick="adicionar_carrinho('{{produto.id}}','produto')" class="adicionar btn-adicionar">Adicionar</button>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div id="div_bebidas">
+            {% for bebida in bebidas %}
+                <div id="bebida-{{bebida.id}}" class="produto">
+                    <div class="img-bebida bebida-item">
+                        <img class="img-bebida" src="/media/{{bebida.foto}}">
+                    </div>
+                    <div class="bebida-descricao bebida-item">
+                        <h4>{{bebida.nome}}</h4>
+                        <p>R${{bebida.valor}}</p>
+                    </div>
+                    <div class="div_btns">
+                        <button id="subtrair-{{bebida.id}}" onclick="subtrair('{{bebida.id}}')" class="adicionar">-</button>
+                        <section id="status-{{bebida.id}}" class="valor-adicionar">0</section>
+                        <button id="adicionar-{{bebida.id}}" onclick="adicionar('{{bebida.id}}')" class="adicionar">+</button>
+                        <button id="btn-adicionar-{{bebida.id}}" onclick="adicionar_carrinho('{{bebida.id}}','bebida')" class="adicionar btn-adicionar">Adicionar</button>
+                    </div>
+                </div>
+            {% endfor %}
+
+        </div>
+            
+        {% else %}
+        <div id="div_produtos">
+            {% for produto in produtos %}
+            <div id="produto-{{produto.id}}" class="produto">
+                <img class="img-produto" src="/media/{{produto.foto}}">
+                <h4>{{produto.nome}}</h4>
+                <p>{{produto.descricao}}</p>
+                <p>R${{produto.valor}}</p>
+                <div class="div_btns">
+                    <h3>Necessario Login Para Comprar</h3>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div id="div_bebidas">
+            {% for bebida in bebidas %}
+                <div id="bebida-{{bebida.id}}" class="produto">
+                    <div class="img-bebida bebida-item">
+                        <img class="img-bebida" src="/media/{{bebida.foto}}">
+                    </div>
+                    <div class="bebida-descricao bebida-item">
+                        <h4>{{bebida.nome}}</h4>
+                        <p>R${{bebida.valor}}</p>
+                    </div>
+                    <div class="div_btns">
+                        <h3>Necessario Login Para Comprar</h3>
+                    </div>
+                </div>
+            {% endfor %}
+
+        </div>
+        {% endif %}
+    </div>
+</body>
+{% include 'footer.html' %}
+</html>
+<script>
+    function filtro(categoria){
+        var bebidas = document.getElementById("div_bebidas")
+        var produtos = document.getElementById("div_produtos")
+
+        if(categoria == "pratos"){
+            bebidas.style.display = "none"
+            produtos.style.display = "block"
+        }
+        if(categoria == "bebidas"){
+            bebidas.style.display = "block"
+            produtos.style.display = "none"
+        }
+        if(categoria == "todos"){
+            bebidas.style.display = "block"
+            produtos.style.display = "block"
+        }
+    }
+
+    function adicionar(id){
+        var s = document.getElementById("status-" + id)
+        s.innerHTML ++
+    }
+    function subtrair(id){
+        var s = document.getElementById("status-" + id)
+        if(s.innerHTML > 0){
+            s.innerHTML --
+        }
+        
+    }
+
+    function adicionar_carrinho(id,categoria){
+    var url = "{% url 'adicionar_carrinho_retaurante'%}"
+    var qt = document.getElementById("status-"+id).innerHTML
+    var carrinho = document.getElementById("carrinho")
+    var produto = document.getElementById("produto-"+id)
+    var input_qt = document.getElementById("status-"+id)
+    console.log(url)
+    
+    addEventListener("",function(event){
+        event.preventDefault();
+    })
+    var dados = {
+        "id":id,
+        'categoria':categoria,
+        "quantidade":qt
+    }
+    
+    if(input_qt.innerHTML > 0 ){
+        fetch(url,{
+            method:'POST',
+            body: JSON.stringify(dados)
+        }).then(function(response){
+            return response.json()
+        }).then(function(response){
+            if(response['loja_diferente'] == true){
+                alert("Você esta com o pedido Aberto em outra Loja, para fazer a compra em uma loja diferente finalize o pedido ou remova todos os produtos da loja anterior do seu pedido!")
+            }
+            else{
+                carrinho.innerHTML = "R$" + response['total']
+                produto.style.borderColor = "red"
+            }
+        })
+    }
+}
+</script>

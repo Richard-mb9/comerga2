@@ -1,0 +1,235 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="PT-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loja</title>
+    <!--<link rel="stylesheet" href="{% static 'css/loja.css'%}">-->
+    <link rel="stylesheet" media="screen and (min-width: 700px)" href="{% static 'css/loja.css' %}">
+    <link rel="stylesheet" media="screen and (max-width: 699px)" href="{% static 'css/loja-responsivo.css' %}">
+</head>
+{% include 'header.html' %}
+<body>
+    <div id="div_conteudo">
+        <form method="POST">
+            {%csrf_token%}
+            <div id="div_pesquisa">
+                <div id="div_input_pesquisa">
+                    <input type="text" name="pesquisa" id="id_input_pesquisa" placeholder="Nome do Produto">
+                    <button type="submit" id="btn-pesquisar"><img id="img-lupa"src="/static/imagens/lupa.png" alt=""> </button>
+                </div>
+            </form>
+        </div>
+        {% if user.is_authenticated %}
+            {% for produto in lista %}
+                {% if produto in itens %}   
+                    <div id="produto-{{produto.id}}" class="produto esta-na-lista">
+                        <h3>{{produto.nome}} </h3>
+                        <p>R${{produto.valor}}</p>
+                        
+                        {% if produto.imagem != '#' %}
+                            <img class="img-produto" src="/media/{{produto.imagem}}">
+                        {% else %}
+                            {% if produto in produtos_com_imagem %}
+                                {% for img in imagens %}
+                                    {% if produto.codigo_de_barras == img.codigo_de_barras %}
+                                        <img class="img-produto" src="/media/{{img.imagem}}">
+                                    {% endif %}
+                                {% endfor %}
+                            {%else%}
+                                <div id="div_img_produto"></div>
+                            {% endif %}
+                        {% endif %}
+                        {% if produto.produto_pesavel == 'sim' %}
+                        <p>
+                            <label>Selecione o Peso</label> 
+                            <select id="input-{{produto.id}}"class="input-qt">
+                                <option value="0">---</option>
+                                <option value="0.1">100g</option>
+                                <option value="0.2">200g</option>
+                                <option value="0.3">300g</option>
+                                <option value="0.4">400g</option>
+                                <option value="0.5">500g</option>
+                                <option value="0.6">600g</option>
+                                <option value="0.7">700g</option>
+                                <option value="0.8">800g</option>
+                                <option value="0.9">900g</option>
+                                <option value="1">1kg</option>
+                                <option value="1.5">1,5kg</option>
+                                <option value="2">2kg</option>
+                                <option value="2.5">2,5kg</option>
+                                <option value="3">3kg</option>
+                                <option value="3.5">3,5kg</option>
+                                <option value="4">4kg</option>
+                                <option value="4.5">4,5kg</option>
+                                <option value="5">5kg</option>
+                                <option value="5.5">5,5kg</option>
+                                <option value="6">6kg</option>
+                                <option value="6.5">6,5kg</option>
+                                <option value="7">7kg</option>
+                                <option value="7.5">7,5kg</option>
+                                <option value="8">8kg</option>
+                                <option value="8.5">8,5kg</option>
+                                <option value="9">9kg</option>
+                                <option value="9.5">9,5kg</option>
+                                <option value="10">10kg</option>
+                            </select>
+                            </p>
+                        {% else %}
+                            <p>
+                                <label>Quantidade</label> <!--<input id="input-{{produto.id}}" class="input-qt" type="number" value=0>-->
+                                <select id="input-{{produto.id}}" class="input-qt">
+                                    <option value="0" selected>0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                            </p>
+                        {% endif %}
+                        <p>
+                            <button class="btn-adicionar" id="{{produto.id}}" onclick="adicionar(id)" >
+                                <img id="carrinho-btn" src="{% static 'imagens/carrinho2.webp'%}">
+                                Adicionar ao Carrinho 
+                            </button>
+                        </p> 
+                    </div>
+                {% else %}
+                    <div id="produto-{{produto.id}}" class="produto">
+                        <h3>{{produto.nome}} </h3>
+                        <p>R${{produto.valor}}</p>
+                        {% if produto.imagem != '#'%}
+                            <img class="img-produto" src="/media/{{produto.imagem}}">
+                        {% else %}
+                            {% if produto in produtos_com_imagem %}
+                                {% for img in imagens %}
+                                    {% if produto.codigo_de_barras == img.codigo_de_barras %}
+                                        <img class="img-produto" src="/media/{{img.imagem}}">
+                                    {% endif %}
+                                {% endfor %}
+                            {%else%}
+                                <div id="div_img_produto"></div>
+                            {% endif %}
+                            <!--{% for img in imagens %}
+                                {% if produto.codigo_de_barras == img.codigo_de_barras %}
+                                    <img class="img-produto" src="/media/{{img.imagem}}">
+                                {%else%}
+                                    <div id="div_img_produto"></div>
+                                {% endif %}
+                            {% endfor %}-->
+                        {% endif %}
+                        {% if produto.produto_pesavel == 'sim' %}
+                        <p>
+                            <label>Selecione o Peso</label> 
+                            <select id="input-{{produto.id}}"class="input-qt">
+                                <option value="0">---</option>
+                                <option value="0.1">100g</option>
+                                <option value="0.2">200g</option>
+                                <option value="0.3">300g</option>
+                                <option value="0.4">400g</option>
+                                <option value="0.5">500g</option>
+                                <option value="0.6">600g</option>
+                                <option value="0.7">700g</option>
+                                <option value="0.8">800g</option>
+                                <option value="0.9">900g</option>
+                                <option value="1">1kg</option>
+                                <option value="1.5">1,5kg</option>
+                                <option value="2">2kg</option>
+                                <option value="2.5">2,5kg</option>
+                                <option value="3">3kg</option>
+                                <option value="3.5">3,5kg</option>
+                                <option value="4">4kg</option>
+                                <option value="4.5">4,5kg</option>
+                                <option value="5">5kg</option>
+                                <option value="5.5">5,5kg</option>
+                                <option value="6">6kg</option>
+                                <option value="6.5">6,5kg</option>
+                                <option value="7">7kg</option>
+                                <option value="7.5">7,5kg</option>
+                                <option value="8">8kg</option>
+                                <option value="8.5">8,5kg</option>
+                                <option value="9">9kg</option>
+                                <option value="9.5">9,5kg</option>
+                                <option value="10">10kg</option>
+                            </select>
+                            </p>
+                            {% else %}
+                            <p>
+                                <label>Quantidade</label> <!--<input id="input-{{produto.id}}" class="input-qt" type="number" value=0>-->
+                                <select id="input-{{produto.id}}" class="input-qt">
+                                    <option value="0" selected>0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                            </p>
+                        {% endif %}
+                        
+                        <p>
+                            <button class="btn-adicionar" id="{{produto.id}}" onclick="adicionar(id)" >
+                                <img id="carrinho-btn" src="{% static 'imagens/carrinho2.webp'%}">
+                                Adicionar ao Carrinho 
+                            </button>
+                        </p> 
+                    </div>
+                {% endif %}
+                            
+            {% endfor %}
+
+        {% else %}
+            {% for produto in lista %}
+                <div id="produto-{{produto.id}}" class="produto">
+                    <h3>{{produto.nome}} </h3>
+                    <p>R${{produto.valor}}</p>
+                    {% if produto.imagem != '#' %}
+                            <img class="img-produto" src="/media/{{produto.imagem}}">
+                    {% else %}                
+                        {% if produto in produtos_com_imagem %}
+                            {% for img in imagens %}
+                                {% if produto.codigo_de_barras == img.codigo_de_barras %}
+                                    <img class="img-produto" src="/media/{{img.imagem}}">
+                                {% endif %}
+                            {% endfor %}
+                        {%else%}
+                            <div id="div_img_produto"></div>
+                        {% endif %}
+                    {% endif %}
+                    
+                    <p>
+                        <h4>
+                            Necessario Login para adicionar ao carrinho
+                        </h4>
+                    </p> 
+                </div>
+            {% endfor %}
+        {% endif %}
+        
+        <div id="div_navegar_paginas">
+            {% if voltar > -1 %}
+                <a href="{% url 'loja' loja pesquisa voltar %}">Voltar</a>
+            {% endif %}
+            {% if carregar_mais != 'ultima' %}
+                <a style="margin-left: 30px;" href="{% url 'loja' loja pesquisa carregar_mais %}">Carregar mais</a>
+            {% endif %}
+       
+        </div>
+        
+    </div>
+</body>
+<script src="{% static 'js/carrinho.js' %}"></script>
+{% include 'footer.html'%}
+</html>

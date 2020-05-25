@@ -1,0 +1,117 @@
+{%load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pedido</title>
+    <link rel="stylesheet" href="{% static 'css/lista.css'%}">
+</head>
+    {% include 'header.html' %}
+<body>
+    <div id="div_conteudo">
+        <h1>Pedido N°: {{pedido.pedido}}</h1>
+        {% if pedido.pedido_cancelado == 'não'%}
+            <a href="{% url 'imprimir_pedido' pedido.pedido %}"><button class="btn-comum"> Imprimir</button></a>';
+            {% if pedido.status_entrega == 'não entregue'%}
+            <h2 >
+                Total a Receber: R${{total}}
+            </h2>
+                <p id="entregue"></p>
+                <p id="btn-marcar">
+                    <button class="btn-comum" id="{{pedido.pedido}}"
+                    style="width: 250px;"
+                    onclick="alterar_status_entrega(id)">
+                        Marcar Como Entregue
+                    </button>
+                </p>
+                <p id="btn-cancelar">
+                    <a href="{% url 'cancelar_pedido' pedido.pedido %}">
+                        <button class="btn-comum">cancelar Pedido</button>
+                    </a>
+                </p>
+            {% else %}
+                <h3>Pedido Entregue</h3>
+            {% endif %}
+            <div class="imprimir" style="text-align: left; padding: 20px;">
+                <li>Cliente:{{cliente.Primeiro_nome}}&nbsp;{{cliente.Ultimo_nome}}</li>
+                <li>Cidade:{{endereco.Cidade}}</li>
+                <li>Bairro:{{endereco.bairro}}</li>
+                <li>Rua:{{endereco.Rua}}</li>
+                <li>Numero:{{endereco.numero}}</li>
+                <li>Complemento:{{endereco.complemento}}</li>
+                <li>Telefone:({{cliente.DDD_tel}}){{cliente.telefone}}</li>
+                <li>Celular:({{cliente.DDD_cel}}){{cliente.celular}}</li>
+                <li>Valor do Frete: R${{pedido.valor_frete}}</li>
+                <li>Taxa de Serviço: R${{pedido.taxa_servico}}</li>
+                <li>Valor das Compras: R${{pedido.total}}</li>
+                <li>Total: {{total}}</li>
+            </div>
+            {% if pedido.status_entrega == 'não entregue'%}
+                <div style="text-align: left; margin-left: 20px;">
+                    {% if pedido.forma_de_pagamento == 'dinheiro'%}
+                        <h3>Receber no local o Total de: R${{total}}</h3>
+                        {% if pedido.troco == 'Sim'%}
+                            <h4>Necessario troco para R${{pedido.valor_troco}}</h4>
+                        {% endif %}
+                    {% else %}
+                        <h4>O pedido Ja esta Pago</h4>
+                    {% endif %}
+                </div>
+            {% endif %}
+        {% else %}
+            <h1>Pedido Cancelado</h1>
+            <h2>{{pedido.motivo_cancelamento}}</h2>
+        {% endif %}
+        <div style="text-align: left; margin-left: 20px;">
+            <p><b>Obserbação:</b> {{pedido.observacao}}</p>
+        </div>
+        
+        <table class="imprimir">
+            <caption>Total de compras: R${{pedido.total}}</caption>
+            <th>QT</th>
+            <th>Produto</th>
+            <th>V. unitario</th>
+            <th>Total</th>
+            {% for sub in subpedido %}
+                {% if sub.loja.id == user.id %}
+                    <tr>
+                        <td>{{sub.Quantidade}}</td>
+                        <td style="font-size: 11px;">{{sub.item}}</td>
+                        <td>{{sub.item.valor}}</td>
+                        <td>R${{sub.total}}</td>
+                    </tr>
+                {% endif%}
+            {% endfor %}
+        </table>
+    </div>
+    {% include 'footer.html' %}
+</body>
+</html>
+<script>
+    function alterar_status_entrega(id){
+        var url = "{% url 'lista-pedidos' %}"
+        var btn_marcar = document.getElementById('btn-marcar')
+        var btn_cancelar = document.getElementById('btn-cancelar')
+        var texto = document.getElementById('entregue')
+        var dados = {'id':id,
+            'status':'sim'}
+        
+        
+        fetch(url,{
+            method:'POST',
+            body: JSON.stringify(dados)
+        }).then(function(response){
+            return response.json()
+        }).then(function(response){
+            
+        })
+        btn_marcar.remove()
+        btn_cancelar.remove()
+        texto.innerHTML = "Pedido Entregue"
+        texto.style.fontFamily = "Arial"
+        texto.style.fontSize = "20px"
+        texto.style.fontWeight = "bold"
+
+    }
+</script>

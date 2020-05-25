@@ -1,0 +1,72 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alterar endereço</title>
+    <link rel="stylesheet" media="screen and (min-width: 700px)" href="{% static 'css/formularios.css' %}">
+    <link rel="stylesheet" media="screen and (max-width: 699px)" href="{% static 'css/formularios-responsivo.css ' %}">
+</head>
+<header>
+    {% include 'header.html' %}
+    <script>
+        var btn_pedidos = document.getElementById("btn-pedidos")
+        var btn_vender = document.getElementById("btn-vender")
+        var saldo = document.getElementById("saldo-loja")
+        var header = document.getElementById("header")
+        btn_pedidos.remove()
+        btn_vender.remove()
+        saldo.innerHTML = "R$ 0,00"
+        header.style.height = "50px"
+    </script>
+</header>
+<body>
+    <div id="div_conteudo">
+        <h1>Alterar endereco</h1>
+        <div id="div_form">
+            <form method="POST" onsubmit="form_submit(this); return false;"> 
+                {% csrf_token %}
+
+                <p hidden>
+                    {{form.cliente}}
+                </p>
+                <p>
+                    <label id="label_CEP">CEP:</label>
+                    <input type="text" name="CEP" value="{{form.CEP.value}}" id="id_CEP" required placeholder="00000-000" onkeypress="mascaraCEP(this)">
+                </p>
+                <p>
+                    <label id="label_estado">Estado</label>
+                    <input type="text" name="Estado" value="{{form.Estado.value}}" id="id_Estado" required>
+                </p>
+                <p>
+                    <label id="label_Cidade">Cidade</label>
+                    <input type="text" name="Cidade" value="{{form.Cidade.value}}" id="id_Cidade" required>
+                </p>
+                <p>
+                    <label id="label_bairro">Bairro</label>
+                    <input type="text" name="bairro" value="{{form.bairro.value}}" id="id_bairro" required>
+                </p>
+                <p>
+                    <label id="label_Rua">Rua</label>
+                    <input type="text" name="Rua" value="{{form.Rua.value}}" id="id_Rua" required>
+                </p>
+                <p>
+                    <label id="label_numero">Numero</label>
+                    <input type="text" name="numero" value="{{form.numero.value}}" id="id_numero" required>
+                </p>
+                <p>
+                    <label id="label_complemento">Complemento</label>
+                    <input type="text" name="complemento" value="{{form.complemento.value}}" id="id_complemento">
+                </p>
+
+                <button id="btn-cadastrar" type="submit">Salvar Alterações</button>
+            </form>
+        </div>
+    </div>
+</body>
+
+{% include 'footer.html'%}
+</html>
+<script src="{% static 'js/formularios.js' %}"></script>

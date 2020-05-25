@@ -1,0 +1,69 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pedido Finalizado</title>
+</head>
+{% include 'header.html' %}
+<body>
+    <div id="div_conteudo">
+        <div id="div_centro">
+            <h1>Pedido Finalizado com Sucesso</h1>
+            <p>Tudo Certo com o Seu Pedido</p>
+            <p>Ja enviamos ele para {{loja.nome}},&nbsp; a loja que você fez as suas Compras</p>
+            <p>Em Breve ela fara a entrega na sua Casa</p>
+            <p>O numero do seu Pedido é: &nbsp; {{pedido.pedido}}</p>
+            <p>Anote e guarde ele, até que receba as suas compras</p>
+            <p>Para Qualquer informação entre em contato com a loja &nbsp;{{loja.nome}}&nbsp; pelo Telefone({{loja.DDD_tel}}){{loja.Telefone}}</p>
+            <a href="{% url 'home'%}">
+                <button id="btn">Fazer novas Compras</button>
+            </a>
+            
+        </div>
+        
+    </div>
+    
+</body>
+{% include 'footer.html' %}
+</html>
+<style>
+    #div_conteudo{
+        text-align: center;
+    }
+@media(max-width: 699px){
+    #div_centro{
+        margin-top: 10px;
+        display: inline-block;
+        width: 90%;
+        background-color: white;
+        border-radius: 30px;
+        padding: 5%;
+    }
+}
+@media(min-width: 700px){
+    #div_centro{
+        margin-top: 50px;
+        display: inline-block;
+        width: 300px;
+        background-color: white;
+        border-radius: 30px;
+        padding: 10px;
+    }
+}
+    #btn{
+        display: inline-block;
+        cursor: pointer;
+        margin-top: 30px;
+        width: 250px;
+        height: 20px;
+        font-size: 20px;
+        font-weight: bolder;
+        border: none;
+        border-radius: 10px;
+        background-color: black;
+        color: yellow;
+        height: 30px;
+    }
+</style>

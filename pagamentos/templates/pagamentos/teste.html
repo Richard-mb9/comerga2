@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="PT-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>botão</title>
+</head>
+<body>
+    <div>
+        <h1>Qualquer coisa</h1>
+        <h3>R$ 1,00</h3>
+        <div style="width: 200px;" id="paypal-button-container"></div>
+    </div>
+    <script
+    src="https://www.paypal.com/sdk/js?client-id=AeYE2pwBhxGRmOHg0dfTwLri8yNzHJpkrbpsyUBwFSWmxpUoUYPu6tFltnwBsjqObg3wD5vS2FKwZ7Li&currency=BRL"> 
+  </script>
+
+
+  <script>
+paypal.Buttons({
+    createOrder: function(data, actions) {
+      // This function sets up the details of the transaction, including the amount and line item details.
+      return actions.order.create({
+        purchase_units: [{
+          amount: {
+            value: '10.00'
+          }
+        }]
+      });
+    },
+    onApprove: function(data, actions) {
+      // This function captures the funds from the transaction.
+      return actions.order.capture().then(function(details) {
+        // This function shows a transaction success message to your buyer.
+        alert('Transaction completed by ' + details.payer.name.given_name);
+      });
+    }
+  }).render('#paypal-button-container');
+  </script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>login</title>
+    <link rel="stylesheet" href="{%static 'css/login.css'%}">
+
+</head>
+{% include 'header.html'%}
+<body>
+    <div id="div_conteudo_login">
+        <form method="POST" >
+            {% csrf_token %}
+            <!--<p><label for="">Email</label></p>
+            <p> {{form.username}}</p>
+            <p><label for="">Senha</label></p>
+            <p> {{form.password}}</p>-->
+            {{form.as_p}}
+            <button onclick="adicionar()">login</button>
+            <button class="btn-lg" id="bt_login" type="submit">Login</button> 
+        </form>
+        <br>
+        <div id="div_btn-cadastros">
+            <a href="{% url 'novo-usuario' %}"><button class="btn-lg">Cadastre-se</button></a> 
+            <a href="{% url 'nova-loja' %}"><button class="btn-lg">Cadastre Sua Loja</button></a>
+        </div>
+        
+    </div>
+
+{% include 'footer.html'%}
+</body>
+<script src="{% static 'js/login.js'%}"></script>
+</html>

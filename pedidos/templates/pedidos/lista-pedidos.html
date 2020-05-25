@@ -1,0 +1,115 @@
+{% load static%}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meus Pedidos</title>
+    <!--<link rel="stylesheet" href="{% static 'css/lista.css'%}">-->
+    <link rel="stylesheet" media="screen and (min-width: 700px)" href="{% static 'css/lista.css' %}">
+    <link rel="stylesheet" media="screen and (max-width: 699px)" href="{% static 'css/lista-responsivo.css' %}">
+</head>
+{% include 'header.html' %}
+<body>
+    <div id="div_conteudo">
+        <h1 style="font-family: Arial;">Todos os Pedidos</h1>
+        {% if not pedidos%}
+            <h1>Não há pedidos</h1>
+        {% else%}
+            {% for pedido in pedidos %}
+                {% if pedido.pedido_cancelado == 'não' %}
+                    {% if pedido.status_entrega == "não entregue" %}
+                        <a href="{% url 'lista-subpedidos' pedido.pedido %}" 
+                        class="pedido" style="background-color: yellow; padding-top: 15px;
+                        height: 130px;">
+                            <li><b>Não Entregue</b></li>
+                            <li>Data: {{pedido.data}}</li>
+                            <li>Pedido: {{pedido.pedido}}</li>
+                            <li>Cliente: {{pedido.cliente}}</li>
+                            <li>Total: R${{pedido.total}}</li>
+                            <li>Endereço: {{pedido.Rua}},{{pedido.numero}}</li>
+                        </a>
+                    {% else %}
+                        <a href="{% url 'lista-subpedidos' pedido.pedido %}" class="pedido"
+                        style="padding-top: 15px; height: 130px;">
+                            <li><b>Pedido Entregue</b> </li>
+                            <li>Data: {{pedido.data}}</li>
+                            <li>Pedido: {{pedido.pedido}}</li>
+                            <li>Cliente: {{pedido.cliente}}</li>
+                            <li>Total: R${{pedido.total}}</li>
+                            <li>Endereço: {{pedido.Rua}},{{pedido.numero}}</li>
+                        </a>
+                    {% endif %}
+                {% else %}
+                <a href="{% url 'lista-subpedidos' pedido.pedido %}" class="pedido" style="background-color: red;
+                padding-top: 15px; height: 130px;">
+                    <li><b>Pedido Cancelado</b></li>
+                    <li>Data: {{pedido.data}}</li>
+                    <li>Pedido: {{pedido.pedido}}</li>
+                    <li>Cliente: {{pedido.cliente}}</li>
+                    <li>Total: R${{pedido.total}}</li>
+                    <li>Endereço: {{pedido.Rua}},{{pedido.numero}}</li>
+                </a>
+                {% endif %}
+            {% endfor%}
+            <!--<table>
+                <th>N° Pedido</th>
+                <th>Cliente</th>
+                <th>Total</th>
+                <th>pedido entrege</th>
+                {% for pedido in pedidos %}
+                {% if pedido.pedido_cancelado == 'não' %}
+                    <tr>
+                        <td>{{pedido.pedido}}</td>
+                        <td>{{pedido.cliente}}</td>
+                        <td>R$ {{pedido.total}}</td>
+                        <td style="text-align: center;">
+                            {% if pedido.status_entrega == "não entregue" %}
+                                <select style="background-color: red; color: white;" 
+                                name="status_entrega" id="{{pedido.pedido}}" 
+                                onchange="alterar_status_entrega(id)">
+                                    <option value="não entrege">não entregue</option>
+                                    <option value="entrege">Entrege</option>
+                                </select>
+                            {% else %}
+                                Entrege
+                            {% endif %}
+                        </td>
+                        <td><a href="{% url 'lista-subpedidos' pedido.pedido %}"><button class="btn-consultar">Detalhes</button></a></td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td>{{pedido.pedido}}</td>
+                        <td>{{pedido.cliente}}</td>
+                        <td>R$ {{pedido.total}}</td>
+                        <td style="text-align: center;">
+                            Não entrege
+                        </td>
+                        <td style="font-weight: bold;
+                        background-color: red;">Pedido Cancelado</td>
+                    </tr>
+                {% endif %}
+            {% endfor%}
+            </table>-->
+        {% endif %}
+    </div>
+</body>
+{% include 'footer.html' %}
+</html>
+<script>
+    function alterar_status_entrega(id){
+        var url = "{% url 'lista-pedidos' %}"
+        var status = document.getElementById(id)
+        var dados = {'id':id,
+            'status':status.value}
+        
+        fetch(url,{
+            method:'POST',
+            body: JSON.stringify(dados)
+        }).then(function(response){
+            return response.json()
+        }).then(function(response){
+            
+        })
+    }
+</script>

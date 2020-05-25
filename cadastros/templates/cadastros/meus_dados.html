@@ -1,0 +1,86 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="PT-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+     <!--<link rel="stylesheet" href="{% static 'css/formularios.css'%}">-->
+     <link rel="stylesheet" media="screen and (min-width: 700px)" href="{% static 'css/formularios.css' %}">
+     <link rel="stylesheet" media="screen and (max-width: 699px)" href="{% static 'css/formularios-responsivo.css' %}">
+</head>
+{% include 'header.html' %}
+<body>
+    <div id="div_conteudo" style="text-align: center;">
+        <h1>{{usuario.Primeiro_nome}}&nbsp;{{usuario.Ultimo_nome}}</h1>
+
+        <div class="dados">
+            <h3>Dados do Usuario</h3>
+            <li>Primeiro Nome: {{usuario.Primeiro_nome}}</li>
+            <li>Ultimo Nome: {{usuario.Ultimo_nome}}</li>
+            <li>Email: {{usuario.email}}</li>
+            <li>Telefone: {{usuario.DDD_tel}}-{{usuario.telefone}}</li>
+            <li>Celular: {{usuario.DDD_cel}}-{{usuario.celular}}</li>
+            <p style="text-align: center;">
+                <a href="{% url 'alterar_dados_cliente' %}">
+                    <button class="btn-alterar">Alterar</button>
+                </a>
+            </p>
+        </div>
+        <br><br><br>
+        <div class="dados">
+            <h3>Endereço Cadastrado</h3>
+            <li>Nome: {{usuario.Primeiro_nome}}&nbsp;{{usuario.Ultimo_nome}}</li>
+            <li>CEP: {{endereco.CEP}}</li>
+            <li>Rua: {{endereco.Rua}}</li>
+            <li>Cidade: {{endereco.Cidade}}</li>
+            <li>Estado: {{endereco.Estado}}</li>
+            <li>Numero: {{endereco.numero}}</li>
+            <li>Complemento: {{endereco.complemento}}</li>
+            <p style="text-align: center;">
+                <a href="{% url 'alterar_endereco' %}">
+                    <button class="btn-alterar">Alterar</button>
+                </a>
+            </p>
+        </div>
+    </div>
+    
+</body>
+{% include 'footer.html'%}
+</html>
+<style>
+    .dados{
+        width: max-content;
+        background-color: white;
+        margin-top: 15px;
+        border-radius: 20px;
+        border: none;
+        display: inline-block;
+        text-align: left;
+        padding: 10px;
+    }
+    
+    .btn-alterar{
+        cursor: pointer;
+        margin-top: 30px;
+        width: 200px;
+        height: 20px;
+        font-size: 20px;
+        font-weight: bolder;
+        border: none;
+        border-radius: 10px;
+        /*background-color: rgb(83, 152, 255);*/
+        background-color: black;
+        color: yellow;
+        height: 30px;
+    }
+        /*border: none;
+        background-color: rgb(83, 152, 255);
+        font-family: Arial;
+        font-size: 20px;
+        font-weight: bold;
+        border-radius: 10px;
+        width: 100px;
+        cursor: pointer;
+    }*/
+</style>

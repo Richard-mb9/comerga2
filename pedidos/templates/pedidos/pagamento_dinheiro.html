@@ -1,0 +1,120 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="PT-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>pagamento em dinheiro</title>
+</head>
+{% include 'header.html'%}
+<body>
+    <div id="div_conteudo">
+        <div id="div_centro">
+            <p>Tudo Certo para enviarmos a Sua compra</p>
+            <p>o valor do Total dela é de R${{total}}</p>
+            <form method="POST" onsubmit="form_submit(this); return false">
+                {% csrf_token %}
+                <p><label>Você Precisara de Troco?</label>
+                    <select name="precisa_troco" id="id_precisa_troco" onchange="troco()">
+                        <option value="Não" >Não</option>
+                        <option value="Sim" >Sim</option>
+                    </select>
+                </p>
+                <p id="Valor_troco">
+                    <label>troco para Quanto?</label>
+                    <input type="number" name="valor_troco" id="input_valor_Troco">
+                </p>
+                <button id="btn" type="submit"> Confirmar</button>
+                <p id="alerta"></p>
+            </form>
+        </div>
+    </div>
+</body>
+{% include 'footer.html' %}
+</html>
+<style>
+@media(max-width: 699px){
+    #div_centro{
+        background-color: white;
+        font-family: Arial;
+        width: 90%;
+        padding: 5%;
+        text-align: center;
+        display: inline-block;
+        margin-top: 30px;
+        border-radius: 20px;
+        height: 300px;
+    }
+}
+@media(min-width: 700px){
+    #div_centro{
+        background-color: white;
+        font-family: Arial;
+        width: 350px;
+        text-align: center;
+        display: inline-block;
+        margin-top: 30px;
+        border-radius: 20px;
+        height: 300px;
+    }
+}
+    #div_conteudo{
+        text-align: center;
+        width: 100%;
+    }
+    #btn{
+        display: inline-block;
+        cursor: pointer;
+        margin-top: 30px;
+        width: 200px;
+        height: 20px;
+        font-size: 20px;
+        font-weight: bolder;
+        border: none;
+        border-radius: 10px;
+        background-color: black;
+        color: yellow;
+        height: 30px;
+    }
+</style>
+<script>
+    
+        var precisa_troco = document.getElementById("id_precisa_troco")
+        var valor_troco = document.getElementById("Valor_troco")
+        var alerta = document.getElementById("alerta")
+
+        if(precisa_troco.value == "Não"){
+            valor_troco.style.display = "none"
+        }
+        else{
+            valor_troco.style.display = "block"
+        }
+        function valor(){
+            valor = valor_troco.value
+        }
+        function troco(){
+            if(precisa_troco.value == "Não"){
+            valor_troco.style.display = "none"
+            }
+            else{
+                valor_troco.style.display = "block"
+            }
+        }
+        function form_submit(form){
+            if(precisa_troco.value == "Sim"){
+                v = document.getElementById("input_valor_Troco")
+                total = parseFloat('{{total}}')
+                if(v.value < total){
+                    alerta.innerHTML = "O Valor para o Troco não pode ser menor que o valor da Compra"
+                }
+                else{
+                    form.submt()
+                }
+            }
+            else{
+                form.submt()
+            }
+
+        }
+    
+</script>

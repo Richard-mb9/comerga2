@@ -1,0 +1,121 @@
+{% load static %}
+{% load tags %}
+<style>
+    footer{
+        position: fixed;
+        width: 100%;
+        border-top: solid 1px black;
+        height: 55px;
+        bottom: 0px;
+        left: 0;
+        /*background-color: rgb(83, 152, 255);*/
+        background-color: black;
+        color: yellow;
+        font-family: Arial;
+    }
+    #div_conteudo-footer{
+        text-align: justify;
+        width: 95%;
+        margin-left: 2%;
+        margin-top: 5px;
+    }
+    .conteudo-footer{
+        display: inline-block;
+        font-size: 12px;
+        text-align: center;
+    }
+
+    .conteudo-footer,.conteudo-footer a, .conteudo-footer a:link{
+        text-decoration: none;
+        color: yellow;
+    }
+    .desktop{
+        text-align: justify;
+        width: 80%;
+        margin-left: 10%;
+        line-height: 20px;
+    }
+    .desktop-item{
+        display: inline-block;
+        text-decoration: none;
+        list-style: none;
+        color: yellow;
+    }
+    .desktop-item:hover{
+        color: red;
+    }
+
+    @media(min-width: 700px){
+        #div_conteudo-footer{
+            display: none;
+        }
+        .desktop{
+            display: block;
+        }
+    }
+    @media(max-width: 699px){
+        #div_conteudo-footer{
+            display: block;
+        }
+        .desktop{
+            display: none;
+        }
+    }
+</style>
+<footer>
+    <div id="div_conteudo-footer">
+        {% if user.is_authenticated %}
+            {% is_loja user.username as isloja %}
+                {% if isloja == True %}
+                    <a class="conteudo-footer footer" href="{% url 'home' %}">
+                        <!--<h1 style="text-align: left;" class="footer-item" id="tema-comerga-footer">Comerga</h1>-->
+                        <img src="{% static 'imagens/icone-inicio.png' %}" style="height: 30px;">
+                        <legend>Inicio</legend>
+                    </a>
+                    <a href="{% url 'lista-pedidos' %}" class="conteudo-footer">
+                        <img src="{% static 'imagens/icone-pedidos.png' %}" style="height: 30px;">
+                        <legend>Meus Pedidos</legend>
+                    </a>
+                    <a href="{% url 'meus_dados' %}" class="conteudo-footer">
+                        <img src="{% static 'imagens/icone-perfil.png' %}" style="height: 30px;">
+                        <legend>Meus Dados</legend>
+                    </a>
+                {% else %}
+                    <a class="conteudo-footer footer" href="{% url 'home' %}">
+                        <!--<h1 style="text-align: left;" class="footer-item" id="tema-comerga-footer">Comerga</h1>-->
+                        <img src="{% static 'imagens/icone-inicio.png' %}" style="height: 30px;">
+                        <legend>Inicio</legend>
+                    </a>
+                    <a href="{% url 'meus_pedidos' %}" class="conteudo-footer">
+                        <img src="{% static 'imagens/icone-pedidos.png' %}" style="height: 30px;">
+                        <legend>Meus Pedidos</legend>
+                    </a>
+                    <a href="{% url 'meus_dados' %}" class="conteudo-footer">
+                        <img src="{% static 'imagens/icone-perfil.png' %}" style="height: 30px;">
+                        <legend>Meus Dados</legend>
+                    </a>
+                    <a href="{% url 'carrinho' %}" class="conteudo-footer">
+                        <img src="{% static 'imagens/icone-carrinho.png' %}" style="height: 30px;">
+                        <legend>Meu Carrinho</legend>
+                    </a>
+                    
+                {% endif %}
+        {% endif %}
+        {% if user.is_authenticated %}
+            {% is_admin user.username as is_admin%}
+            {% if is_admin != 'vazio' %}
+                <div class="footer-item conteudo-footer" id="div_painel">
+                    <a class="footer" href="{% url 'painel_admin' %}">Painel</a>
+                </div>
+            {% endif %}
+    {% endif %}
+    <p class="conteudo-footer" hidden style="width: 100%;"></p>
+    </div>
+    <div class="desktop">
+        <h1 class="desktop-item">Comerga</h1>
+        <a class="desktop-item" href="">Como Comprar ou Vender</a>
+        <li class="desktop-item">Contato: email@email.com</li>
+        <p hidden style="width: 100%; display: inline-block;"></p>
+    </div>
+    
+</footer>

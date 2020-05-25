@@ -1,0 +1,60 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+     <!--<link rel="stylesheet" href="{% static 'css/formularios.css'%}">-->
+     <link rel="stylesheet" media="screen and (min-width: 700px)" href="{% static 'css/formularios.css' %}">
+     <link rel="stylesheet" media="screen and (max-width: 699px)" href="{% static 'css/formularios-responsivo.css' %}">
+</head>
+<header>
+    {% include 'header.html' %}
+</header>
+<body>
+    <div id="div_conteudo">
+        <h1>Novo endereço</h1>
+        <div id="div_form">
+            <form method="POST" onsubmit="form_submit(this); return false;"> 
+                {% csrf_token %}
+                <p hidden>
+                    {{form.cliente}}
+                </p>
+                <p>
+                    <label id="label_CEP">CEP:</label>
+                    <input type="text" name="CEP" id="id_CEP" required placeholder="00000-000" onkeypress="mascaraCEP(this)">
+                </p>
+                <p>
+                    <label id="label_estado">Estado</label>
+                    <input type="text" name="Estado" id="id_Estado" required>
+                </p>
+                <p>
+                    <label id="label_Cidade">Cidade</label>
+                    <input type="text" name="Cidade" id="id_Cidade" required>
+                </p>
+                <p>
+                    <label id="label_bairro">Bairro</label>
+                    <input type="text" name="bairro" id="id_bairro" required>
+                </p>
+                <p>
+                    <label id="label_Rua">Rua</label>
+                    <input type="text" name="Rua" id="id_Rua" required>
+                </p>
+                <p>
+                    <label id="label_numero">Numero</label>
+                    <input type="text" name="numero" id="id_numero" required>
+                </p>
+                <p>
+                    <label id="label_complemento">Complemento</label>
+                    <input type="text" name="complemento" id="id_complemento">
+                </p>
+                <button id="btn-cadastrar" type="submit">Cadastrar</button>
+            </form>
+        </div>
+    </div>
+</body>
+{% include 'footer.html'%}
+</html>
+<script src="{% static 'js/formularios.js' %}"></script>

@@ -1,0 +1,115 @@
+{% load static%}
+{% load tags %}
+<!DOCTYPE html>
+<html lang="PT-BR">
+<link rel="stylesheet" media="screen and (min-width: 700px)" href="{% static 'css/header.css' %}">
+<link rel="stylesheet" media="screen and (max-width: 699px)" href="{% static 'css/header-responsivo.css' %}">
+<header id="header">
+    <div id="div_logomarca" class="div_header_conteudo">
+        <a href="{% url 'home'%}" id="logo">
+            <img src="{% static 'imagens/logomarca_comerga.png'%}"
+            style="height: 50px;">
+        </a>
+    </div>
+    <div id="div_retornar">
+        <a href="javascript:history.back()"><img id="img_retornar" src="/static/imagens/seta.png"></a>
+    </div>
+
+
+    {% if user.is_authenticated %}
+        {% is_loja user.username as isloja %}
+        {% if isloja == True %}
+        <div id="div_menu_login" class="div_header_conteudo">
+            <h4 class="menu_login_itens">Olá {{user.first_name}}</h4>
+            <div class="menu_login_itens menu" onclick="dropdown()">
+                    <img height="30px" src=" {% static 'imagens/icone perfil e seta.png'%}">
+                    <ul id="id_menu" style="padding: 0; text-align: left;">
+                        <a href="{% url 'meus_dados'%}">Meus Dados</a>
+                        <a href="{% url 'vender' %}">Meus Produtos</a>
+                        <a href="{% url 'lista-pedidos'%}">Pedidos</a>
+                        <a href="{% url 'extrato' %}">Meu Extrato</a>
+                        <a href="{% url 'logout' %}">Sair</a>
+                    </ul>
+            </div>
+            <div class="menu_login_itens"  id="div_saldo">
+                <li class="li_saldo" id="saldo-loja" href="">Saldo</li>
+            </div>
+        {% else %}
+        <div id="div_menu_login" class="div_header_conteudo">
+            
+            <h4 class="menu_login_itens">Olá {{user.first_name}}</h4>
+            <div class="menu_login_itens menu" onclick="dropdown()">
+                    <img height="30px" src=" {% static 'imagens/icone perfil e seta.png'%}">
+                    <ul id="id_menu" style="padding: 0; text-align: left;">
+                        <a href="{% url 'meus_pedidos' %}" id="meus_pedidos">Meus Pedidos</a>
+                        <a href="{% url 'meus_dados'%}">Meus Dados</a>
+                        <a href="{% url 'logout' %}">Sair</a>
+                    </ul>
+            </div>
+     
+            <div class="menu_login_itens"  id="div_saldo">
+                <li class="li_carrinho"><li class="li_carrinho_valor" id="carrinho"></li>
+                <a href="{% url 'carrinho' %}">
+                    <img id="img-carrinho" src="{% static 'imagens/carrinho.png'%}" alt="">
+                </a></li>
+            </div>
+        {% endif %}
+    {% else %}
+        <div id="div-menu_login" class="div_header_conteudo">
+            <a class="menu_login" href="{%url 'novo-usuario'%}">Cadastre-se</a>
+            <a class="menu_login" href="{% url 'login'%}">Login</a>
+        </div>
+    {% endif %}
+
+</header>
+<script>
+    window.onload  = function(){
+        //var url = "http://192.168.1.100:8080/verifica-loja/"
+        var url = "{%url 'verifica_loja'%}"
+        var resposta
+        var valor_carrinho
+        var carrinho = document.getElementById("carrinho")
+        var btn_pedidos = document.getElementById("btn-pedidos")
+        var btn_vender = document.getElementById("btn-vender")
+        var saldo = document.getElementById("saldo-loja")
+        var meus_pedidos = document.getElementById("meus_pedidos")
+        var img_carrinho = document.getElementById("img-carrinho")
+        var logo = document.getElementById("logo")
+
+
+        if(screen.width < 700){
+                //logo.remove()
+            }
+        
+        addEventListener("",function(event){
+            event.preventDefault();
+        })
+        fetch(url,{
+            method:'GET',
+        }).then(function(response){
+            return response.json()
+        }).then(function(response){
+            if(carrinho){
+                valor_carrinho = response['carrinho']
+                carrinho.innerHTML = "R$ " + valor_carrinho
+            }
+            //é uma loja
+            if(saldo){
+                saldo.innerHTML ="R$ " +  response['saldo']
+            }
+        })
+    }
+function dropdown(){
+var menu = document.getElementById("id_menu")
+
+
+   if(menu.style.display == "block"){
+        menu.style.display = "none"
+    }
+    else{
+        menu.style.display ="block"
+    }
+}
+</script>
+
+

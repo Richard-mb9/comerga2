@@ -1,0 +1,56 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="PT-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>novo-Produto</title>
+    <link rel="stylesheet" media="screen and (min-width: 700px)" href="{% static 'css/formularios.css' %}">
+    <link rel="stylesheet" media="screen and (max-width: 699px)" href="{% static 'css/formularios-responsivo.css' %}">
+</head>
+{% include 'header.html'%}
+<body>
+    <div id="div_conteudo">
+        <div id="div_form">
+            <form method="POST" enctype="multipart/form-data"> 
+                {% csrf_token %}
+                <p>
+                    <label id="label_codigo_de_barras"> Codigo de Barras</label>
+                    {{form.codigo_de_barras}}
+                    <legend>
+                        Se não possuir deixe o valor 0
+                    </legend>
+                </p>
+                <p>
+                    <label id="label_nome">Produto</label>
+                    {{form.nome}}
+                </p>
+                <p>
+                    <label id="label_valor">Valor</label>
+                    {{form.valor}}
+                </p>
+                <p>
+                    <label style="width: 230px;" id="label_produto_pesavel">Produto Vendido por peso</label>
+                    <select name="produto_pesavel" id="id_produto_pesavel">
+                        <option value="não">Não</option>
+                        <option value="sim">Sim</option>
+                    </select>
+                </p>
+                <p>
+                    <label id="label_imagem">imagem do Produto</label>
+                    {{form.imagem}}
+                    <legend>
+                        Caso não possua imagem deixe em branco
+                    </legend>
+                </p>
+                
+                <button id="btn-cadastrar" type="submit">Cadastrar Produto</button>
+            </form>
+        </div>
+    </div>
+    
+    
+</body>
+{% include 'footer.html'%}
+</html>

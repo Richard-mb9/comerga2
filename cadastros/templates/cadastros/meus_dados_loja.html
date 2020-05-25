@@ -1,0 +1,61 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="PT-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <!--<link rel="stylesheet" href="{% static 'css/formularios.css'%}">-->
+     <link rel="stylesheet" media="screen and (min-width: 700px)" href="{% static 'css/formularios.css' %}">
+     <link rel="stylesheet" media="screen and (max-width: 699px)" href="{% static 'css/formularios-responsivo.css' %}">
+    <title>Document</title>
+</head>
+{% include 'header.html' %}
+<body>
+    <div id="div_conteudo" style="text-align: center;">
+        <h1>{{loja.nome}}</h1>
+        
+        <div  class="dados" id="id_dados">
+            <div id="id_dados_bancarios">
+                <h3>Dados Bancarios</h3>
+                <li>Banco: {{loja.Banco}}</li>
+                <li>Agencia: {{loja.agencia}}-{{loja.digito_agencia}}</li>
+                <li>Agencia: {{loja.conta}}-{{loja.digito_conta}}</li>
+            </div>
+            <h3>Dados da Loja</h3>
+            <li>Razão Social: {{loja.nome}}</li>
+            <li>CNPJ: {{loja.CNPJ}}</li>
+            <li>Email: {{loja.email}}</li>
+            <li>Deixar Loja Visivel: {{loja.ativa}}</li>
+            <li>Categoria da Loja: {{loja.categoria}}</li>
+            <li>Raio de distancia para Entregas: {{loja.distancia}}kms</li>
+            <li>Valor do Frete por KM: R${{loja.valor_frete}}</li>
+            <li>Valor Minimo para Compras: R${{loja.valor_minimo_compra}}</li>
+            <li>Telefone: ({{loja.DDD_tel}}){{loja.Telefone}}</li>
+            <li>Whatsapp: ({{loja.DDD_whats}}){{loja.whatsapp}}</li>
+            <li>CEP: {{loja.CEP}}</li>
+            <li>Estado: {{loja.Estado}}</li>
+            <li>Cidade: {{loja.Cidade}}</li>
+            <li>Bairro: {{loja.bairro}}</li>
+            <li>Rua: {{loja.Rua}}</li>
+            <li>Complemento: {{loja.complemento}}</li>
+            <li>Valor minimo para compra:R${{loja.valor_minimo_compra}}</li>
+            <br>
+            <p style="text-align: center;">
+                <legend style="font-weight: bold; font-size: 20px; font-family: Arial;">
+                    Logomarca
+                </legend><br>
+                <img src="/media//{{loja.logomarca}}" height="100px">
+            </p><br>
+            
+            <p style="text-align: center;">
+                <a href="{% url 'alterar_dados_cliente' %}">
+                    <button class="btn-alterar">Alterar</button>
+                </a>
+            </p>
+        </div>
+    </div>
+    
+    
+</body>
+{% include 'footer.html'%}
+</html>

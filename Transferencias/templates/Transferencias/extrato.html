@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="PT-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Extrato</title>
+    <link rel="stylesheet" href="{% static 'css/lista.css' %}">
+</head>
+{% include 'header.html' %}
+<body>
+    <div id="div_conteudo">
+        <h1>Suas Trânsferencias</h1>
+        <table>
+            <th>Data</th>
+            <th>valor</th>
+            <th>Status</th>
+            {% for t in transferencia%}
+            <tr>
+                <td>{{t.data}}</td>
+                <td>R${{t.valor}}</td>
+                <td>{{t.status}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    
+    
+</body>
+</html>
+{% include 'footer.html' %}

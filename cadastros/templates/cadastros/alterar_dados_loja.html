@@ -1,0 +1,199 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nova Loja</title>
+     <!--<link rel="stylesheet" href="{% static 'css/formularios.css'%}">-->
+     <link rel="stylesheet" media="screen and (min-width: 700px)" href="{% static 'css/formularios.css' %}">
+     <link rel="stylesheet" media="screen and (max-width: 699px)" href="{% static 'css/formularios-responsivo.css' %}">
+</head>
+{% include 'header.html'%}
+<script>
+    var meus_pedidos = document.getElementById("meus_pedidos")
+    meus_pedidos.remove()
+</script>
+<body>
+    <div id="div_conteudo">
+        <div id="div_form">
+            <form method="POST" onsubmit="form_submit(this); return false" enctype="multipart/form-data"> 
+                {% csrf_token %}
+                <p>
+                    <label id="label_nome">Razão Social:</label>
+                    <input type="text" name="nome" value="{{form.nome.value}}" id="id_nome" required maxlength="30" placeholder="Razão Social">
+                </p>
+                <p>
+                    <label id="label_cnpj">CNPJ:</label>
+                    <input type="text" name="CNPJ" value="{{form.CNPJ.value}}" id="id_CNPJ" maxlength="18" required placeholder="00.000.000/0000-00" onkeypress="mascaraCNPJ(this)">
+                </p>
+                <p>
+                    <label id="label_emal">email:</label>
+                    <input type="email" name="email" value="{{form.email.value}}" id="id_email" required placeholder="Seu email">
+                </p>
+                <p>
+                    <p><label id="label_loja_ativa">Deixar Loja Visivel</label></p>
+                    <select name="ativa" id="loja_ativa" required>
+                        <option value="sim">Sim</option>
+                        <option value="não">Não</option>
+                    </select>
+                    
+                </p>
+                <p hidden>
+                    <label id="label_senha">Senha:</label>
+                    <input maxlength="15" type="password" name="senha" value="{{form.senha.value}}" id="id_senha" required>
+                </p>
+                <p hidden>
+                    <label id="confirm">Confirmação de Senha</label>
+                    <input maxlength="15" type="password" name="confirm" value="{{form.confirm.value}}" id="id_confirm" required>
+                </p>
+                <p>
+                    <label id="label-cep">CEP:</label>
+                    <input type="text" name="CEP" value="{{form.CEP.value}}" id="id_CEP" required placeholder="00000-000" onkeypress="mascaraCEP(this)">
+                </p>
+                <p>
+                    <label id="label_estado">Estado:</label>
+                    <input type="text" name="Estado" value="{{form.Estado.value}}" id="id_Estado" required>
+                </p>
+                <p>
+                    <label id="label_cidade">Cidade:</label>
+                    <input type="text" name="Cidade" value="{{form.Cidade.value}}" id="id_Cidade" required>
+                </p>
+                <p>
+                    <label id="label_baiiro">Bairro</label>
+                    <input type="text" name="bairro" value="{{form.bairro.value}}" id="id_bairro" required>
+                </p>
+                <p>
+                    <label id="label_rua">Rua</label>
+                    <input type="text" name="Rua" value="{{form.Rua.value}}" id="id_Rua" required>
+                </p>
+                <p>
+                    <label id="label_numero">Numero</label>
+                    <input type="text" name="numero" value="{{form.numero.value}}" id="id_numero" required>
+                </p>
+                <p>
+                    <label id="label_complemento">Complemento</label>
+                    <input type="text" name="complemento" value="{{form.complemento.value}}" id="id_complemento">
+                </p>
+                <p><label id="label_telefone">Telefone</label></p>
+                <p>
+                    <select name="DDD_tel" id="id_DDD_tel" required>
+                        <option value="21">21</option>
+                        <option value="22">22</option>
+                        <option value="24">24</option>
+                    </select>
+                    <input type="text" name="Telefone" value="{{form.Telefone.value}}" id="id_Telefone" placeholder="0000-0000" required onkeypress="mascaraTel(this)">
+                </p>
+                <p> <label id="label_whatsapp">Whatsapp:</label></p>
+                <p>
+                    <select name="DDD_whats" id="id_DDD_whats">
+                        <option value="00">00</option>
+                        <option value="21">21</option>
+                        <option value="22">22</option>
+                        <option value="24">24</option>
+                    </select>
+                    <input type="text" name="whatsapp" value="{{form.whatsapp.value}}"id="id_whatsapp" placeholder="00000-0000" onkeypress="mascaraCel(this)">
+                    <legend>Caso não possua whatsapp deixe em branco</legend>
+                </p>
+                <div id="div_dividir" style="border-top: black solid 1px; margin-top: 10px;">
+                    <p>
+                        <label for="">Categoria da Sua Loja</label>
+                        {{form.categoria}}
+                    </p><br>
+                    <p>
+                        <label>Valor Minimo para Compras</label>
+                        <input type="number" name="valor_minimo_compra" id="" value="{{form.valor_minimo_compra.value}}">
+                        <legend>Os clientes só poderam fazer pedidos acima deste valor</legend>
+                    </p>
+                </div>
+               
+                <br>
+                <div id="div_dividir" style="border-top: black solid 1px; margin-top: 10px;">
+                    <p>
+                    <label >Cobrar Pela Entrega</label>
+                    <select id="id_cobrar_frete" onchange="cobrar_frete()">
+                        <option value="não">não</option>
+                        <option value="sim">Sim</option>
+                    </select>
+                </p>
+                    <div id="div_frete">
+                        <p id="distancia_frete"><label>Distancia maxima para entrega</label>
+                            <input type="number" name="distancia" id="id_input_distancia" value="{{form.distancia.value}}">
+                            <legend>Faremos um raio com essa distância em kms</legend>
+                        </p>
+                        <p id="valor_frete">
+                            <label>Valor do Frete</label>
+                            <input type="number" name="valor_frete" id="input_valor_frete" value="{{form.valor_frete.value}}">
+                            <legend>valor por km, multiplicaremos ele pela distancia da entrega</legend>
+                        </p>
+                        <p>
+                            <label> Valor minimo do Frete</label>
+                            <input type="number" name="valor_minimo_frete" id="" value="{{form.valor_minimo_frete.value}}">
+                            <legend>Caso a distancia seja pequena, utilizaremos este valor</legend>
+                        </p>
+                    </div>
+                </div>
+                <div id="div_dividir" style="border-top: black solid 1px; margin-top: 10px;"></div>
+                    <p id="campo-input-logomarca">
+                        <label id="label_logomarca">Sua Logomarca</label>
+                        {{form.logomarca}}
+                        <legend>Imagem que exibira Sua Loja</legend>
+                    </p>
+                    <div id="div_dados_bancarios" style="border-top: black solid 2px;">
+                        
+                        <h3>Dados Bancarios</h3>
+                        <legend>A conta deve Pertencer ao CNPJ Cadastrado</legend><br>
+                        <p>
+                            <label style="width: max-content;">Nome do Banco</label>
+                            <input type="text" name="Banco" id="id_input_banco" style="width: 150px;" value="{{form.Banco.value}}">
+                        </p>
+                        <p>
+                            <label style="width: 70px;">agencia</label>
+                            <input type="number" name="agencia" id="id_input_agencia" style="width: 50px;" value="{{form.agencia.value}}">
+                            <label style="width: max-content;">Digito</label>
+                            <input type="number" name="digito_agencia" id="id_input_digito_agencia" style="width: 30px;" value="{{form.digito_agencia.value}}">
+                            <legend> Caso não possua digito deixe em Branco</legend>
+                        </p>
+                        <p>
+                            <label style="width: 70px;">Conta</label>
+                            <input type="number" name="conta" id="id_input_conta" style="width: 50px;" value="{{form.conta.value}}">
+                            <label style="width: max-content;">Digito</label>
+                            <input type="number" name="digito_conta" id="id_input_digito_conta" style="width: 30px;" value="{{form.digito_conta.value}}">
+                            <legend> Caso não possua digito deixe em Branco</legend>
+                        </p>
+                        
+                    </div>
+
+                    <button type="submit" id="btn-cadastrar">Salvar Alterações</button>
+
+                </div>
+                <!--<button id="btn-cadastrar" type="submit">Cadastrar</button>-->
+                
+            </form>
+        </div>
+    </div>
+
+</body>
+{% include 'footer.html'%}
+<script src="{% static 'js/formularios.js' %}"></script>
+</html>
+<script>
+    var distancia = document.getElementById("distancia_frete")
+    var valor_frete = document.getElementById("valor_frete")
+    var cobrar = document.getElementById("id_cobrar_frete")
+    var frete = document.getElementById("div_frete")
+    if(cobrar.value == "não"){
+        frete.style.display = 'none'
+        }
+
+    function cobrar_frete(){
+        
+        if(cobrar.value == "não"){
+            frete.style.display = 'none'
+        }
+        else{
+            frete.style.display = 'block'
+        }
+    }
+</script>

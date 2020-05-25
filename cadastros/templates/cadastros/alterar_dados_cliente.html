@@ -1,0 +1,69 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-bre">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+     <!--<link rel="stylesheet" href="{% static 'css/formularios.css'%}">-->
+     <link rel="stylesheet" media="screen and (min-width: 700px)" href="{% static 'css/formularios.css' %}">
+     <link rel="stylesheet" media="screen and (max-width: 699px)" href="{% static 'css/formularios-responsivo.css' %}">
+</head>
+{% include 'header.html'%}
+<script>
+    var btn_pedidos = document.getElementById("btn-pedidos")
+    var btn_vender = document.getElementById("btn-vender")
+    var saldo = document.getElementById("saldo-loja")
+    var header = document.getElementById("header")
+    btn_pedidos.remove()
+    btn_vender.remove()
+    saldo.innerHTML = "R$ 0,00"
+    header.style.height = "50px"
+</script>
+<body>
+    <div id="div_conteudo">
+        <div id="div_form">
+            <form method="POST" onsubmit="form_submit(this); return false" enctype="multipart/form-data"> 
+                {% csrf_token %}
+                <p>
+                    <label for="">Primeiro Nome:</label>  
+                    {{form.Primeiro_nome}}          
+                </p>
+                <p>       
+                    <label for="">Ultimo Nome:</label>
+                    {{form.Ultimo_nome}}
+                </p>
+                <p>
+                    <label for="">Email:</label>
+                    {{form.email}}
+                </p>
+
+                <p> <label id="label_telefone">Celular:</label></p> 
+                <p> 
+                    <select name="DDD_cel" id=" input_DDD_cel">
+                        <option value="21">21</option>
+                        <option value="22">22</option>
+                        <option value="24">24</option>
+                    </select>
+                    {{form.celular}}
+                </p>
+                <p><label id="label_telefone">Telefone:</label></p>           
+                <p>  
+                    <select name="DDD_tel" id=" input_DDD_tel">
+                        <option value=21>21</option>
+                        <option value=22>22</option>
+                        <option value=24>24</option>
+                    </select>
+                    {{form.telefone}}
+                </p>
+                <p hidden> <input type="password" name="senha" value="{{usu.senha}}"></p>
+                <p hidden><input type="password" name="confirm" value="{{usu.confirm}}"></p>
+                <button id="btn-cadastrar" type="submit">Salvar Alterações</button>
+            </form>
+        </div>
+    </div>
+    
+</body>
+{% include 'footer.html'%}
+<script src="{% static 'js/formularios.js'%}"></script>
+</html>

@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="PT-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cancelar Pedido</title>
+    <link rel="stylesheet" href="{% static 'css/formularios.css' %}">
+</head>
+{% include 'header.html'%}
+<body>
+    <form method="POST">
+        {% csrf_token %}
+        <p>
+            <label>Por qual Motivo você quer Cancelar o pedido {{pedido.pedido}}?</label>
+        </p>
+        <p>
+            <textarea name="motivo_cancelamento" required id="id_motivo_cancelamento" cols="30" rows="10" maxlength="300"></textarea>
+        </p>
+        
+        <p>
+            <button type="submit" id="btn-cadastrar">Cancelar</button>
+        </p>
+
+        
+    </form>
+    
+</body>
+{% include 'footer.html' %}
+</html>

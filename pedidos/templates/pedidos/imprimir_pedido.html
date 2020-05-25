@@ -1,0 +1,68 @@
+{%load static %}
+<!DOCTYPE html>
+<html lang="PT-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>imprimir</title>
+    <link rel="stylesheet" href="{% static 'css/print.css' %}" media="print" />
+    <link rel="stylesheet" href="{% static 'css/lista.css'%}">
+</head>
+<style>
+    @page{
+        size: auto;
+        margin: 0;
+        margin-top: -200px;
+        margin-left: 30px;
+    }
+</style>
+{% include 'header.html'%}
+<body>
+    <div id="div_conteudo">
+        <a href="#" onClick="print();"><button class="btn-comum"> Imprimir</button></a>';
+        <div class="imprimir" style="text-align: left; padding: 20px;">
+            <li>Cliente:{{cliente.Primeiro_nome}}&nbsp;{{cliente.Ultimo_nome}}</li>
+            <li>Cidade:{{endereco.Cidade}}</li>
+            <li>Bairro:{{endereco.bairro}}</li>
+            <li>Rua:{{endereco.Rua}}</li>
+            <li>Numero:{{endereco.numero}}</li>
+            <li>Complemento:{{endereco.complemento}}</li>
+            <li>Telefone:({{cliente.DDD_tel}}){{cliente.telefone}}</li>
+            <li>Celular:({{cliente.DDD_cel}}){{cliente.celular}}</li>
+            <li>Valor do Frete: R${{pedido.valor_frete}}</li>
+            <li>Taxa de Serviço: R${{pedido.taxa_servico}}</li>
+            <li>Valor das Compras: R${{pedido.total}}</li>
+            <li>Total: {{total}}</li>
+        </div>
+        {% if pedido.status_entrega == 'não entregue'%}
+        <div class="imprimir" style="text-align: left; margin-left: 20px;">
+            {% if pedido.forma_de_pagamento == 'dinheiro'%}
+                <h3>Receber no local o Total de: R${{total}}</h3>
+                {% if pedido.troco == 'Sim'%}
+                    <h4>Necessario troco para R${{pedido.valor_troco}}</h4>
+                {% endif %}
+            {% else %}
+                <h4>O pedido Ja esta Pago</h4>
+            {% endif %}
+        </div>
+    {% endif %}
+        <table class="imprimir">
+            <caption>Total de compras: R${{pedido.total}}</caption>
+            <th>Produto</th>
+            <th>QT</th>
+            <th>V. unitario</th>
+            <th>Total</th>
+            {% for sub in subpedido %}
+                {% if sub.loja.id == user.id %}
+                    <tr>
+                        <td>{{sub.item}}</td>
+                        <td>{{sub.Quantidade}}</td>
+                        <td>R${{sub.item.valor}}</td>
+                        <td>R${{sub.total}}</td>
+                    </tr>
+                {% endif%}
+            {% endfor %}
+        </table>
+    </div>
+</body>
+</html>

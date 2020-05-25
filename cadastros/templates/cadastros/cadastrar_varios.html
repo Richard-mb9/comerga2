@@ -1,0 +1,52 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="PT-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastrar varios produtos</title>
+     <!--<link rel="stylesheet" href="{% static 'css/formularios.css'%}">-->
+     <link rel="stylesheet" media="screen and (min-width: 700px)" href="{% static 'css/formularios.css' %}">
+     <link rel="stylesheet" media="screen and (max-width: 699px)" href="{% static 'css/formularios-responsivo.css' %}">
+</head>
+    {% include 'header.html' %}
+<body>
+    <div id="div_conteudo">
+        <div id="div_form">
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                 <p hidden>
+                    {{form.cliente}}
+                 </p>
+                 <p>
+                     <legend>Selecione um Arquivo Excel com as intruções que estão abaixo</legend>
+                     {{form.arquivo}}
+                </p>
+                <button id="btn-cadastrar" type="submit">Cadastrar</button>
+            </form>
+        </div>
+    
+        <div id=" imagem_exemplo">
+            <legend>
+                <p> O arquivo deve conter na primeira linha os seguintes Campos:</p>
+                <p>Codigo(codigo de barras)</p>
+                <p> descrição(nome do produto com Variações, como por exemplo peso, tamanho, etc)</p>
+                <p>e o Valor</p>
+                <p>Pesavel <b>(Caso o Produto seja Vendido por peso, deve estar escrito sim,
+                    caso não seja vendido por peso deixe em branco)</b>
+                </p>
+                <p>Se necessario baixe o arquivo modelo abaixo e utilize ele!</p>
+            </legend>
+            <img  src="{% static 'imagens/imagem_exemplo.JPG' %}" alt="">
+            <p>
+                <a href="{% static 'imagens/exemplo_produtos.xlsx'%}" download="">
+                    <button id="btn-cadastrar">Baixar Arquivo</button>
+                </a>
+            </p>
+        </div>
+    </div>
+    
+    {% include 'footer.html'%}
+    
+</body>
+</html>

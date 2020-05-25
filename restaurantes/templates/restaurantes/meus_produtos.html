@@ -1,0 +1,119 @@
+{% load static%}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meus Produtos</title>
+    <link rel="stylesheet" media="screen and (min-width: 700px)" href="{% static 'css/produtos-restaurante.css' %}">
+    <link rel="stylesheet" media="screen and (max-width: 699px)" href="{% static 'css/produtos-restaurante-responsivo.css' %}">
+</head>
+{% include 'header.html' %}
+<body>
+    <div id="div_conteudo">
+        <div id="div_produtos">
+            <h3>Produtos</h3>
+            <a href="{% url 'cad_prod_restaurante' %}">
+                <button class="btn">Cadastrar Novo Produto</button>
+            </a>
+            
+            {% for produto in produtos %}
+            <div id="produto-{{produto.id}}" class="produto produto-item">
+                <div id="div_img" class="produto-item">
+                    <img class="img_produto" src="/media/{{produto.foto}}">
+                </div>
+                <div class="produto-item descricao">
+                    <h4>{{produto.nome}}</h4>
+                    <p>{{produto.descricao}}</p>
+                    <p>R${{produto.valor}}</p>
+                </div>
+                <div id="div_op" class="produto-item">
+                    <a href="">
+                        <button id="{{produto.id}}" class="btn-op" onclick="excluir_produto(id)"><img class="img_op"src="/static/imagens/lixeira.png"></button>
+                    </a>
+                    <a href="{% url 'editar_produto_restaurante' produto.id%}">
+                        <button class="btn-op"><img class="img_op"src="/static/imagens/editar.png"></button>
+                    </a>
+                </div>
+                
+            </div>
+            {% endfor %}
+        </div>
+        <div id="div_bebidas">
+            <h3>Bebidas</h3>
+            <a href="{% url 'cad_bebida' %}">
+                <button class="btn">Cadastrar Nova Bebida</button>
+            </a>
+            {% for bebida in bebidas %}
+            <div id="bebida-{{bebida.id}}" class="produto">
+                <div id="div_img" class="produto-item">
+                    <img class="img_produto"  src="/media/{{bebida.foto}}">
+                </div>
+                <div class="produto-item descricao">
+                    <h4>{{bebida.nome}}</h4>
+                    <p>R${{bebida.valor}}</p>
+                </div>
+                <div id="div_op" class="produto-item">
+                    <a href="">
+                        <button id="{{bebida.id}}" class="btn-op" onclick="excluir_bebida(id)"><img class="img_op"src="/static/imagens/lixeira.png"></button>
+                    </a>
+                    <a href="{% url 'editar_bebida' bebida.id %}">
+                        <button class="btn-op"><img class="img_op"src="/static/imagens/editar.png"></button>
+                    </a>
+                </div>
+            </div>
+                
+            {% endfor %}
+        </div>
+    </div>
+    
+</body>
+{% include 'footer.html' %}
+</html>
+<script>
+    function excluir_produto(id){
+    var url = "{% url 'excluir_produto_restaurante' %}"
+    var produto = document.getElementById("produto-"+id)
+    console.log(url)
+    
+    addEventListener("",function(event){
+        event.preventDefault();
+    })
+    var dados = {
+        "id":id,
+    }
+        fetch(url,{
+            method:'POST',
+            body: JSON.stringify(dados)
+        }).then(function(response){
+            return response.json()
+        }).then(function(response){
+            if(response['resposta'] == true){
+                produto.remove()
+            }
+        })
+}
+function excluir_bebida(id){
+    var url = "{% url 'excluir_bebida' %}"
+    var produto = document.getElementById("bebida-"+id)
+    console.log(url)
+    
+    addEventListener("",function(event){
+        event.preventDefault();
+    })
+    var dados = {
+        "id":id,
+    }
+        fetch(url,{
+            method:'POST',
+            body: JSON.stringify(dados)
+        }).then(function(response){
+            return response.json()
+        }).then(function(response){
+            if(response['resposta'] == true){
+                produto.remove()
+            }
+        })
+}
+</script>

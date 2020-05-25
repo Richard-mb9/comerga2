@@ -1,0 +1,85 @@
+{% load static %}
+{% load tags %}
+<!DOCTYPE html>
+<html lang="PT-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meus Pedidos</title>
+    <!--<link rel="stylesheet" href="{% static 'css/lista.css'%}">-->
+    <link rel="stylesheet" media="screen and (min-width: 700px)" href="{% static 'css/lista.css' %}">
+    <link rel="stylesheet" media="screen and (max-width: 699px)" href="{% static 'css/lista-responsivo.css' %}">
+</head>
+{% include 'header.html'%}
+<body>
+    <div id="div_conteudo">
+        <h1>Todos os Seus Pedidos</h1>
+        {% for pedido in pedidos %}
+            {% loja pedido.pedido as loja %}
+            {% if pedido.pedidofechado == 'não'%}
+                {% if pedido.pedido_cancelado  == 'não' %}
+                    {% if loja != 'pedido vazio' %}
+                        <a href="{% url 'pedido_cliente' pedido.pedido%}" class="pedido" style="background-color: rgb(245, 161, 161);">
+                            <div class="div_img_pedido">
+                                <li class="loja-pedido img-pedido">
+                                    <img src="/media/{{loja.logomarca}}" style="height: 50px;">
+                                </li>
+                                <h3 class="loja-pedido">{{loja.nome}}</h3>
+                            </div>
+                            <li>Pedido: {{pedido.pedido}}</li>
+                            <li>Status: Aberto</li>
+                            <li>Data: {{pedido.data}}</li>
+                            <li>Valor: R${{pedido.total}}</li>
+                        </a>
+                    {% endif %}
+                {% else %}
+                    <a href="{% url 'pedido_cliente' pedido.pedido%}" class="pedido" style="background-color:red;">
+                        <div class="div_img_pedido">
+                            <li class="loja-pedido img-pedido">
+                                <img src="/media/{{loja.logomarca}}" style="height: 50px;">
+                            </li>
+                            <h3 class="loja-pedido">{{loja.nome}}</h3>
+                        </div>
+                        <li>Pedido: {{pedido.pedido}}</li>
+                        <li>Status: <b>Pedido Cancelado</b></li>
+                        <li>Data: {{pedido.data}}</li>
+                        <li>Valor: R${{pedido.total}}</li>
+                    </a>
+                {% endif %}
+            {% else %}
+                {% if pedido.status_entrega == 'não entregue' %}
+                    <a href="{% url 'pedido_cliente' pedido.pedido%}" class="pedido"
+                    style="background-color: yellow;">
+                        <div class="div_img_pedido">
+                            <li class="loja-pedido img-pedido">
+                                <img src="/media/{{loja.logomarca}}" style="height: 50px;">
+                            </li>
+                            <h3 class="loja-pedido">{{loja.nome}}</h3>
+                        </div>
+                        <li>Pedido: {{pedido.pedido}}</li>
+                        <li>Status: Aguardando entrega</li>
+                        <li>Data: {{pedido.data}}</li>
+                        <li>Frete: R${{pedido.valor_frete}}</li>
+                        <li>Valor: R${{pedido.total}}</li>
+                    </a>
+                {% else %}
+                    <a href="{% url 'pedido_cliente' pedido.pedido%}" class="pedido">
+                        <div class="div_img_pedido">
+                            <li class="loja-pedido img-pedido">
+                                <img src="/media/{{loja.logomarca}}" style="height: 50px;">
+                            </li>
+                            <h3 class="loja-pedido">{{loja.nome}}</h3>
+                        </div>
+                        <li>Pedido: {{pedido.pedido}}</li>
+                        <li>Status: Entregue</li>
+                        <li>Data: {{pedido.data}}</li>
+                        <li>Frete: R${{pedido.valor_frete}}</li>
+                        <li>Valor: R${{pedido.total}}</li>
+                    </a>
+                {% endif %}
+            {% endif%}
+        {% endfor %}
+    </div>
+</body>
+{% include 'footer.html'%}
+</html>

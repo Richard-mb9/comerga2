@@ -1,0 +1,90 @@
+{% load static %}
+{% load tags %}
+<!DOCTYPE html>
+<html lang="PT-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administração</title>
+    <link rel="stylesheet" href="{% static 'css/lista.css' %}">
+</head>
+{% include 'header.html'%}
+<body>
+    <div id="div_conteudo" style="width: max-content;">
+        {% if user.is_authenticated %}
+            {% is_admin user.username as is_admin%}
+            {% if is_admin != 'vazio' %}
+                <a href="{% url 'criar_pagamentos' %}">
+                    <button class="btn-comum">Criar pagamentos</button>
+                </a>
+                {% if pg %}
+                    <table>
+                        <th>loja</th>
+                        <th>CNPJ ou CPF</th>
+                        <th>data</th>
+                        <th>Banco</th>
+                        <th>Agencia</th>
+                        <th>Conta</th>
+                        <th>Valor</th>
+                        <th>Status</th>
+                        {% for p in pg %}
+                            <tr>
+                                <td>{{p.loja}}</td>
+                                <td>{{p.loja.CNPJ}}</td>
+                                <td>{{p.data}}</td>
+                                <td>{{p.Banco}}</td>
+                                <td>{{p.agencia}}-{{p.digito_agencia}}</td>
+                                <td>{{p.conta}}-{{p.digito_conta}}</td>
+                                <td>R${{p.valor}}</td>
+                                {% if p.status == 'agendado' %}
+                                    <form method="POST" >
+                                        {% csrf_token %}
+                                        <p hidden><input name="transferencia" value="{{p.id}}"></p>
+                                        <td>
+                                            <select name="status">
+                                                <option value="agendado">agendado</option>
+                                                <option value="erro ao transferir">Erro ao Transferir</option>
+                                                <option value="Pago">Pago</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <button type="submit" class="btn-comum" style="margin-top: 0px;">
+                                                Alterar Status
+                                            </button>
+                                        </td>
+                                    </form>
+                                {% elif p.status == 'erro ao transferir' %}
+                                    <form method="POST" >
+                                        {% csrf_token %}
+                                        <p hidden><input name="transferencia" value="{{p.id}}"></p>
+                                        <td>
+                                            <select name="status">
+                                                <option value="erro ao transferir">Erro ao Transferir</option>
+                                                <option value="agendado">agendado</option>
+                                                <option value="Pago">Pago</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <button type="submit" class="btn-comum" style="margin-top: 0px;">
+                                                Alterar Status
+                                            </button>
+                                        </td>
+                                    </form>
+                                {% else %}
+                                    <td style="text-align: center;">pago</td>
+                                {% endif %}
+                            </tr>
+                        {% endfor %}
+                    </table>
+                {% else %}
+                    <h1>Sem pagamentos agendados até agora</h1>
+                {% endif %}
+            {% else %}
+                <h1>Você não tem permissão para acessar esta pagina</h1>
+            {% endif %}
+        {% endif %}
+    </div>
+    
+</body>
+{% include 'footer.html' %}
+</html>

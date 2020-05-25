@@ -1,0 +1,52 @@
+{% load static %}
+{% load tags %}
+<!DOCTYPE html>
+<html lang="PT-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todas as Lojas</title>
+    <!--<link rel="stylesheet" href="{% static 'css/home.css '%}">-->
+    <link rel="stylesheet" media="screen and (min-width: 700px)" href="{% static 'css/home.css' %}">
+    <link rel="stylesheet" media="screen and (max-width: 699px)" href="{% static 'css/home-responsivo.css' %}">
+</head>
+    {% include 'header.html' %}
+<body>
+    <div id="div_conteudo">
+            <div id="div_pesquisa" style="width: 100%; text-align: left;">
+                <form method="POST">
+                    {%csrf_token%}
+                        <div id="div_input_pesquisa">
+                            <input type="text" name="pesquisa" id="id_input_pesquisa" placeholder="Nome da Loja">
+                            <button type="submit" id="btn-pesquisar"><img id="img-lupa"src="/static/imagens/lupa.png" alt=""> </button>
+                        </div>
+                    </form>
+            </div>
+        
+        <h1>Selecione a loja em que deseja fazer as suas compras</h1>
+        {% for loja in lojas %}
+            {% if loja.ativa == 'sim' %}
+                <a class="loja" href="{% url 'loja' loja.id 'p' 0 %}">
+                        <h2>{{loja.nome}}</h2>
+                        <p>{{loja.bairro}} - {{loja.Cidade}}</p>
+                        
+                        <p><img class="logo-loja" src="/media/{{loja.logomarca}}" alt=""></p>
+                </a>
+            {% endif %}
+        {% endfor %}
+        <div id="div_navegar_paginas">
+            {% if voltar > -1 %}
+                <a href="{% url 'index'  voltar %}">Voltar</a>
+            {% endif %}
+            {% if carregar_mais != 'ultima' %}
+                <a style="margin-left: 30px;" href="{% url 'index' carregar_mais %}">Carregar mais</a>
+            {% endif %}
+       
+        </div>
+    </div>
+
+    {% include 'footer.html'%}
+</body>
+
+</html>
+   
