@@ -113,10 +113,12 @@ def index(req):
         return redirect('vender')
     else:
         return redirect('index',page=0)
-
+@csrf_exempt
 def home(req,page):
+        
     #primeiro faz a verifição se o usuario é uma loja
     is_loja = False
+    pagina = page
     if req.user.is_authenticated:
         try:
             grupo = req.user.groups.all()
@@ -137,8 +139,12 @@ def home(req,page):
     lista_lojas = ""
     h = ""
     if req.method == 'POST':
-        obj = loads(req.body)
-        if obj['h']:
+        obj = ""
+        try:
+            obj = loads(req.body)
+        except:
+            obj = "vazio"
+        if obj != 'vazio':
             try:
                 h = float(obj['h'])
             except:
@@ -185,13 +191,16 @@ def home(req,page):
     else:
         lista_lojas = Lojas.objects.all()
     
-
-    a = []
-    for loja in lista_lojas:
-        if verificar_horario(loja,h) == True:
-           a.append(loja)
     
-    #lista_lojas = a
+    
+    if h != "" and h != "vazio":
+        a = []
+        resposta = ""
+        for loja in lista_lojas:
+            if verificar_horario(loja,h) == False:
+                a.append(loja.id)
+        resposta = {'fechadas':a}
+        return HttpResponse(json.dumps(resposta))
     sublistas = dividir_lista(lista_lojas,n)
     lista_lojas = sublistas[page]
     voltar = page - 1
@@ -204,18 +213,31 @@ def home(req,page):
     print("IP: " + str(req.META['REMOTE_ADDR']))
     
     return render(req,'home/home.html', {'lojas':lista_lojas,'carregar_mais':page,
-    'voltar':voltar})
+    'voltar':voltar,'pagina':pagina})
 
+@csrf_exempt
 def home_categoria(req,categoria,page):
     ender = ""
     lista_lojas = ""
-
+    pagina = page
+    h = ""
     if req.method == 'POST':
-        page = 0
-        pesquisa = req.POST['pesquisa']
-        if not pesquisa:
-            pesquisa = "null"
-        return redirect('pesquisa_categoria',categoria,pesquisa,page)
+        obj = ""
+        try:
+            obj = loads(req.body)
+        except:
+            obj = "vazio"
+        if obj != 'vazio':
+            try:
+                h = float(obj['h'])
+            except:
+                h = "vazio"
+        else:
+            page = 0
+            pesquisa = req.POST['pesquisa']
+            if not pesquisa:
+                pesquisa = "null"
+            return redirect('pesquisa_categoria',categoria,pesquisa,page)
     
     if req.user.is_authenticated:
         try:
@@ -268,6 +290,15 @@ def home_categoria(req,categoria,page):
             if str(loja.categoria) == str(categoria):
                 l.append(loja)
     
+    #Função que verifica o horario das Lojas
+    if h != "" and h != "vazio":
+        a = []
+        resposta = ""
+        for loja in lista_lojas:
+            if verificar_horario(loja,h) == False:
+                a.append(loja.id)
+        resposta = {'fechadas':a}
+        return HttpResponse(json.dumps(resposta))
     lista_lojas = l
     sublistas = dividir_lista(lista_lojas,n)
     lista_lojas = sublistas[page]
@@ -281,12 +312,13 @@ def home_categoria(req,categoria,page):
     print("IP: " + str(req.META['REMOTE_ADDR']))
     
     return render(req,'home/home_categoria.html', {'lojas':lista_lojas,'carregar_mais':page,
-    'voltar':voltar})
+    'voltar':voltar, 'pagina':pagina, 'categoria':categoria})
 
-
+@csrf_exempt
 def pesquisa_categorias(req,categoria,pesquisa,page):
     ender = ""
     lista_lojas = ""
+    pagina = page
     if req.user.is_authenticated:
         try:
             usu = usuarios.objects.filter(id=req.user.id)
@@ -322,8 +354,19 @@ def pesquisa_categorias(req,categoria,pesquisa,page):
         
     else:
         lista_lojas = Lojas.objects.all()
-
+    h = ""
     if req.method == 'POST':
+        obj = ""
+        try:
+            obj = loads(req.body)
+        except:
+            obj = "vazio"
+        if obj != 'vazio':
+            try:
+                h = float(obj['h'])
+            except:
+                h = "vazio"
+        else:
             import re
             import unidecode
             pesquisa = req.POST['pesquisa']
@@ -449,7 +492,14 @@ def pesquisa_categorias(req,categoria,pesquisa,page):
 
 
     #caso esteja sendo feita uma nova pesquisa sera executada esta função
-    
+    if h != "" and h != "vazio":
+        a = []
+        resposta = ""
+        for loja in lista_lojas:
+            if verificar_horario(loja,h) == False:
+                a.append(loja.id)
+        resposta = {'fechadas':a}
+        return HttpResponse(json.dumps(resposta))
     sublistas = dividir_lista(lista_lojas,n)
     lista_lojas = sublistas[page]
     voltar = page - 1
@@ -459,13 +509,16 @@ def pesquisa_categorias(req,categoria,pesquisa,page):
         page = 'ultima'
     
     return render(req,'home/home_categoria.html', {'lojas':lista_lojas,'carregar_mais':page,
-    'voltar':voltar})
+    'voltar':voltar,'pagina':pagina, 'categoria':categoria,'pesquisa':pesquisa})
 
 
 #pagina de pesquisa ta tela inicial
+@csrf_exempt
 def pesquisa_home(req,pesquisa,page):
     ender = ""
     lista_lojas = ""
+    pagina = page
+    h = ""
     if req.user.is_authenticated:
         try:
             usu = usuarios.objects.filter(id=req.user.id)
@@ -503,6 +556,17 @@ def pesquisa_home(req,pesquisa,page):
         lista_lojas = Lojas.objects.all()
 
     if req.method == 'POST':
+        obj = ""
+        try:
+            obj = loads(req.body)
+        except:
+            obj = "vazio"
+        if obj != 'vazio':
+            try:
+                h = float(obj['h'])
+            except:
+                h = "vazio"
+        else:
             import re
             import unidecode
             pesquisa = req.POST['pesquisa']
@@ -543,7 +607,14 @@ def pesquisa_home(req,pesquisa,page):
 
 
     #caso esteja sendo feita uma nova pesquisa sera executada esta função
-    
+    if h != "" and h != "vazio":
+        a = []
+        resposta = ""
+        for loja in lista_lojas:
+            if verificar_horario(loja,h) == False:
+                a.append(loja.id)
+        resposta = {'fechadas':a}
+        return HttpResponse(json.dumps(resposta))
     sublistas = dividir_lista(lista_lojas,n)
     lista_lojas = sublistas[page]
     voltar = page - 1
@@ -556,7 +627,7 @@ def pesquisa_home(req,pesquisa,page):
     print("IP: " + str(req.META['REMOTE_ADDR']))
     
     return render(req,'home/pesquisa_home.html', {'lojas':lista_lojas,'carregar_mais':page,
-    'voltar':voltar})
+    'voltar':voltar, 'pagina':pagina, 'pesquisa':pesquisa})
 
 
 #cria uma lista com todos os produtos da loja selecionada pelo cliete

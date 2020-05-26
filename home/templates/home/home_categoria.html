@@ -26,7 +26,7 @@
         <h1>Selecione a loja em que deseja fazer as suas compras</h1>
         {% for loja in lojas %}
             {% if loja.ativa == 'sim' %}
-                <a class="loja" href="{% url 'loja' loja.id 'p' 0 %}">
+                <a class="loja" id= "loja-{{loja.id}}" href="{% url 'loja' loja.id 'p' 0 %}">
                         <h2>{{loja.nome}}</h2>
                         <p>{{loja.bairro}} - {{loja.Cidade}}</p>
                         
@@ -49,4 +49,38 @@
 </body>
 
 </html>
+<script>
+    window.onload =  function(){
+
+        var url = "{% url 'home_categoria' categoria pagina  %}"
+        var now = new Date
+        var h = now.getHours()
+        var m = now.getMinutes()
+        var hour = Number.parseFloat(h + "." + m)
+        if (m < 10){
+            m = "0" + m
+        }
+        addEventListener("",function(event){
+        event.preventDefault();
+        })
+        var dados = {
+            "h":hour
+        }
+        
+        fetch(url,{
+            method:'POST',
+            body: JSON.stringify(dados)
+        }).then(function(response){
+        return response.json()
+        }).then(function(response){
+            var resposta = response["fechadas"]
+            for(i=0;i < resposta.length;i++){
+                var loja = document.getElementById("loja-"+resposta[i])
+                loja.remove()
+            }
+        })
+    }
+    
+    
+</script>
    
