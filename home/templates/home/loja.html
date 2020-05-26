@@ -230,6 +230,40 @@
         
     </div>
 </body>
-<script src="{% static 'js/carrinho.js' %}"></script>
+<script>
+    function adicionar(id,url){
+    var url = "{% url 'addcarrinho'%}"
+    var qt = document.getElementById("input-"+id).value
+    var carrinho = document.getElementById("carrinho")
+    var produto = document.getElementById("produto-"+id)
+    var input_qt = document.getElementById("input-"+id)
+    console.log(url)
+    
+    addEventListener("",function(event){
+        event.preventDefault();
+    })
+    var dados = {
+        "id":id,
+        "quantidade":qt
+    }
+    
+    if(input_qt.value > 0 ){
+        fetch(url,{
+            method:'POST',
+            body: JSON.stringify(dados)
+        }).then(function(response){
+            return response.json()
+        }).then(function(response){
+            if(response['loja_diferente'] == true){
+                alert("Você esta com o pedido Aberto em outra Loja, para fazer a compra em uma loja diferente finalize o pedido ou remova todos os produtos da loja anterior do seu pedido!")
+            }
+            else{
+                carrinho.innerHTML = "R$" + response['total']
+                produto.style.borderColor = "red"
+            }
+        })
+    }
+}
+</script>
 {% include 'footer.html'%}
 </html>
