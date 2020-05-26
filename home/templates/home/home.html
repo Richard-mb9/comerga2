@@ -77,4 +77,14 @@
 </body>
 
 </html>
+<script>
+    var now = new Date
+    var h = now.getHours()
+    var m = now.getMinutes()
+    if (m < 10){
+        m = "0" + m
+    }
+    document.write ("agora são  " + Number.parseFloat(h + "." + m))
+    
+</script>
    

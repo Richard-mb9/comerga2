@@ -136,6 +136,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static")
 ]
 
+#descomerntar as 2 linhas abaixo para usar em teste
 #MEDIA_URL = '/media/'
 #MEDIA_ROOT = "{}/media".format(BASE_DIR)
 
