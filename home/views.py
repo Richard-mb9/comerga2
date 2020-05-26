@@ -34,7 +34,7 @@ def dividir_lista(lista,n):
     return v
 
 
-def verificar_horario(loja):
+def verificar_horario(loja,horario):
     l = get_object_or_404(Lojas,pk=loja.id)
     h = "x"
     try:
@@ -53,8 +53,9 @@ def verificar_horario(loja):
     ]
 
     data = datetime.today()
-    hour = str(datetime.now().hour) + "." + str(datetime.now().minute)
-    hour = float(hour)
+    #hour = str(datetime.now().hour) + "." + str(datetime.now().minute)
+    #hour = float(hour)
+    hour = float(horario)
     indice_da_semana = data.weekday()
     dia_da_semana = DIAS[indice_da_semana]
 
@@ -134,13 +135,20 @@ def home(req,page):
 
     ender = ""
     lista_lojas = ""
-
+    h = ""
     if req.method == 'POST':
-        page = 0
-        pesquisa = req.POST['pesquisa']
-        if not pesquisa:
-            pesquisa = "null"
-        return redirect('pesquisa_home',pesquisa,page)
+        obj = loads(req.body)
+        if obj['h']:
+            try:
+                h = float(obj['h'])
+            except:
+                h = "vazio"
+        else:
+            page = 0
+            pesquisa = req.POST['pesquisa']
+            if not pesquisa:
+                pesquisa = "null"
+            return redirect('pesquisa_home',pesquisa,page)
     
     if req.user.is_authenticated:
         try:
@@ -179,9 +187,9 @@ def home(req,page):
     
 
     a = []
-    #for loja in lista_lojas:
-        #if verificar_horario(loja) == True:
-           # a.append(loja)
+    for loja in lista_lojas:
+        if verificar_horario(loja,h) == True:
+           a.append(loja)
     
     #lista_lojas = a
     sublistas = dividir_lista(lista_lojas,n)
