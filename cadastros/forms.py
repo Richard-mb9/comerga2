@@ -5,6 +5,7 @@ from .models import usuarios
 from .models import Lojas
 from .models import enderecos
 from .models import arquivos
+from .models import horarios
 
 
 class form_usuarios(ModelForm):
@@ -57,3 +58,17 @@ class form_arquivos(forms.ModelForm):
     class Meta:
         model = arquivos
         fields = ['cliente','arquivo']
+
+class form_horarios(forms.ModelForm):
+    class Meta:
+        model = horarios
+        fields = [
+            'loja',
+            'seg_abre','seg_fecha',
+            'ter_abre','ter_fecha',
+            'qua_abre','qua_fecha',
+            'qui_abre','qui_fecha',
+            'sex_abre','sex_fecha',
+            'sab_abre','sab_fecha',
+            'dom_abre','dom_fecha',
+        ]

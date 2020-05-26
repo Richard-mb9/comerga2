@@ -1,0 +1,91 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" media="screen and (min-width: 700px)" href="{% static 'css/formularios.css' %}">
+    <link rel="stylesheet" media="screen and (max-width: 699px)" href="{% static 'css/formularios-responsivo.css' %}">
+    <title>Horarios</title>
+    
+</head>
+{% include 'header.html' %}
+<body>
+    <div id="div_conteudo">
+        <div id="div_form">
+            <form method="POST">
+                {% csrf_token %}
+                <p hidden>{{form.loja}}</p>
+                <div style="border: solid 1px black;">
+                    <p>
+                        <label style="width: max-content;"> Segunda Feira</label>
+                    </p>
+                    <p>
+                        Abre<input style= "margin-left: 10px; width: 55px;" type="number" name="seg_abre" required value="{{form.seg_abre.value}}">
+                        Fecha<input style="margin-left: 10px; width: 55px;" type="number" name="seg_fecha" required value="{{form.seg_fecha.value}}">
+                    </p>
+                </div>
+                <br>
+                <div style="border: solid 1px black;">
+                    <p>
+                        <label style="width: max-content;">Terça Feira</label>
+                    </p>
+                    <p>
+                        Abre<input style= "margin-left: 10px; width: 55px;" type="number" name="ter_abre" required value="{{form.ter_abre.value}}">
+                        Fecha<input style="margin-left: 10px; width: 55px;" type="number" name="ter_fecha" required value="{{form.ter_fecha.value}}">
+                    </p>
+                </div><br>
+                <div style="border: solid 1px black;">
+                    <p>
+                        <label style="width: max-content;">Quarta Feira</label>
+                    </p>
+                    <p>
+                        Abre<input style= "margin-left: 10px; width: 55px;" type="number" name="qua_abre" required value="{{form.qua_abre.value}}">
+                        Fecha<input style="margin-left: 10px; width: 55px;" type="number" name="qua_fecha" required value="{{form.qua_fecha.value}}">
+                    </p>
+                </div><br>
+                <div style="border: solid 1px black;">
+                    <p>
+                        <label style="width: max-content;">Quinta Feira</label>
+                    </p>
+                    <p>
+                        Abre<input style= "margin-left: 10px; width: 55px;" type="number" name="qui_abre" required value="{{form.qui_abre.value}}">
+                        Fecha<input style="margin-left: 10px; width: 55px;" type="number" name="qui_fecha" required value="{{form.qui_fecha.value}}">
+                    </p>
+                </div><br>
+                <div style="border: solid 1px black;">
+                    <p>
+                        <label style="width: max-content;">Sexta Feira</label>
+                    </p>
+                    <p>
+                        Abre<input style= "margin-left: 10px; width: 55px;" type="number" name="sex_abre" required value="{{form.sex_abre.value}}">
+                        Fecha<input style="margin-left: 10px; width: 55px;" type="number" name="sex_fecha" required value="{{form.sex_fecha.value}}">
+                    </p>
+                </div><br>
+                <div style="border: solid 1px black;">
+                    <p>
+                        <label style="width: max-content;">Sabado</label>
+                    </p>
+                    <p>
+                        Abre<input style= "margin-left: 10px; width: 55px;" type="number" name="sab_abre" required value="{{form.sab_abre.value}}">
+                        Fecha<input style="margin-left: 10px; width: 55px;" type="number" name="sab_fecha" required value="{{form.sab_fecha.value}}">
+                    </p>
+                </div><br>
+                <div style="border: solid 1px black;">
+                    <p>
+                        <label style="width: max-content;">Domingo</label>
+                    </p>
+                    <p>
+                        Abre<input style= "margin-left: 10px; width: 55px;" type="number" name="dom_abre" required value="{{form.dom_abre.value}}">
+                        Fecha<input style="margin-left: 10px; width: 55px;" type="number" name="dom_fecha" required value="{{form.dom_fecha.value}}">
+                    </p>
+                </div>
+                
+                <button style="margin-bottom: 20px;" type="submit" id="btn-cadastrar">Salvar Alterações</button>
+            </form>
+        </div>
+    </div>
+</body>
+{% include 'footer.html' %}
+</html>

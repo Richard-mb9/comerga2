@@ -6,19 +6,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro de Produtos</title>
+    <link rel="stylesheet" media="screen and (min-width: 700px)" href="{% static 'css/home.css' %}">
+    <link rel="stylesheet" media="screen and (max-width: 699px)" href="{% static 'css/home-responsivo.css' %}">
 </head>
     {% include 'header.html' %}
 <body>
     <div id="div_conteudo">
-        <a class="loja" href="{% url 'produtos-cadastrados' user.id %}">
+        <a class="op-vender" href="{% url 'produtos-cadastrados' user.id %}">
             <div class="div_conteudo">
+                <img style="width: 90%;" src="{% static 'imagens/imagens_produtos.png' %}">
                 <p class="conteudo_link">
-                   Consultar todos os produtos cadastrados
+                   Consultar todos os seus produtos cadastrados
                 </p>
             </div>
         </a>
-        <a class="loja" href="{% url 'novo-produto'%}">
+        <a class="op-vender"  href="{% url 'novo-produto'%}">
             <div class="div_conteudo">
+                <img  style="width: 90%;" src="{% static 'imagens/imagem-cadastrar-manualmente.jpg' %}">
                 <p class="conteudo_link">
                     Cadastrar Novos Produtos Manualmente
                 </p>
@@ -28,26 +32,28 @@
         </a>
         {% categoria loja.categoria.categoria as cat %}
         {% if cat != 'comida' %}
-            <a class="loja" href="{% url 'cadastrar-varios' %}">
+            <a class="op-vender"  href="{% url 'cadastrar-varios' %}">
                 <div class="div_conteudo">
+                    <img  style="width: 90%;" src="{% static 'imagens/imagem-excel.png' %}">
                     <p class="conteudo_link">
                         Cadastrar varios produtos de uma unica vez por meio de uma Planilha Excel
                     </p>
                 </div>
             </a> 
         {% else %}
-            <a class="loja" href="{% url 'cad_bebida' %}">
-                <div class="div_conteudo">
-                    <p class="conteudo_link">
-                        Cadastre Suas Bebidas
-                    </p>
-                </div>
-            </a> 
-        {% endif %}   
+        <a class="op-vender" href="{% url 'cad_bebida' %}">
+            <div class="div_conteudo">
+                <img  style="width: 90%;" src="{% static 'imagens/imagem-bebidas.png' %}">
+                <p class="conteudo_link">
+                    Cadastre Suas Bebidas
+                </p>
+            </div>
+        </a>  
+        {% endif %}  
+        
     </div>
    
     
 </body>
 {% include 'footer.html'%}
-<link rel="stylesheet" href="{% static 'css/home.css' %}">
 </html>

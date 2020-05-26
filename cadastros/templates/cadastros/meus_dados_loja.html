@@ -4,16 +4,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <!--<link rel="stylesheet" href="{% static 'css/formularios.css'%}">-->
      <link rel="stylesheet" media="screen and (min-width: 700px)" href="{% static 'css/formularios.css' %}">
      <link rel="stylesheet" media="screen and (max-width: 699px)" href="{% static 'css/formularios-responsivo.css' %}">
-    <title>Document</title>
+    <title>Meus Dados</title>
 </head>
 {% include 'header.html' %}
 <body>
     <div id="div_conteudo" style="text-align: center;">
         <h1>{{loja.nome}}</h1>
-        
+        <div style="width: 100%;">
+            <div  class="dados">
+                <h3>Horarios de Funcionamento</h3>
+                <p><b>Segunda Feira:</b>  {{horarios.seg_abre}}h - {{horarios.seg_fecha}}h</p>
+                <p><b>Terça Feira:</b>  {{horarios.ter_abre}}h - {{horarios.ter_fecha}}h</p>
+                <p><b>Quarta Feira:</b>  {{horarios.qua_abre}}h - {{horarios.qua_fecha}}h</p>
+                <p><b>Quinta Feira:</b>  {{horarios.qui_abre}}h - {{horarios.qui_fecha}}h</p>
+                <p><b>Sexta Feira:</b>  {{horarios.sex_abre}}h - {{horarios.sex_fecha}}h</p>
+                <p><b>Sabado :</b>  {{horarios.sab_abre}}h - {{horarios.sab_fecha}}h</p>
+                <p><b>Domingo:</b>  {{horarios.dom_abre}}h - {{horarios.dom_fecha}}h</p>
+                <p style="text-align: center;">
+                    <a href="{% url 'alterar_horario' %}">
+                        <button class="btn-alterar">Alterar</button>
+                    </a>
+                </p>
+
+            </div>
+        </div>
         <div  class="dados" id="id_dados">
             <div id="id_dados_bancarios">
                 <h3>Dados Bancarios</h3>

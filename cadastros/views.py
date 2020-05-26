@@ -14,6 +14,7 @@ from .models import horarios
 from django.contrib.auth.models import User
 from produtos.models import Produtos
 from pedidos.models import pedidos
+from .forms import form_horarios
 import pandas as pd
 from cadastros.models import arquivos
 from cadastros.models import Lojas
@@ -51,7 +52,6 @@ def verifica_email(req):
     return HttpResponse(json.dumps(resposta))
 
 
-
 def salvar_cooredenadas(CEP):
     try:
         ender = criarEndereco(CEP)
@@ -77,6 +77,23 @@ def logar(req):
             {'mensagem':"Nome de usuario ou senha Invalidos, verifique letras maiusculas e minusculas"})
     return render(req, 'registration/login.html')
     
+@login_required
+def alterar_horarios(req):
+    e_loja = busca_loja(req.user.username)
+
+    if e_loja==True:
+        usu = get_object_or_404(Lojas,pk=req.user.id)
+        h = get_object_or_404(horarios,loja=usu)
+        form = form_horarios(req.POST or None, instance=h)
+        if req.method == 'POST':
+            if form.is_valid():
+                form.save()
+                return redirect('meus_dados')
+
+    
+    
+    
+    return render (req,'cadastros/alterar_horario.html',{'form':form})
 
 def buscarUsuario(email,senha,confirm):
     usu = User.objects.all()
@@ -263,7 +280,8 @@ def meus_dados(req):
     e_loja = busca_loja(req.user.username)
     if e_loja ==True:
         usu = get_object_or_404(Lojas, pk=req.user.id)
-        return render(req, 'cadastros/meus_dados_loja.html', {'loja':usu})
+        h = get_object_or_404(horarios,loja=usu)
+        return render(req, 'cadastros/meus_dados_loja.html', {'loja':usu,'horarios':h})
     else:
         usu = get_object_or_404(usuarios, pk=req.user.id)
         ender = get_object_or_404(enderecos,cliente=usu)

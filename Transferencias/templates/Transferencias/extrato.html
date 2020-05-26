@@ -9,20 +9,33 @@
 </head>
 {% include 'header.html' %}
 <body>
+    <style>
+        *{
+            font-family: Arial;
+        }
+    </style>
     <div id="div_conteudo">
-        <h1>Suas Trânsferencias</h1>
-        <table>
-            <th>Data</th>
-            <th>valor</th>
-            <th>Status</th>
-            {% for t in transferencia%}
-            <tr>
-                <td>{{t.data}}</td>
-                <td>R${{t.valor}}</td>
-                <td>{{t.status}}</td>
-            </tr>
-            {% endfor %}
-        </table>
+        
+        {% if not transferencias %}
+            <h1>Você ainda Não tem Nenuma Transferencia</h1>
+            <h2>Mas não desista!</h2>
+            <h2>Acreditamos em você</h2>
+        {% else %}
+            <h1>Suas Trânsferencias</h1>
+            <table>
+                <th>Data</th>
+                <th>valor</th>
+                <th>Status</th>
+                {% for t in transferencia%}
+                <tr>
+                    <td>{{t.data}}</td>
+                    <td>R${{t.valor}}</td>
+                    <td>{{t.status}}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        {% endif %}
+        
     </div>
     
     

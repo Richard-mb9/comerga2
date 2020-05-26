@@ -11,6 +11,7 @@ from .views import alterar_endereço
 from .views import logar
 from .views import esqueceuSenha
 from .views import verifica_email
+from .views import alterar_horarios
 
 
 urlpatterns = [
@@ -25,6 +26,7 @@ urlpatterns = [
     path('alterar-endereco/' ,alterar_endereço, name='alterar_endereco'),
     path('login/', logar, name='login'),
     path('esqueceu-senha/',esqueceuSenha,name='esqueceu_senha'),
-    path('verifica-email/',verifica_email,name='verifica_email')
+    path('verifica-email/',verifica_email,name='verifica_email'),
+    path('alterar-horario/',alterar_horarios,name='alterar_horario')
 
 ]
