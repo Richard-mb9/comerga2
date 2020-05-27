@@ -1,0 +1,94 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comerga</title>
+</head>
+{% include 'header.html'%}
+<body>
+    <div id="div_conteudo">
+        <img class="img" id="img-topo" src="{%static 'imagens/topo.png' %}">
+        <img class="img" src="{%static 'imagens/imagem_2.png' %}">
+        <img class="img" src="{%static 'imagens/imagem_3.png' %}">
+        <img class="img" src="{%static 'imagens/imagem_4.png' %}">
+        <img class="img" src="{%static 'imagens/imagem_5.png' %}">
+        <img class="img" src="{%static 'imagens/imagem_6.png' %}">
+        <div class="img" style="background-color: white; height: 100px; text-align: center;">
+            <a style="text-align: center;" href="{% url 'nova-loja'%}">
+                <button id="btn-cadastrar">Cadastre Sua Loja Agora!</button>
+            </a>
+        </div>
+    </div>
+    
+</body>
+</html>
+{% include 'footer.html'%}
+<style>
+    *{
+        padding: 0;
+        margin: 0;
+    }
+    a,a:link{
+        text-decoration: none;
+    }
+     @media(min-width: 700px){
+        #img-topo{
+        }
+        #div_conteudo{
+            width: 600px;
+            display: block;
+            margin-right: auto;
+            margin-left: auto;
+        
+        }
+        .img{
+            width: 600px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        #btn-cadastrar{
+            margin-top: 20px;
+            cursor: pointer;
+            width: 250px;
+            height: 70px;
+            font-size: 20px;
+            font-weight: bolder;
+            border: none;
+            border-radius: 10px;
+            background-color: black;
+            color: yellow;
+            display:inline-block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    }
+    @media(max-width: 699px){
+        #img-topo{
+            
+        }
+        .img{
+            width: 100%;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        #btn-cadastrar{
+            margin-top: 20px;
+            cursor: pointer;
+            width: 250px;
+            height: 70px;
+            font-size: 20px;
+            font-weight: bolder;
+            border: none;
+            border-radius: 10px;
+            background-color: black;
+            color: yellow;
+            display:inline-block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    }
+</style>

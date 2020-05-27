@@ -6,6 +6,7 @@ from .views import loja
 from .views import verifica_loja
 from .views import home_categoria
 from .views import pesquisa_categorias
+from .views import apresentacao
 from pedidos.views import calculo_pedido
 
 
@@ -16,5 +17,6 @@ urlpatterns = [
     path('loja/<int:id>/<str:pesquisa>/<int:page>/', loja, name='loja'),
     path('verifica-loja/', verifica_loja, name='verifica_loja'),
     path('categoria/<str:categoria>/<int:page>/',home_categoria,name='home_categoria'),
-    path('pesquisa-categoria/<str:categoria>/<str:pesquisa>/<int:page>/',pesquisa_categorias,name='pesquisa_categoria')
+    path('pesquisa-categoria/<str:categoria>/<str:pesquisa>/<int:page>/',pesquisa_categorias,name='pesquisa_categoria'),
+    path('comerga/',apresentacao,name='comerga'),
 ]

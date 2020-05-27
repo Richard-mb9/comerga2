@@ -26,7 +26,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG',default=False,cast=bool)
 
-ALLOWED_HOSTS = ["192.168.1.100","35.247.242.152","www.comergacomercio.com","comergacomercio.com"]
+ALLOWED_HOSTS = ["127.0.0.1","192.168.1.100","35.247.242.152","www.comergacomercio.com","comergacomercio.com"]
 
 # Application definition
 
@@ -160,7 +160,7 @@ MEDIA_ROOT = MEDIA_URL
 
 STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
 STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 SECURE_SSL_REDIRECT = True

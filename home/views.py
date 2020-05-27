@@ -18,6 +18,9 @@ from datetime import datetime,timedelta,date,time
 
 n= 20
 
+def apresentacao(req):
+    return render(req,'home/apre.html')
+
 #n é quantidade de itens que deseja que tenha em cada sublista
 def dividir_lista(lista,n):
     x = lista
