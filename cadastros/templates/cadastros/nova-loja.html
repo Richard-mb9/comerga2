@@ -113,9 +113,60 @@
                             <label style="width: max-content;"> Segunda Feira</label>
                         </p>
                         <p>
-                            Abre<input style= "margin-left: 10px; width: 55px;" type="number" name="seg_abre" required placeholder="8.00">
-                            Fecha<input style="margin-left: 10px; width: 55px;" type="number" name="seg_fecha" required placeholder="21.00">
+                            Abre <select style= "margin-left: 10px;" name="seg_abre">
+                                    <option value="00" selected>00:00</option>
+                                    <option value="01">1:00</option>
+                                    <option value="02">2:00</option>
+                                    <option value="03">3:00</option>
+                                    <option value="04">4:00</option>
+                                    <option value="05">5:00</option>
+                                    <option value="06">6:00</option>
+                                    <option value="07">7:00</option>
+                                    <option value="08">8:00</option>
+                                    <option value="09">9:00</option>
+                                    <option value="10">10:00</option>
+                                    <option value="11">11:00</option>
+                                    <option value="12">12:00</option>
+                                    <option value="13">13:00</option>
+                                    <option value="14">14:00</option>
+                                    <option value="15">15:00</option>
+                                    <option value="16">16:00</option>
+                                    <option value="17">17:00</option>
+                                    <option value="18">18:00</option>
+                                    <option value="19">19:00</option>
+                                    <option value="20">20:00</option>
+                                    <option value="21">21:00</option>
+                                    <option value="22">22:00</option>
+                                    <option value="23">23:00</option>
+                                </select>
+                            Fecha<select style= "margin-left: 10px;" name="seg_fecha">
+                                <option value="00" selected>00:00</option>
+                                <option value="01">1:00</option>
+                                <option value="02">2:00</option>
+                                <option value="03">3:00</option>
+                                <option value="04">4:00</option>
+                                <option value="05">5:00</option>
+                                <option value="06">6:00</option>
+                                <option value="07">7:00</option>
+                                <option value="08">8:00</option>
+                                <option value="09">9:00</option>
+                                <option value="10">10:00</option>
+                                <option value="11">11:00</option>
+                                <option value="12">12:00</option>
+                                <option value="13">13:00</option>
+                                <option value="14">14:00</option>
+                                <option value="15">15:00</option>
+                                <option value="16">16:00</option>
+                                <option value="17">17:00</option>
+                                <option value="18">18:00</option>
+                                <option value="19">19:00</option>
+                                <option value="20">20:00</option>
+                                <option value="21">21:00</option>
+                                <option value="22">22:00</option>
+                                <option value="23">23:00</option>
+                                </select>
                         </p>
+                        <legend>Caso não Abra deixe o valor zero selecionado nas duas opções</legend>
                     </div>
                     <br>
                     <div style="border: solid 1px black;">
@@ -123,54 +174,360 @@
                             <label style="width: max-content;">Terça Feira</label>
                         </p>
                         <p>
-                            Abre<input style= "margin-left: 10px; width: 55px;" type="number" name="ter_abre" required placeholder="8.00">
-                            Fecha<input style="margin-left: 10px; width: 55px;" type="number" name="ter_fecha" required placeholder="21.00">
+                            Abre <select style= "margin-left: 10px;" name="ter_abre">
+                                    <option value="0.00" selected>00:00</option>
+                                    <option value="01.00">1:00</option>
+                                    <option value="02.00">2:00</option>
+                                    <option value="03.00">3:00</option>
+                                    <option value="04.00">4:00</option>
+                                    <option value="05.00">5:00</option>
+                                    <option value="06.00">6:00</option>
+                                    <option value="07.00">7:00</option>
+                                    <option value="08.00">8:00</option>
+                                    <option value="09.00">9:00</option>
+                                    <option value="10.00">10:00</option>
+                                    <option value="11.00">11:00</option>
+                                    <option value="12.00">12:00</option>
+                                    <option value="13.00">13:00</option>
+                                    <option value="14.00">14:00</option>
+                                    <option value="15.00">15:00</option>
+                                    <option value="16.00">16:00</option>
+                                    <option value="17.00">17:00</option>
+                                    <option value="18.00">18:00</option>
+                                    <option value="19.00">19:00</option>
+                                    <option value="20.00">20:00</option>
+                                    <option value="21.00">21:00</option>
+                                    <option value="22.00">22:00</option>
+                                    <option value="23.00">23:00</option>
+                                </select>
+                            Fecha<select style= "margin-left: 10px;" name="ter_fecha">
+                                <option value="0.00" selected>00:00</option>
+                                <option value="01.00">1:00</option>
+                                <option value="02.00">2:00</option>
+                                <option value="03.00">3:00</option>
+                                <option value="04.00">4:00</option>
+                                <option value="05.00">5:00</option>
+                                <option value="06.00">6:00</option>
+                                <option value="07.00">7:00</option>
+                                <option value="08.00">8:00</option>
+                                <option value="09.00">9:00</option>
+                                <option value="10.00">10:00</option>
+                                <option value="11.00">11:00</option>
+                                <option value="12.00">12:00</option>
+                                <option value="13.00">13:00</option>
+                                <option value="14.00">14:00</option>
+                                <option value="15.00">15:00</option>
+                                <option value="16.00">16:00</option>
+                                <option value="17.00">17:00</option>
+                                <option value="18.00">18:00</option>
+                                <option value="19.00">19:00</option>
+                                <option value="20.00">20:00</option>
+                                <option value="21.00">21:00</option>
+                                <option value="22.00">22:00</option>
+                                <option value="23.00">23:00</option>
+                            </select>
                         </p>
+                        <legend>Caso não Abra deixe o valor zero selecionado nas duas opções</legend>
                     </div><br>
                     <div style="border: solid 1px black;">
                         <p>
                             <label style="width: max-content;">Quarta Feira</label>
                         </p>
                         <p>
-                            Abre<input style= "margin-left: 10px; width: 55px;" type="number" name="qua_abre" required placeholder="8.00">
-                            Fecha<input style="margin-left: 10px; width: 55px;" type="number" name="qua_fecha" required placeholder="21.00">
+                            Abre <select style= "margin-left: 10px;" name="qua_abre">
+                                <option value="0.00" selected>00:00</option>
+                                    <option value="01.00">1:00</option>
+                                    <option value="02.00">2:00</option>
+                                    <option value="03.00">3:00</option>
+                                    <option value="04.00">4:00</option>
+                                    <option value="05.00">5:00</option>
+                                    <option value="06.00">6:00</option>
+                                    <option value="07.00">7:00</option>
+                                    <option value="08.00">8:00</option>
+                                    <option value="09.00">9:00</option>
+                                    <option value="10.00">10:00</option>
+                                    <option value="11.00">11:00</option>
+                                    <option value="12.00">12:00</option>
+                                    <option value="13.00">13:00</option>
+                                    <option value="14.00">14:00</option>
+                                    <option value="15.00">15:00</option>
+                                    <option value="16.00">16:00</option>
+                                    <option value="17.00">17:00</option>
+                                    <option value="18.00">18:00</option>
+                                    <option value="19.00">19:00</option>
+                                    <option value="20.00">20:00</option>
+                                    <option value="21.00">21:00</option>
+                                    <option value="22.00">22:00</option>
+                                    <option value="23.00">23:00</option>
+                            </select>
+                        Fecha<select style= "margin-left: 10px;" name="qua_fecha">
+                            <option value="0.00" selected>00:00</option>
+                            <option value="01.00">1:00</option>
+                            <option value="02.00">2:00</option>
+                            <option value="03.00">3:00</option>
+                            <option value="04.00">4:00</option>
+                            <option value="05.00">5:00</option>
+                            <option value="06.00">6:00</option>
+                            <option value="07.00">7:00</option>
+                            <option value="08.00">8:00</option>
+                            <option value="09.00">9:00</option>
+                            <option value="10.00">10:00</option>
+                            <option value="11.00">11:00</option>
+                            <option value="12.00">12:00</option>
+                            <option value="13.00">13:00</option>
+                            <option value="14.00">14:00</option>
+                            <option value="15.00">15:00</option>
+                            <option value="16.00">16:00</option>
+                            <option value="17.00">17:00</option>
+                            <option value="18.00">18:00</option>
+                            <option value="19.00">19:00</option>
+                            <option value="20.00">20:00</option>
+                            <option value="21.00">21:00</option>
+                            <option value="22.00">22:00</option>
+                            <option value="23.00">23:00</option>
+                        </select>
                         </p>
+                        <legend>Caso não Abra deixe o valor zero selecionado nas duas opções</legend>
                     </div><br>
                     <div style="border: solid 1px black;">
                         <p>
                             <label style="width: max-content;">Quinta Feira</label>
                         </p>
                         <p>
-                            Abre<input style= "margin-left: 10px; width: 55px;" type="number" name="qui_abre" required placeholder="8.00">
-                            Fecha<input style="margin-left: 10px; width: 55px;" type="number" name="qui_fecha" required placeholder="21.00">
+                            Abre <select style= "margin-left: 10px;" name="qui_abre">
+                                <option value="0.00" selected>00:00</option>
+                                    <option value="01.00">1:00</option>
+                                    <option value="02.00">2:00</option>
+                                    <option value="03.00">3:00</option>
+                                    <option value="04.00">4:00</option>
+                                    <option value="05.00">5:00</option>
+                                    <option value="06.00">6:00</option>
+                                    <option value="07.00">7:00</option>
+                                    <option value="08.00">8:00</option>
+                                    <option value="09.00">9:00</option>
+                                    <option value="10.00">10:00</option>
+                                    <option value="11.00">11:00</option>
+                                    <option value="12.00">12:00</option>
+                                    <option value="13.00">13:00</option>
+                                    <option value="14.00">14:00</option>
+                                    <option value="15.00">15:00</option>
+                                    <option value="16.00">16:00</option>
+                                    <option value="17.00">17:00</option>
+                                    <option value="18.00">18:00</option>
+                                    <option value="19.00">19:00</option>
+                                    <option value="20.00">20:00</option>
+                                    <option value="21.00">21:00</option>
+                                    <option value="22.00">22:00</option>
+                                    <option value="23.00">23:00</option>
+                            </select>
+                        Fecha<select style= "margin-left: 10px;" name="qui_fecha">
+                            <option value="0.00" selected>00:00</option>
+                            <option value="01.00">1:00</option>
+                            <option value="02.00">2:00</option>
+                            <option value="03.00">3:00</option>
+                            <option value="04.00">4:00</option>
+                            <option value="05.00">5:00</option>
+                            <option value="06.00">6:00</option>
+                            <option value="07.00">7:00</option>
+                            <option value="08.00">8:00</option>
+                            <option value="09.00">9:00</option>
+                            <option value="10.00">10:00</option>
+                            <option value="11.00">11:00</option>
+                            <option value="12.00">12:00</option>
+                            <option value="13.00">13:00</option>
+                            <option value="14.00">14:00</option>
+                            <option value="15.00">15:00</option>
+                            <option value="16.00">16:00</option>
+                            <option value="17.00">17:00</option>
+                            <option value="18.00">18:00</option>
+                            <option value="19.00">19:00</option>
+                            <option value="20.00">20:00</option>
+                            <option value="21.00">21:00</option>
+                            <option value="22.00">22:00</option>
+                            <option value="23.00">23:00</option>
+                        </select>
                         </p>
+                        <legend>Caso não Abra deixe o valor zero selecionado nas duas opções</legend>
                     </div><br>
                     <div style="border: solid 1px black;">
                         <p>
                             <label style="width: max-content;">Sexta Feira</label>
                         </p>
                         <p>
-                            Abre<input style= "margin-left: 10px; width: 55px;" type="number" name="sex_abre" required placeholder="8.00">
-                            Fecha<input style="margin-left: 10px; width: 55px;" type="number" name="sex_fecha" required placeholder="21.00">
+                            Abre <select style= "margin-left: 10px;" name="sex_abre">
+                                <option value="0.00" selected>00:00</option>
+                                    <option value="01.00">1:00</option>
+                                    <option value="02.00">2:00</option>
+                                    <option value="03.00">3:00</option>
+                                    <option value="04.00">4:00</option>
+                                    <option value="05.00">5:00</option>
+                                    <option value="06.00">6:00</option>
+                                    <option value="07.00">7:00</option>
+                                    <option value="08.00">8:00</option>
+                                    <option value="09.00">9:00</option>
+                                    <option value="10.00">10:00</option>
+                                    <option value="11.00">11:00</option>
+                                    <option value="12.00">12:00</option>
+                                    <option value="13.00">13:00</option>
+                                    <option value="14.00">14:00</option>
+                                    <option value="15.00">15:00</option>
+                                    <option value="16.00">16:00</option>
+                                    <option value="17.00">17:00</option>
+                                    <option value="18.00">18:00</option>
+                                    <option value="19.00">19:00</option>
+                                    <option value="20.00">20:00</option>
+                                    <option value="21.00">21:00</option>
+                                    <option value="22.00">22:00</option>
+                                    <option value="23.00">23:00</option>
+                            </select>
+                        Fecha<select style= "margin-left: 10px;" name="sex_fecha">
+                            <option value="0.00" selected>00:00</option>
+                            <option value="01.00">1:00</option>
+                            <option value="02.00">2:00</option>
+                            <option value="03.00">3:00</option>
+                            <option value="04.00">4:00</option>
+                            <option value="05.00">5:00</option>
+                            <option value="06.00">6:00</option>
+                            <option value="07.00">7:00</option>
+                            <option value="08.00">8:00</option>
+                            <option value="09.00">9:00</option>
+                            <option value="10.00">10:00</option>
+                            <option value="11.00">11:00</option>
+                            <option value="12.00">12:00</option>
+                            <option value="13.00">13:00</option>
+                            <option value="14.00">14:00</option>
+                            <option value="15.00">15:00</option>
+                            <option value="16.00">16:00</option>
+                            <option value="17.00">17:00</option>
+                            <option value="18.00">18:00</option>
+                            <option value="19.00">19:00</option>
+                            <option value="20.00">20:00</option>
+                            <option value="21.00">21:00</option>
+                            <option value="22.00">22:00</option>
+                            <option value="23.00">23:00</option>
+                        </select>
                         </p>
+                        <legend>Caso não Abra deixe o valor zero selecionado nas duas opções</legend>
                     </div><br>
                     <div style="border: solid 1px black;">
                         <p>
                             <label style="width: max-content;">Sabado</label>
                         </p>
                         <p>
-                            Abre<input style= "margin-left: 10px; width: 55px;" type="number" name="sab_abre" required placeholder="8.00">
-                            Fecha<input style="margin-left: 10px; width: 55px;" type="number" name="sab_fecha" required placeholder="21.00">
+                            Abre <select style= "margin-left: 10px;" name="sab_abre">
+                                <option value="0.00" selected>00:00</option>
+                                    <option value="01.00">1:00</option>
+                                    <option value="02.00">2:00</option>
+                                    <option value="03.00">3:00</option>
+                                    <option value="04.00">4:00</option>
+                                    <option value="05.00">5:00</option>
+                                    <option value="06.00">6:00</option>
+                                    <option value="07.00">7:00</option>
+                                    <option value="08.00">8:00</option>
+                                    <option value="09.00">9:00</option>
+                                    <option value="10.00">10:00</option>
+                                    <option value="11.00">11:00</option>
+                                    <option value="12.00">12:00</option>
+                                    <option value="13.00">13:00</option>
+                                    <option value="14.00">14:00</option>
+                                    <option value="15.00">15:00</option>
+                                    <option value="16.00">16:00</option>
+                                    <option value="17.00">17:00</option>
+                                    <option value="18.00">18:00</option>
+                                    <option value="19.00">19:00</option>
+                                    <option value="20.00">20:00</option>
+                                    <option value="21.00">21:00</option>
+                                    <option value="22.00">22:00</option>
+                                    <option value="23.00">23:00</option>
+                            </select>
+                        Fecha<select style= "margin-left: 10px;" name="sab_fecha">
+                            <option value="0.00" selected>00:00</option>
+                            <option value="01.00">1:00</option>
+                            <option value="02.00">2:00</option>
+                            <option value="03.00">3:00</option>
+                            <option value="04.00">4:00</option>
+                            <option value="05.00">5:00</option>
+                            <option value="06.00">6:00</option>
+                            <option value="07.00">7:00</option>
+                            <option value="08.00">8:00</option>
+                            <option value="09.00">9:00</option>
+                            <option value="10.00">10:00</option>
+                            <option value="11.00">11:00</option>
+                            <option value="12.00">12:00</option>
+                            <option value="13.00">13:00</option>
+                            <option value="14.00">14:00</option>
+                            <option value="15.00">15:00</option>
+                            <option value="16.00">16:00</option>
+                            <option value="17.00">17:00</option>
+                            <option value="18.00">18:00</option>
+                            <option value="19.00">19:00</option>
+                            <option value="20.00">20:00</option>
+                            <option value="21.00">21:00</option>
+                            <option value="22.00">22:00</option>
+                            <option value="23.00">23:00</option>
+                        </select>
                         </p>
+                        <legend>Caso não Abra deixe o valor zero selecionado nas duas opções</legend>
                     </div><br>
                     <div style="border: solid 1px black;">
                         <p>
                             <label style="width: max-content;">Domingo</label>
                         </p>
                         <p>
-                            Abre<input style= "margin-left: 10px; width: 55px;" type="number" name="dom_abre" required placeholder="8.00">
-                            Fecha<input style="margin-left: 10px; width: 55px;" type="number" name="dom_fecha" required placeholder="21.00">
+                            Abre <select style= "margin-left: 10px;" name="dom_abre">
+                                <option value="0.00" selected>00:00</option>
+                                <option value="01.00">1:00</option>
+                                <option value="02.00">2:00</option>
+                                <option value="03.00">3:00</option>
+                                <option value="04.00">4:00</option>
+                                <option value="05.00">5:00</option>
+                                <option value="06.00">6:00</option>
+                                <option value="07.00">7:00</option>
+                                <option value="08.00">8:00</option>
+                                <option value="09.00">9:00</option>
+                                <option value="10.00">10:00</option>
+                                <option value="11.00">11:00</option>
+                                <option value="12.00">12:00</option>
+                                <option value="13.00">13:00</option>
+                                <option value="14.00">14:00</option>
+                                <option value="15.00">15:00</option>
+                                <option value="16.00">16:00</option>
+                                <option value="17.00">17:00</option>
+                                <option value="18.00">18:00</option>
+                                <option value="19.00">19:00</option>
+                                <option value="20.00">20:00</option>
+                                <option value="21.00">21:00</option>
+                                <option value="22.00">22:00</option>
+                                <option value="23.00">23:00</option>
+                            </select>
+                        Fecha<select style= "margin-left: 10px;" name="dom_fecha">
+                            <option value="0.00" selected>00:00</option>
+                            <option value="01.00">1:00</option>
+                            <option value="02.00">2:00</option>
+                            <option value="03.00">3:00</option>
+                            <option value="04.00">4:00</option>
+                            <option value="05.00">5:00</option>
+                            <option value="06.00">6:00</option>
+                            <option value="07.00">7:00</option>
+                            <option value="08.00">8:00</option>
+                            <option value="09.00">9:00</option>
+                            <option value="10.00">10:00</option>
+                            <option value="11.00">11:00</option>
+                            <option value="12.00">12:00</option>
+                            <option value="13.00">13:00</option>
+                            <option value="14.00">14:00</option>
+                            <option value="15.00">15:00</option>
+                            <option value="16.00">16:00</option>
+                            <option value="17.00">17:00</option>
+                            <option value="18.00">18:00</option>
+                            <option value="19.00">19:00</option>
+                            <option value="20.00">20:00</option>
+                            <option value="21.00">21:00</option>
+                            <option value="22.00">22:00</option>
+                            <option value="23.00">23:00</option>
+                        </select>
                         </p>
+                        <legend>Caso não Abra deixe o valor zero selecionado nas duas opções</legend>
                     </div>
                     
                 </div>
@@ -191,7 +548,7 @@
                 </p>
                     <div id="div_frete">
                         <p id="valor_frete">
-                            <label>Valor do Frete</label>
+                            <label>Valor do Frete por km</label>
                             <input type="number" name="valor_frete" id="input_valor_frete" value="0">
                             <legend>valor por km, multiplicaremos ele pela distancia da entrega</legend>
                         </p>

@@ -7,6 +7,7 @@ from .views import verifica_loja
 from .views import home_categoria
 from .views import pesquisa_categorias
 from .views import apresentacao
+from .views import Lancamento
 from pedidos.views import calculo_pedido
 
 
@@ -19,4 +20,5 @@ urlpatterns = [
     path('categoria/<str:categoria>/<int:page>/',home_categoria,name='home_categoria'),
     path('pesquisa-categoria/<str:categoria>/<str:pesquisa>/<int:page>/',pesquisa_categorias,name='pesquisa_categoria'),
     path('comerga/',apresentacao,name='comerga'),
+    path('comerga/aguarde/',Lancamento,name='lancamento')
 ]

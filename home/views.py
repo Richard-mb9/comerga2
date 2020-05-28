@@ -21,6 +21,9 @@ n= 20
 def apresentacao(req):
     return render(req,'home/apre.html')
 
+def Lancamento(req):
+    return render(req,'home/lancamento.html')
+
 #n é quantidade de itens que deseja que tenha em cada sublista
 def dividir_lista(lista,n):
     x = lista
@@ -105,6 +108,8 @@ def verificar_horario(loja,horario):
 
 #inicio da aplicação
 def index(req):
+    
+    
     is_loja = False
     if req.user.is_authenticated:
         u = Lojas.objects.filter(pk=req.user.id)
@@ -115,9 +120,21 @@ def index(req):
     if is_loja == True:
         return redirect('vender')
     else:
-        return redirect('index',page=0)
+        hoje = datetime.today().date().strftime('%Y-%m-%d')
+        d = datetime.strptime(hoje, '%Y-%m-%d')
+        dia_final = datetime.strptime("2020-6-1",'%Y-%m-%d')
+        if d <  dia_final:
+            return redirect('lancamento')
+        else:
+            return redirect('index',page=0)
 @csrf_exempt
 def home(req,page):
+    hoje = datetime.today().date().strftime('%Y-%m-%d')
+    d = datetime.strptime(hoje, '%Y-%m-%d')
+    dia_final = datetime.strptime("2020-6-1",'%Y-%m-%d')
+    if d <  dia_final:
+        return redirect('lancamento')
+        
         
     #primeiro faz a verifição se o usuario é uma loja
     is_loja = False

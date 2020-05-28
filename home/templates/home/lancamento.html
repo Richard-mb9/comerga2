@@ -1,0 +1,102 @@
+{% load static %}
+{% load tags %}
+<!DOCTYPE html>
+<html lang="PT-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comerga</title>
+</head>
+{% include 'header.html' %}
+<body>
+    <div id="div_conteudo">
+        <div class="tema">
+            <h1 >
+                Também estamos anciosos para ver você, mas só estaremos no ar a partir do dia 01/06/2020
+            </h1>
+        </div>
+        {% if not user.is_authenticated %}
+            <div class="tema">
+                <h2 >
+                    Mas até la faça seu cadastro e não perca nada!
+                </h2>
+                <a href="{% url 'novo-usuario'%}">
+                    <button class="btn-cadastrar">Cadastre-se</button>
+                </a>
+                <p style="font-size: 20px; font-weight: bold;">Ou</p>
+                <a href="{% url 'nova-loja'%}">
+                    <button class="btn-cadastrar">Cadastre Sua Loja</button>
+                </a>
+            </div>
+        {% endif %}
+        
+        
+    </div>
+</body>
+{% include 'footer.html'%}
+</html>
+<style>
+    body{
+        /*background-color: rgb(114, 171, 192);*/
+        background-image: url("{% static 'imagens/em_producao.jpeg' %}");
+    }
+    #img-em_producao{
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 10px;
+    }
+    #div_conteudo{
+        width: 100%;
+    }
+    .tema{
+        display: block;
+            margin-left: auto;
+            margin-right: auto;
+            background-color: rgb(114, 171, 192);
+            border-radius: 20px;
+            opacity: 0.8;
+            text-align: center;
+            font-family: Arial;
+            
+    }
+    a, a:link{
+        text-decoration: none;
+        
+    }
+    .btn-cadastrar{
+        cursor: pointer;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 30px;
+        width: 200px;
+        height: 20px;
+        font-size: 20px;
+        font-weight: bolder;
+        border: none;
+        border-radius: 10px;
+        /*background-color: rgb(83, 152, 255);*/
+        background-color: black;
+        color: yellow;
+        height: 30px;
+        opacity: 1;
+    }
+    @media(min-width: 700px){
+        .tema{
+            width: 699px;
+            margin-top: 30px;
+            padding: 10px;
+        }
+    }
+    @media(max-width: 699px){
+        #img-em_producao{
+            width: 100%;
+        }
+        .tema{
+            width: 90%;
+            margin-top: 30px;
+            padding: 5%;
+        }
+    }
+</style>
