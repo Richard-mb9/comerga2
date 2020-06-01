@@ -20,7 +20,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 class home(ListView):
     model = Lojas
-    paginate_by = 3
+    paginate_by = 20
     context_object_name = 'lojas'
     template_name = 'home/testes/inicio.html'
     ordering = ['nome']

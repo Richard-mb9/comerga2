@@ -287,9 +287,9 @@ def meus_dados(req):
     ender = ""
     e_loja = busca_loja(req.user.username)
     if e_loja ==True:
-        usu = get_object_or_404(Lojas, pk=req.user.id)
-        h = get_object_or_404(horarios,loja=usu)
-        return render(req, 'cadastros/meus_dados_loja.html', {'loja':usu,'horarios':h})
+            usu = get_object_or_404(Lojas, pk=req.user.id)
+            h = get_object_or_404(horarios,pk=usu.horarios.id)
+            return render(req, 'cadastros/meus_dados_loja.html', {'loja':usu})
     else:
         usu = get_object_or_404(usuarios, pk=req.user.id)
         ender = get_object_or_404(enderecos,cliente=usu)

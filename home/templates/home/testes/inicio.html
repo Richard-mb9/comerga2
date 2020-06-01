@@ -120,12 +120,10 @@ window.onload =  function(){
             dom.push("{{loja.horarios.dom_fecha}}")
             horarios.push(dom,seg,ter,qua,qui,sex,sab)
             var hor = horarios[dia]
-            console.log(horarios[dia])
             if(hour > hor[0] && hour < hor[1]){
                 fechado.remove()
             }
             else{
-                console.log("A "+"{{loja.nome}}" + " Esta Fechada")
                 l.style.backgroundColor = 	"#808080"
                 l.href = "#"
             }
