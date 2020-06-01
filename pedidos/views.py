@@ -18,6 +18,7 @@ import requests
 from django.http import HttpRequest
 from decimal import Decimal
 from datetime import datetime,timedelta
+import credenciais
 
 
 #calcula o saldo que uma loja tem disponivel e envia para verica_loja na app home
@@ -358,7 +359,8 @@ def calcular_frete(valor_frete,end1,end2):
         coord2 = CEP2.Coordenadas
     else:
         Salvou = False
-        while(Salvou == False):
+        i = 0
+        while(Salvou == False or i < 10):
             try:
                 e1 = criarEndereco(c1)
                 e2 = criarEndereco(c2)
@@ -371,13 +373,14 @@ def calcular_frete(valor_frete,end1,end2):
                 Salvou = True
             except:
                 Salvou = False
+                i = i + 1
 
     #API google matrix para calcular a distancia em KMs
     calculou = False
     teste = 0
     while(calculou == False):
         try:
-            key = "AIzaSyA0GcWFrONP0lmgB3ZlyGnX60KkXJ4gcnI"
+            key = credenciais.KEY_API_GOOGLE
             r = requests.get(f"https://maps.googleapis.com/maps/api/distancematrix/json?units=kilometers&origins={str(coord1)}&destinations={str(coord2)}&key={key}")
             d = float(r.json()['rows'][0]['elements'][0]['distance']['value'])
             dis = float(d/1000)

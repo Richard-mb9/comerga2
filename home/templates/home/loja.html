@@ -1,4 +1,5 @@
 {% load static %}
+{% load tags %}
 <!DOCTYPE html>
 <html lang="PT-BR">
 <head>
@@ -11,8 +12,8 @@
 </head>
 {% include 'header.html' %}
 <body>
-    <div id="div_conteudo">
-        <form method="POST">
+    <div id="div_conteudo" style="margin-bottom: 80px">
+        <form method="GET">
             {%csrf_token%}
             <div id="div_pesquisa">
                 <div id="div_input_pesquisa">
@@ -21,25 +22,21 @@
                 </div>
             </form>
         </div>
+        <div class=" row div_produtos">
         {% if user.is_authenticated %}
-            {% for produto in lista %}
+        
+            {% for produto in produtos %}
+            {% img_produto produto.id as img %}
+            
                 {% if produto in itens %}   
                     <div id="produto-{{produto.id}}" class="produto esta-na-lista">
                         <h3>{{produto.nome}} </h3>
                         <p>R${{produto.valor}}</p>
                         
-                        {% if produto.imagem != '#' %}
-                            <img class="img-produto" src="{{produto.imagem.url}}">
-                        {% else %}
-                            {% if produto in produtos_com_imagem %}
-                                {% for img in imagens %}
-                                    {% if produto.codigo_de_barras == img.codigo_de_barras %}
-                                        <img class="img-produto" src="{{produto.imagem.url}}">
-                                    {% endif %}
-                                {% endfor %}
-                            {%else%}
-                                <div id="div_img_produto"></div>
-                            {% endif %}
+                        {% if img != 'vazio' %}
+                            <img class="img-produto" src="{{img}}">
+                        {% else %}   
+                            <div id="div_img_produto"></div>
                         {% endif %}
                         {% if produto.produto_pesavel == 'sim' %}
                         <p>
@@ -75,7 +72,7 @@
                                 <option value="9.5">9,5kg</option>
                                 <option value="10">10kg</option>
                             </select>
-                            </p>
+                        </p>
                         {% else %}
                             <p>
                                 <label>Quantidade</label> <!--<input id="input-{{produto.id}}" class="input-qt" type="number" value=0>-->
@@ -105,25 +102,10 @@
                     <div id="produto-{{produto.id}}" class="produto">
                         <h3>{{produto.nome}} </h3>
                         <p>R${{produto.valor}}</p>
-                        {% if produto.imagem != '#'%}
-                            <img class="img-produto" src="{{produto.imagem.url}}">
-                        {% else %}
-                            {% if produto in produtos_com_imagem %}
-                                {% for img in imagens %}
-                                    {% if produto.codigo_de_barras == img.codigo_de_barras %}
-                                        <img class="img-produto" src="{{produto.imagem.url}}">
-                                    {% endif %}
-                                {% endfor %}
-                            {%else%}
-                                <div id="div_img_produto"></div>
-                            {% endif %}
-                            <!--{% for img in imagens %}
-                                {% if produto.codigo_de_barras == img.codigo_de_barras %}
-                                    <img class="img-produto" src="/media/{{img.imagem}}">
-                                {%else%}
-                                    <div id="div_img_produto"></div>
-                                {% endif %}
-                            {% endfor %}-->
+                        {% if img != 'vazio' %}
+                            <img class="img-produto" src="{{img}}">
+                        {% else %}   
+                            <div id="div_img_produto"></div>
                         {% endif %}
                         {% if produto.produto_pesavel == 'sim' %}
                         <p>
@@ -191,22 +173,15 @@
             {% endfor %}
 
         {% else %}
-            {% for produto in lista %}
+            {% for produto in produtos %}
+            {% img_produto produto.id as img %}
                 <div id="produto-{{produto.id}}" class="produto">
                     <h3>{{produto.nome}} </h3>
                     <p>R${{produto.valor}}</p>
-                    {% if produto.imagem != '#' %}
-                            <img class="img-produto" src="{{produto.imagem.url}}">
-                    {% else %}                
-                        {% if produto in produtos_com_imagem %}
-                            {% for img in imagens %}
-                                {% if produto.codigo_de_barras == img.codigo_de_barras %}
-                                    <img class="img-produto" src="{{img.imagem.url}}">
-                                {% endif %}
-                            {% endfor %}
-                        {%else%}
-                            <div id="div_img_produto"></div>
-                        {% endif %}
+                    {% if img != 'vazio' %}
+                        <img class="img-produto" src="{{img}}">
+                    {% else %}   
+                        <div id="div_img_produto"></div>
                     {% endif %}
                     
                     <p>
@@ -217,16 +192,25 @@
                 </div>
             {% endfor %}
         {% endif %}
-        
-        <div id="div_navegar_paginas">
-            {% if voltar > -1 %}
-                <a href="{% url 'loja' loja pesquisa voltar %}">Voltar</a>
-            {% endif %}
-            {% if carregar_mais != 'ultima' %}
-                <a style="margin-left: 30px;" href="{% url 'loja' loja pesquisa carregar_mais %}">Carregar mais</a>
-            {% endif %}
-       
         </div>
+        <div id="navegacao" >
+           <p>
+                <span class="current">
+                    pagina {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}.
+                </span>
+           </p> 
+            {% if page_obj.has_previous %}
+                <a href="?page=1">&laquo; Primeira</a>
+                <a href="?page={{ page_obj.previous_page_number }}">Anterior</a>
+            {% endif %}
+                
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">proxima</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">Ultima &raquo;</a>
+            {% endif %}
+        </div>
+        
+        
         
     </div>
 </body>

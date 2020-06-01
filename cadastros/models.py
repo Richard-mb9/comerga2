@@ -1,9 +1,30 @@
 from django.db import models
 import os
 
+
+class horarios(models.Model):
+    seg_abre = models.DecimalField(max_digits=4,decimal_places=2)
+    seg_fecha = models.DecimalField(max_digits=4,decimal_places=2)
+    ter_abre = models.DecimalField(max_digits=4,decimal_places=2)
+    ter_fecha = models.DecimalField(max_digits=4,decimal_places=2)
+    qua_abre = models.DecimalField(max_digits=4,decimal_places=2)
+    qua_fecha = models.DecimalField(max_digits=4,decimal_places=2)
+    qui_abre = models.DecimalField(max_digits=4,decimal_places=2)
+    qui_fecha = models.DecimalField(max_digits=4,decimal_places=2)
+    sex_abre = models.DecimalField(max_digits=4,decimal_places=2)
+    sex_fecha = models.DecimalField(max_digits=4,decimal_places=2)
+    sab_abre = models.DecimalField(max_digits=4,decimal_places=2)
+    sab_fecha = models.DecimalField(max_digits=4,decimal_places=2)
+    dom_abre = models.DecimalField(max_digits=4,decimal_places=2)
+    dom_fecha = models.DecimalField(max_digits=4,decimal_places=2)
+    objects = models.Manager()
+    
+
+
 class categorias_lojas(models.Model):
     categoria = models.CharField(max_length=50)
     taxa_servico = models.DecimalField(max_digits=4,decimal_places=2)
+    objects = models.Manager()
     def __str__(self):
         return self.categoria
 
@@ -71,31 +92,13 @@ class Lojas(models.Model):
     conta = models.CharField(max_length=20)
     digito_conta = models.CharField(max_length=5, null=True, blank=True )
     logomarca = models.ImageField( upload_to="media/logomarcas/", null=False, blank=False)
+    horarios = models.ForeignKey(horarios,on_delete=models.CASCADE)
     objects = models.Manager()
     
     def __str__(self):
         return str(self.nome)
 
-class horarios(models.Model):
-    loja = models.ForeignKey(Lojas,on_delete=models.CASCADE)
-    seg_abre = models.DecimalField(max_digits=4,decimal_places=2)
-    seg_fecha = models.DecimalField(max_digits=4,decimal_places=2)
-    ter_abre = models.DecimalField(max_digits=4,decimal_places=2)
-    ter_fecha = models.DecimalField(max_digits=4,decimal_places=2)
-    qua_abre = models.DecimalField(max_digits=4,decimal_places=2)
-    qua_fecha = models.DecimalField(max_digits=4,decimal_places=2)
-    qui_abre = models.DecimalField(max_digits=4,decimal_places=2)
-    qui_fecha = models.DecimalField(max_digits=4,decimal_places=2)
-    sex_abre = models.DecimalField(max_digits=4,decimal_places=2)
-    sex_fecha = models.DecimalField(max_digits=4,decimal_places=2)
-    sab_abre = models.DecimalField(max_digits=4,decimal_places=2)
-    sab_fecha = models.DecimalField(max_digits=4,decimal_places=2)
-    dom_abre = models.DecimalField(max_digits=4,decimal_places=2)
-    dom_fecha = models.DecimalField(max_digits=4,decimal_places=2)
-    objects = models.Manager()
-    
-    def __str__(self):
-        return str(self.loja)
+
     
 
 class arquivos(models.Model):

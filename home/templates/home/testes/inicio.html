@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Todas as Lojas</title>
+    <title>Inicio</title>
     <!--<link rel="stylesheet" href="{% static 'css/home.css '%}">-->
     <link rel="stylesheet" media="screen and (min-width: 700px)" href="{% static 'css/home.css' %}">
     <link rel="stylesheet" media="screen and (max-width: 699px)" href="{% static 'css/home-responsivo.css' %}">
@@ -31,7 +31,7 @@
                 <p class="categoria-item" style="font-size: 12px;">Restaurantes, Lanchonetes e Pizzarias</p>
         </a>   
             <div id="div_pesquisa">
-                <form method="POST">
+                <form method="GET">
                     {%csrf_token%}
                         <div id="div_input_pesquisa">
                             <input type="text" name="pesquisa" id="id_input_pesquisa" placeholder="Nome da Loja">
@@ -65,12 +65,16 @@
             {% endif %}
         {% endfor %}
         <div id="div_navegar_paginas">
-            {% if voltar > -1 %}
-                <a href="{% url 'index'  voltar %}">Voltar</a>
+            {% if page_obj.has_previous %}
+                <a href="?page={{ page_obj.previous_page_number }}">&laquo; Anterior</a>
             {% endif %}
-            {% if carregar_mais != 'ultima' %}
-                <a style="margin-left: 30px;" href="{% url 'index' carregar_mais %}">Carregar mais</a>
+            <span class="current">
+                {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}.
+            </span>
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">proxima &raquo;</a>
             {% endif %}
+        </div>
        
         </div>
     </div>

@@ -4,16 +4,27 @@ from django.shortcuts import get_object_or_404
 import json
 from cadastros.models import Lojas,usuarios
 from .models import CEP
-from decouple import config
+import credenciais
+from datetime import datetime
+from .models import solicitacoes_geo
 
 
 def coordenadas(endereco):
-    key = config("KEY_GOOGLE_MAPS")
-    r = requests.get("https://maps.googleapis.com/maps/api/geocode/json?address=" + str(endereco) + "&key=" + key)
-    results = r.json()['results']
-    location = results [0] ['geometry'] ['location']
-    print(str(location ['lat']) + "," + str(location ['lng']) )
-    return str(location ['lat']) + "," + str(location ['lng']) 
+    key = credenciais.KEY_API_GOOGLE
+    try:
+        r = requests.get("https://maps.googleapis.com/maps/api/geocode/json?address=" + str(endereco) + "&key=" + key)
+        results = r.json()['results']
+        location = results [0] ['geometry'] ['location']
+        d = str(datetime.today().date())
+        h = str(datetime.now().hour)
+        m = str(datetime.now().minute)
+        s = str(datetime.now().second)
+        hms = str(h + ":" + m + ":" + s)
+        solicitacao = solicitacoes_geo(data=d,hora=hms, ender=endereco)
+        solicitacao.save()
+        return str(location ['lat']) + "," + str(location ['lng']) 
+    except:
+        print("erro" + str(Exception))
 
 
 def distancia(end1, end2):
@@ -30,7 +41,6 @@ def criarEndereco(cep):
     estado = a['uf']
     pais = 'Brasil'
     endereco = str(f"{rua},{bairro},{cidade},{estado},{pais}")
-    print (endereco)
     return(endereco)
 
 

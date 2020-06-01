@@ -53,11 +53,17 @@ def verifica_email(req):
 
 
 def salvar_cooredenadas(CEP):
+    from coordenadas.models import  CEP as c
     try:
-        ender = criarEndereco(CEP)
-        coord = coordenadas(ender)
-        salvar_cep = CEP(CEP=CEP,Coordenadas=coord,endereco=ender)
-        salvar_cep.save()
+        e = c.objects.filter(CEP=CEP)
+        if len(e) != 1:
+            try:
+                ender = criarEndereco(CEP)
+                coord = coordenadas(ender)
+                salvar_cep = CEP(CEP=CEP,Coordenadas=coord,endereco=ender)
+                salvar_cep.save()
+            except:
+                pass
     except:
         pass
 
@@ -159,6 +165,17 @@ def novaLoja(req):
     form = form_loja(req.POST or None, req.FILES or None)
     if req.method == 'POST':
         if form.is_valid():
+            post = req.POST
+            p = horarios(
+            seg_abre=post['seg_abre'],seg_fecha=post['seg_fecha'],
+            ter_abre=post['ter_abre'],ter_fecha=post['ter_fecha'],
+            qua_abre=post['qua_abre'],qua_fecha=post['qua_fecha'],
+            qui_abre=post['qui_abre'],qui_fecha=post['qui_fecha'],
+            sex_abre=post['sex_abre'],sex_fecha=post['sex_fecha'],
+            sab_abre=post['sab_abre'],sab_fecha=post['sab_fecha'],
+            dom_abre=post['dom_abre'],dom_fecha=post['dom_fecha']
+            )
+            p.save()
             email = form.cleaned_data["email"]
             nome = form.cleaned_data["nome"]
             senha = form.cleaned_data["senha"]
@@ -174,19 +191,10 @@ def novaLoja(req):
             l =form.save(commit=False)
             l.email = email.lower()
             l.id = user.id
+            l.horarios = p
             l.save()
-            loja = get_object_or_404(Lojas,pk=l.id)
-            post = req.POST
-            p = horarios(loja=loja,
-            seg_abre=post['seg_abre'],seg_fecha=post['seg_fecha'],
-            ter_abre=post['ter_abre'],ter_fecha=post['ter_fecha'],
-            qua_abre=post['qua_abre'],qua_fecha=post['qua_fecha'],
-            qui_abre=post['qui_abre'],qui_fecha=post['qui_fecha'],
-            sex_abre=post['sex_abre'],sex_fecha=post['sex_fecha'],
-            sab_abre=post['sab_abre'],sab_fecha=post['sab_fecha'],
-            dom_abre=post['dom_abre'],dom_fecha=post['dom_fecha']
-            )
-            p.save()
+            
+            
             return redirect('login')
         else:
             print(form._errors)

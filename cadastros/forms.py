@@ -63,7 +63,6 @@ class form_horarios(forms.ModelForm):
     class Meta:
         model = horarios
         fields = [
-            'loja',
             'seg_abre','seg_fecha',
             'ter_abre','ter_fecha',
             'qua_abre','qua_fecha',

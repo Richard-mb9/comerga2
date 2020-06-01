@@ -1,0 +1,104 @@
+{% load static%}
+{% load tags %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista</title>
+    <link rel="stylesheet" media="screen and (min-width: 700px)" href="{% static 'css/home.css' %}">
+    <link rel="stylesheet" media="screen and (max-width: 699px)" href="{% static 'css/home-responsivo.css' %}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    
+</head>
+{% include 'header.html'%}
+<body>
+    <div id="div_conteudo">
+
+        <div id="div_produtos">
+            {% for produto in Produtos%}
+                <p>{{produto.nome}}</p>
+            {% endfor %}
+        </div>
+        <p>{{ page_obj.number }}</p>
+        <button onclick="carregar()">carregar</button>
+        <div id="teste">
+
+        </div>
+
+
+
+        <!--{% if page_obj.has_previous %}
+        <a href="?page=1">&laquo; first</a>
+        <a href="?page={{ page_obj.previous_page_number }}">Anterior</a>
+        {% endif %}
+        <span class="current">
+            pagina {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.last.num_pages }}">Anterior</a>
+            <a href="?page={{ page_obj.next_page_number }}">proxima</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}-->
+        
+    </div>
+</body>
+{% include 'footer.html'%}
+</html>
+<script>
+    var pagina 
+    window.onload = function(){
+        pagina = "{{page_obj.number}}"
+    }
+    function carregar() {
+        //var pagina = "{{page_obj.number}}"
+        var token = "{{csrf_token}}"
+        var url = "{% url 'teste' %}" + "?" + pagina 
+        var x = new XMLHttpRequest()
+        var h  = {'X-CSRFToken':token, 'teste':'O Teste Funcionou'}
+        x.open('GET',url,true)
+        x.send()
+        x.onreadystatechange = function () {
+            if (x.readyState ===4 && x.status === 200){
+                var a = JSON.parse(x.response)
+                var  div = document.getElementById('div_produtos')
+                var c = a['resposta'].length
+                for(i = 0;i < c; i++){
+                    var p = document.createElement("p")
+                    var i = document.createElement("img")
+                    i.src = a['resposta'][i]["imagem"]
+                    p.appendChild(i)
+                    div.appendChild(p)
+                }
+                pagina = parseInt(pagina) + 1
+                console.log(pagina)
+                
+            }
+        }
+    }
+
+
+    
+    /*function carregar(){
+    var token = "{{csrf_token}}"
+    var url = "{% url 'lista' %}";
+    addEventListener("",function(event){
+        event.preventDefault();
+    })
+    var dados = {
+        "id":'id',
+        "quantidade":'funcionou'
+    }
+    
+    fetch(url,{
+        method:'GET',
+        headers:{'X-CSRFToken':token, 'teste':'O Teste Funcionou'},
+    }).then(function(response){
+        return response.json()
+    }).then(function(response){
+        r = response['resposta']
+        console.log(r)
+    })
+    }*/
+    
+</script>

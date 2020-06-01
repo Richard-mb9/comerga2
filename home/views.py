@@ -22,6 +22,11 @@ def apresentacao(req):
     return render(req,'home/apre.html')
 
 def Lancamento(req):
+    h = str(datetime.now().hour)
+    m = str(datetime.now().minute)
+    s = str(datetime.now().second)
+    hms = str(h + ":" + m + ":" + s)
+    print(hms)
     return render(req,'home/lancamento.html')
 
 #n é quantidade de itens que deseja que tenha em cada sublista
@@ -120,20 +125,20 @@ def index(req):
     if is_loja == True:
         return redirect('vender')
     else:
-        hoje = datetime.today().date().strftime('%Y-%m-%d')
+        """hoje = datetime.today().date().strftime('%Y-%m-%d')
         d = datetime.strptime(hoje, '%Y-%m-%d')
         dia_final = datetime.strptime("2020-6-1",'%Y-%m-%d')
         if d <  dia_final:
             return redirect('lancamento')
-        else:
-            return redirect('index',page=0)
+        else:"""
+        return redirect('index')
 @csrf_exempt
 def home(req,page):
-    hoje = datetime.today().date().strftime('%Y-%m-%d')
+    """hoje = datetime.today().date().strftime('%Y-%m-%d')
     d = datetime.strptime(hoje, '%Y-%m-%d')
     dia_final = datetime.strptime("2020-6-1",'%Y-%m-%d')
     if d <  dia_final:
-        return redirect('lancamento')
+        return redirect('lancamento')"""
         
         
     #primeiro faz a verifição se o usuario é uma loja

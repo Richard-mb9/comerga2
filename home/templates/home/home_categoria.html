@@ -26,7 +26,7 @@
         <h1>Selecione a loja em que deseja fazer as suas compras</h1>
         {% for loja in lojas %}
             {% if loja.ativa == 'sim' %}
-                <a class="loja" id= "loja-{{loja.id}}" href="{% url 'loja' loja.id 'p' 0 %}">
+                <a class="loja" id= "loja-{{loja.id}}" href="{% url 'loja' loja.id %}">
                         <h2>{{loja.nome}}</h2>
                         <p>{{loja.bairro}} - {{loja.Cidade}}</p>
                         

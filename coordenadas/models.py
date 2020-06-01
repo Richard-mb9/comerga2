@@ -11,3 +11,8 @@ class CEP(models.Model):
     def __str__(self):
         return self.CEP
 
+
+class solicitacoes_geo(models.Model):
+    data = models.CharField(max_length=12)
+    hora = models.CharField(max_length=9)
+    ender = models.CharField(max_length=100)

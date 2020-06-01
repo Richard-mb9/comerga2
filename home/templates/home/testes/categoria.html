@@ -13,25 +13,8 @@
     {% include 'header.html' %}
 <body>
     <div id="div_conteudo">
-        <div id="div_categorias">
-            <a href="{% url 'categoria' 'Super Mercado' %}" class="categoria">
-                    <img class="img_categoria categoria-item" src="{% static 'imagens/imagem-supermercado.png'%}">
-                    <p class="categoria-item">Supermercados</p>
-            </a>          
-            <a href="{% url 'categoria' 'Loja de ração' %}" class="categoria">
-                    <img class="img_categoria categoria-item" src="{% static 'imagens/imagem-petshop.png'%}">
-                    <p class="categoria-item">Lojas de ração e Petshops</p>
-            </a>            
-            <a href="{% url 'categoria' 'Farmacia' %}" class="categoria">
-                    <img class="img_categoria categoria-item" src="{% static 'imagens/imagem-farmacia.png'%}">
-                    <p class="categoria-item">Farmacias</p>
-            </a> 
-            <a href="{% url 'categoria' 'comida' %}" class="categoria">
-                <img class="img_categoria categoria-item" src="{% static 'imagens/imagens-restaurantes.png' %}">
-                <p class="categoria-item" style="font-size: 12px;">Restaurantes, Lanchonetes e Pizzarias</p>
-        </a>   
-            <div id="div_pesquisa">
-                <form method="POST">
+            <div id="div_pesquisa" style="width: 100%; text-align: left;">
+                <form method="GET">
                     {%csrf_token%}
                         <div id="div_input_pesquisa">
                             <input type="text" name="pesquisa" id="id_input_pesquisa" placeholder="Nome da Loja">
@@ -39,7 +22,6 @@
                         </div>
                     </form>
             </div>
-        </div>
         
         <h1>Selecione a loja em que deseja fazer as suas compras</h1>
         {% for loja in lojas %}
@@ -65,11 +47,19 @@
             {% endif %}
         {% endfor %}
         <div id="div_navegar_paginas">
-            {% if voltar > -1 %}
-                <a href="{% url 'index'  voltar %}">Voltar</a>
+            {% if page_obj.has_previous %}
+            <!--<a href="?page=1">&laquo; first</a>-->
+            <a href="?page={{ page_obj.previous_page_number }}">&laquo; Anterior</a>
+            <!--<a href="?page={{ page_obj.last.num_pages }}">&laquo; Anterior</a>
+            <a href="?page={{ page_obj.last.num_pages }}">&laquo; Anterior</a>-->
             {% endif %}
-            {% if carregar_mais != 'ultima' %}
-                <a style="margin-left: 30px;" href="{% url 'index' carregar_mais %}">Carregar mais</a>
+            <span class="current">
+                {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}.
+            </span>
+            {% if page_obj.has_next %}
+                <!--<a href="?page={{ page_obj.last.num_pages }}">Anterior</a>-->
+                <a href="?page={{ page_obj.next_page_number }}">proxima &raquo;</a>
+                <!--<a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>-->
             {% endif %}
        
         </div>
@@ -80,8 +70,7 @@
 
 </html>
 <script>
-
-window.onload =  function(){
+    window.onload =  function(){
         carregar_saldo()
         var now = new Date
         var h = now.getHours()
@@ -151,5 +140,7 @@ window.onload =  function(){
             }
         })
     }
+    
+    
 </script>
    

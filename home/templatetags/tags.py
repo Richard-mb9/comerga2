@@ -45,12 +45,12 @@ def img_produto(produto):
     p = get_object_or_404(Produtos,pk=produto)
 
     if p.imagem != '#':
-        return p.imagem
+        return p.imagem.url
     else:
         pro = imagens_produtos.objects.filter(codigo_de_barras=p.codigo_de_barras)
         if len(pro) == 1:
             i = pro[0]
-            return i.imagem
+            return i.imagem.url
         else:
             return "vazio"
 

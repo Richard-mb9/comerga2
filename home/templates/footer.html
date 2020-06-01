@@ -1,18 +1,17 @@
 {% load static %}
 {% load tags %}
 <style>
-    footer{
+    /*footer{
         position: fixed;
         width: 100%;
         border-top: solid 1px black;
         height: 55px;
         bottom: 0px;
         left: 0;
-        /*background-color: rgb(83, 152, 255);*/
         background-color: black;
         color: yellow;
         font-family: Arial;
-    }
+    }*/
     #div_conteudo-footer{
         text-align: justify;
         width: 95%;
@@ -46,6 +45,21 @@
     }
 
     @media(min-width: 700px){
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        footer{
+        position: relative;
+        width: 100%;
+        border-top: solid 1px black;
+        height: 55px;
+        bottom: 0px;
+        left: 0;
+        background-color: black;
+        color: yellow;
+        font-family: Arial;
+    }
         #div_conteudo-footer{
             display: none;
         }
@@ -54,6 +68,19 @@
         }
     }
     @media(max-width: 699px){
+        footer{
+        position: fixed;
+        width: 100%;
+        border-top: solid 1px black;
+        height: 55px;
+        bottom: 0px;
+        left: 0;
+        background-color: black;
+        color: yellow;
+        font-family: Arial;
+        padding-left: 10px;
+        padding-right: 20px;
+    }
         #div_conteudo-footer{
             display: block;
         }

@@ -11,11 +11,13 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+import credenciais
 from decouple import config
 try:
     from config_local import *
 except ImportError as e:
     pass
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -90,7 +92,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME':'comerga',
         'USER':'postgres',
-        'PASSWORD':config('PASSWORD'),
+        'PASSWORD':credenciais.DB,
         'HOST': '34.95.208.225',
         'PORT': '5432',
     }
@@ -149,8 +151,8 @@ EMAIL_HOST = 'smtp-mail.outlook.com'
 EMAIL_PORT = 587
 
 
-AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
-AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
+AWS_ACCESS_KEY_ID = credenciais.AWS_ACCESS_KEY_ID
+AWS_SECRET_ACCESS_KEY = credenciais.AWS_SECRET_ACCESS_KEY
 AWS_STORAGE_BUCKET_NAME = 'comerga'
 AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' %AWS_STORAGE_BUCKET_NAME
 AWS_S3_OBJECT_PARAMETERS = {'CacheControl':'max-age=86400'}
