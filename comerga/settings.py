@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 import credenciais
+
 from decouple import config
 try:
     from config_local import *
