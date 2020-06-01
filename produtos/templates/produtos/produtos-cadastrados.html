@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Seus Produtos</title>
     <link rel="stylesheet" href="{% static 'css/lista-produtos.css'%}">
 
 </head>
@@ -16,10 +16,10 @@
         <div class="container">
             <ul>
                 {% for produto in lista %}
-                    <li class="produto">
+                    <li class="produto" id="produto-{{produto.id}}">
                         <div class="div_produto_cadastrado lista-item">{{produto.nome}}</div>
                         <div class="div_opcoes lista-item">
-                            <img   id="{{produto.id}}" onclick="deletarProduto(id)" class="img-op opcoes-item" src="{% static 'imagens/lixeira.png' %}">
+                            <img style="cursor: pointer;"  id="{{produto.id}}" onclick="deletarProduto(id)" class="img-op opcoes-item" src="{% static 'imagens/lixeira.png' %}">
                             <a href="{% url 'editar_produto' produto.id %}" >
                                 <img class="img-op opcoes-item" src="{% static 'imagens/editar.png' %}"/>
                             </a>
@@ -38,6 +38,7 @@
     function deletarProduto(id){
     var url = "{% url 'excluir_produto' %}"
     var produto = document.getElementById("produto-"+id)
+    console.log(id)
     
     addEventListener("",function(event){
         event.preventDefault();
