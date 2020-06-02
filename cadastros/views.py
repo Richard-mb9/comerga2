@@ -292,7 +292,10 @@ def meus_dados(req):
             return render(req, 'cadastros/meus_dados_loja.html', {'loja':usu})
     else:
         usu = get_object_or_404(usuarios, pk=req.user.id)
-        ender = get_object_or_404(enderecos,cliente=usu)
+        try:
+            ender = get_object_or_404(enderecos,cliente=usu)
+        except:
+            print(Exception)
         return render(req, 'cadastros/meus_dados.html', {'endereco':ender, 'usuario':usu})
     
     

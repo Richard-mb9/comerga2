@@ -16,6 +16,7 @@ import unidecode
 import re
 from datetime import datetime,timedelta,date,time
 
+
 n= 20
 
 def apresentacao(req):
@@ -113,8 +114,6 @@ def verificar_horario(loja,horario):
 
 #inicio da aplicação
 def index(req):
-    
-    
     is_loja = False
     if req.user.is_authenticated:
         u = Lojas.objects.filter(pk=req.user.id)
@@ -125,6 +124,11 @@ def index(req):
     if is_loja == True:
         return redirect('vender')
     else:
+        ender = ""
+        usu = usuarios.objects.get(pk=req.user.id)
+        ender = enderecos.objects.filter(cliente=usu)
+        if len(ender) == 0:
+            return redirect("novo-endereco")
         """hoje = datetime.today().date().strftime('%Y-%m-%d')
         d = datetime.strptime(hoje, '%Y-%m-%d')
         dia_final = datetime.strptime("2020-6-1",'%Y-%m-%d')
