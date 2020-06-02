@@ -121,21 +121,21 @@ def index(req):
             is_loja = True
         else:
             is_loja = False
-    if is_loja == True:
-        return redirect('vender')
-    else:
-        ender = ""
-        usu = usuarios.objects.get(pk=req.user.id)
-        ender = enderecos.objects.filter(cliente=usu)
-        if len(ender) == 0:
-            return redirect("novo-endereco")
-        """hoje = datetime.today().date().strftime('%Y-%m-%d')
-        d = datetime.strptime(hoje, '%Y-%m-%d')
-        dia_final = datetime.strptime("2020-6-1",'%Y-%m-%d')
-        if d <  dia_final:
-            return redirect('lancamento')
-        else:"""
-        return redirect('index')
+        if is_loja == True:
+            return redirect('vender')
+        else:
+            ender = ""
+            usu = usuarios.objects.get(pk=req.user.id)
+            ender = enderecos.objects.filter(cliente=usu)
+            if len(ender) == 0:
+                return redirect("novo-endereco")
+            """hoje = datetime.today().date().strftime('%Y-%m-%d')
+            d = datetime.strptime(hoje, '%Y-%m-%d')
+            dia_final = datetime.strptime("2020-6-1",'%Y-%m-%d')
+            if d <  dia_final:
+                return redirect('lancamento')
+            else:"""
+    return redirect('index')
 @csrf_exempt
 def home(req,page):
     """hoje = datetime.today().date().strftime('%Y-%m-%d')
