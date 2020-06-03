@@ -48,18 +48,16 @@
                 {% if cat == 'comida' %}
                     <a class="loja" id= "loja-{{loja.id}}" href="{% url 'restaurante' loja.id %}">
                         <h2>{{loja.nome}}</h2>
-                        <p>{{loja.bairro}} - {{loja.Cidade}}</p>
-                        
                         <p><img class="logo-loja" src="{{loja.logomarca.url}}" alt=""></p>
-                        <p id="{{loja.id}}-fechado">Fechado</p> 
+                        <p class="endereco-loja">{{loja.bairro}} - {{loja.Cidade}}</p>
+                        <p id="{{loja.id}}-fechado" class="p-loja-fechada">Fechado</p> 
                     </a>
                 {% else %}
                     <a class="loja" id= "loja-{{loja.id}}" href="{% url 'loja' loja.id %}">
                             <h2>{{loja.nome}}</h2>
-                            <p>{{loja.bairro}} - {{loja.Cidade}}</p>
-                            
                             <p><img class="logo-loja" src="{{loja.logomarca.url}}" alt=""></p>
-                            <p id="{{loja.id}}-fechado">Fechado</p> 
+                            <p class="endereco-loja">{{loja.bairro}} - {{loja.Cidade}}</p>
+                            <p id="{{loja.id}}-fechado" class="p-loja-fechada">Fechado</p> 
                     </a>
                     {% endif %}
             {% endif %}
