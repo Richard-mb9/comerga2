@@ -15,9 +15,13 @@
     var btn_vender = document.getElementById("btn-vender")
     var saldo = document.getElementById("saldo-loja")
     var header = document.getElementById("header")
-    btn_pedidos.remove()
-    btn_vender.remove()
-    saldo.innerHTML = "R$ 0,00"
+    if(btn_pedidos || btn_vender){
+        btn_pedidos.remove()
+        btn_vender.remove()
+    }
+    if(saldo){
+        saldo.innerHTML = "R$ 0,00"
+    }
     header.style.height = "50px"
 </script>
 <body>

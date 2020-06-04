@@ -16,9 +16,13 @@
         var btn_vender = document.getElementById("btn-vender")
         var saldo = document.getElementById("saldo-loja")
         var header = document.getElementById("header")
+        if(btn_pedidos || btn_vender){
         btn_pedidos.remove()
         btn_vender.remove()
-        saldo.innerHTML = "R$ 0,00"
+        }
+        if(saldo){
+            saldo.innerHTML = "R$ 0,00"
+        }
         header.style.height = "50px"
     </script>
 </header>
@@ -34,7 +38,8 @@
                 </p>
                 <p>
                     <label id="label_CEP">CEP:</label>
-                    <input type="text" name="CEP" value="{{form.CEP.value}}" id="id_CEP" required placeholder="00000-000" onkeypress="mascaraCEP(this)">
+                    <input type="text" name="CEP" value="{{form.CEP.value}}" id="id_CEP" required placeholder="00000-000" 
+                    onkeypress="mascaraCEP(this)" onblur="pesquisacep(this.value)">
                 </p>
                 <p>
                     <label id="label_estado">Estado</label>
@@ -70,3 +75,4 @@
 {% include 'footer.html'%}
 </html>
 <script src="{% static 'js/formularios.js' %}"></script>
+<script src="{% static 'js/viacep.js' %}"></script>
