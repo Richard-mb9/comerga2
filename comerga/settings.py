@@ -30,7 +30,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG',default=False,cast=bool)
+DEBUG = credenciais.debug
 
 ALLOWED_HOSTS = ["192.168.1.100","35.247.242.152","www.comergacomercio.com","comergacomercio.com"]
 # Application definition
