@@ -106,5 +106,10 @@ class arquivos(models.Model):
     arquivo = models.FileField(upload_to="arquivos_excel", null=False, blank=False)
     objects = models.Manager()
 
+class problemas(models.Model):
+    Email = models.CharField(max_length=100,verbose_name='Email Que você usa no Site')
+    Telefone = models.CharField(max_length=15)
+    Mensagem = models.TextField(max_length=500)
+
 
 

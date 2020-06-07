@@ -1,0 +1,25 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="PT-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tive um Problema</title>
+    <link rel="stylesheet" media="screen and (min-width: 700px)" href="{% static 'css/formularios.css' %}">
+     <link rel="stylesheet" media="screen and (max-width: 699px)" href="{% static 'css/formularios-responsivo.css' %}">
+</head>
+{% include 'header.html'%}
+<body>
+    <div id="div_conteudo">
+        <div id="div_form">
+            <form method="POST">
+                {% csrf_token %}
+                {{form.as_p}}
+                <button id="btn-cadastrar">Enviar</button>
+            </form>
+        </div>
+    </div>
+    
+</body>
+{% include 'footer.html'%}
+</html>

@@ -12,6 +12,7 @@ from .views import logar
 from .views import esqueceuSenha
 from .views import verifica_email
 from .views import alterar_horarios
+from .views import Problema
 
 
 urlpatterns = [
@@ -27,6 +28,7 @@ urlpatterns = [
     path('login/', logar, name='login'),
     path('esqueceu-senha/',esqueceuSenha,name='esqueceu_senha'),
     path('verifica-email/',verifica_email,name='verifica_email'),
-    path('alterar-horario/',alterar_horarios,name='alterar_horario')
+    path('alterar-horario/',alterar_horarios,name='alterar_horario'),
+    path('tive-um-probelma/',Problema,name='problemas')
 
 ]

@@ -25,13 +25,23 @@ import credenciais
 def calcular_saldo_loja(id):
     pedido = pedidos.objects.filter(itens__loja=id)
     total = 0
+    pg_dineiro = 0
+    pg_cartão = 0
+    comissao = 0
     lista =  []
     for ped in pedido:
         if not ped in lista:
             lista.append(ped)
     for ped in lista:
         if ped.pedidofechado == 'sim':
-            total += ped.total
+            if ped.pedido_cancelado == 'não' and ped.status_pagamento == "não pago":
+                total += ped.total
+                if ped.forma_de_pagamento == "dinheiro":
+                    pg_dineiro += ped.total
+                if ped.forma_de_pagamento == "cartão":
+                    pg_cartão += ped.total
+    comissao = round((total/100)*10,2)
+    total = total - (pg_dineiro + comissao)
 
     return (total)
     
@@ -351,7 +361,7 @@ def calcular_frete(valor_frete,end1,end2):
     CEP2 = CEP.objects.filter(CEP=c2)
     coord1 = ""
     coord2 = ""
-    dis = ""
+    dis = 0
     if len(CEP1) == 1:
         CEP1 = get_object_or_404(CEP,CEP=c1)
         CEP2 = get_object_or_404(CEP,CEP=c2)
@@ -378,7 +388,7 @@ def calcular_frete(valor_frete,end1,end2):
     #API google matrix para calcular a distancia em KMs
     calculou = False
     teste = 0
-    while(calculou == False):
+    while(calculou == False and teste <= 10):
         try:
             key = credenciais.KEY_API_GOOGLE
             r = requests.get(f"https://maps.googleapis.com/maps/api/distancematrix/json?units=kilometers&origins={str(coord1)}&destinations={str(coord2)}&key={key}")
@@ -387,11 +397,13 @@ def calcular_frete(valor_frete,end1,end2):
             calculou = True
         except:
             teste += 1 
-            print(teste)
+            print("teste = " + str(teste))
             calculou = False
+
     frete = (float(dis)* float(valor_frete))
-    print("A distancia é: " + str(dis))
-    print("o valor do frete é :" + str(frete))
+    #caso não consiga calcular a distancia utilizando a api google Matrix, retornara uma string erro
+    if dis == 0 and calculou == False:
+        return "erro"
     return frete
 
 
@@ -406,6 +418,9 @@ def salvar_endereco_pedido(req,pedido):
     CEP2 = ender.CEP
     frete = sub[0].loja.valor_frete
     v = calcular_frete(frete,CEP1,CEP2)
+    if v == "erro":
+        return HttpResponse("Tivemos um problema, infelizmente não conseguimos calcular a disntancia até a sua casa" +
+        " Pedimos desculpas pelo Transtorno, por favor tente novamente dentro de 5 minutos, se o problema continuar, entre em contato conosco")
     #verifica se o valor do frete é menor do que o valor minimo do frete da loja
     if v < sub[0].loja.valor_minimo_frete:
         ped.valor_frete = sub[0].loja.valor_minimo_frete

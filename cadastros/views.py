@@ -11,6 +11,8 @@ from .forms import form_arquivos
 from .models import usuarios
 from .models import enderecos
 from .models import horarios
+from .models import problemas
+from . forms import form_Problema
 from django.contrib.auth.models import User
 from produtos.models import Produtos
 from pedidos.models import pedidos
@@ -89,7 +91,7 @@ def alterar_horarios(req):
 
     if e_loja==True:
         usu = get_object_or_404(Lojas,pk=req.user.id)
-        h = get_object_or_404(horarios,loja=usu)
+        h = get_object_or_404(horarios,pk=usu.horarios.id)
         form = form_horarios(req.POST or None, instance=h)
         if req.method == 'POST':
             if form.is_valid():
@@ -387,6 +389,14 @@ def encontrarEmail(email):
         return "usuarios"
 
 
+def Problema(req):
+    form = form_Problema(req.POST or None)
+    if req.method == 'POST':
+        if form.is_valid():
+            form.save()
+            return render(req, 'cadastros/envio_problema.html')
+    
+    return render(req,'cadastros/problemas.html',{'form':form})
 
 
 

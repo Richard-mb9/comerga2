@@ -1,0 +1,25 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="PT-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tive um Problema</title>
+    <link rel="stylesheet" media="screen and (min-width: 700px)" href="{% static 'css/formularios.css' %}">
+     <link rel="stylesheet" media="screen and (max-width: 699px)" href="{% static 'css/formularios-responsivo.css' %}">
+</head>
+{% include 'header.html'%}
+<body>
+    <div id="div_conteudo">
+        <div id="div_form">
+            <p>Obrigado por compartilhar conosco sua experiencia em nosso site.</p>
+            <p>Nós recebemos a sua mensagem com o seu problema,<!--
+            -->e entraremos em contato dentro de 24 horas, porem não contabilizamos finais de semana e feriados</p>
+
+            <a href="{% url 'home' %}"><button id="btn-cadastrar">ir para o Inicio</button></a>
+        </div>
+    </div>
+    
+</body>
+{% include 'footer.html'%}
+</html>

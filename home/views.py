@@ -116,25 +116,28 @@ def verificar_horario(loja,horario):
 def index(req):
     is_loja = False
     if req.user.is_authenticated:
-        u = Lojas.objects.filter(pk=req.user.id)
-        if len(u) == 1:
-            is_loja = True
-        else:
-            is_loja = False
-        if is_loja == True:
-            return redirect('vender')
-        else:
-            ender = ""
-            usu = usuarios.objects.get(pk=req.user.id)
-            ender = enderecos.objects.filter(cliente=usu)
-            if len(ender) == 0:
-                return redirect("novo-endereco")
-            """hoje = datetime.today().date().strftime('%Y-%m-%d')
-            d = datetime.strptime(hoje, '%Y-%m-%d')
-            dia_final = datetime.strptime("2020-6-1",'%Y-%m-%d')
-            if d <  dia_final:
-                return redirect('lancamento')
-            else:"""
+        try:
+            u = Lojas.objects.filter(pk=req.user.id)
+            if len(u) == 1:
+                is_loja = True
+            else:
+                is_loja = False
+            if is_loja == True:
+                return redirect('vender')
+            else:
+                ender = ""
+                usu = usuarios.objects.get(pk=req.user.id)
+                ender = enderecos.objects.filter(cliente=usu)
+                if len(ender) == 0:
+                    return redirect("novo-endereco")
+                """hoje = datetime.today().date().strftime('%Y-%m-%d')
+                d = datetime.strptime(hoje, '%Y-%m-%d')
+                dia_final = datetime.strptime("2020-6-1",'%Y-%m-%d')
+                if d <  dia_final:
+                    return redirect('lancamento')
+                else:"""
+        except:
+            return redirect('index')
     return redirect('index')
 @csrf_exempt
 def home(req,page):

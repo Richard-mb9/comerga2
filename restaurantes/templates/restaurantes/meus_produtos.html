@@ -56,7 +56,7 @@
                 </div>
                 <div id="div_op" class="produto-item">
                     <a href="">
-                        <button id="{{bebida.id}}" class="btn-op" onclick="excluir_bebida(id)"><img class="img_op"src="{% static imagens/lixeira.png%}"></button>
+                        <button id="{{bebida.id}}" class="btn-op" onclick="excluir_bebida(id)"><img class="img_op"src="{% static 'imagens/lixeira.png' %}"></button>
                     </a>
                     <a href="{% url 'editar_bebida' bebida.id %}">
                         <button class="btn-op"><img class="img_op"src="{% static 'imagens/editar.png'%}"></button>

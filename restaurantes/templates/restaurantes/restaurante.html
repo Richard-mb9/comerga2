@@ -126,9 +126,9 @@
     var url = "{% url 'adicionar_carrinho_retaurante'%}"
     var qt = document.getElementById("status-"+id).innerHTML
     var carrinho = document.getElementById("carrinho")
+    var bebida = document.getElementById("bebida-" + id)
     var produto = document.getElementById("produto-"+id)
     var input_qt = document.getElementById("status-"+id)
-    console.log(url)
     
     addEventListener("",function(event){
         event.preventDefault();
@@ -151,7 +151,13 @@
             }
             else{
                 carrinho.innerHTML = "R$" + response['total']
-                produto.style.borderColor = "red"
+                if(produto){
+                    produto.style.borderColor = "red"
+                }
+                else if(bebida){
+                    bebida.style.borderColor = "red"
+                }
+                
             }
         })
     }

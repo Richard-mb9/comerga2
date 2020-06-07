@@ -6,7 +6,7 @@ from .models import Lojas
 from .models import enderecos
 from .models import arquivos
 from .models import horarios
-
+from .models import problemas
 
 class form_usuarios(ModelForm):
     senha =  forms.CharField(widget=forms.PasswordInput) 
@@ -71,3 +71,8 @@ class form_horarios(forms.ModelForm):
             'sab_abre','sab_fecha',
             'dom_abre','dom_fecha',
         ]
+
+class form_Problema(forms.ModelForm):
+    class Meta:
+        model = problemas
+        fields = ['Email','Telefone','Mensagem']
