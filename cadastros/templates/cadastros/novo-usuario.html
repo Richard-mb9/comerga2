@@ -45,7 +45,8 @@
                         <option value="22">22</option>
                         <option value="24">24</option>
                     </select>
-                    <input type="text" name="celular" required id="id_celular" onkeypress="mascaraCel(this)" placeholder="00000-0000">
+                    <input type="text" name="celular" required id="id_celular" onblur="mascara(this,'cel')" 
+                    maxlength="10" placeholder="00000-0000">
                 </p>
                 <p><label id="label_telefone">Telefone:</label></p>           
                 <p>  
@@ -54,7 +55,8 @@
                         <option value="22">22</option>
                         <option value="24">24</option>
                     </select>
-                    <input type="text" name="telefone" id="id_Telefone" onkeypress="mascaraTel(this)" placeholder="0000-0000">
+                    <input type="text" name="telefone" id="id_Telefone" onblur="mascara(this,'Tel')" 
+                    maxlength="9" placeholder="0000-0000">
                 </p>
                 <button id="btn-cadastrar" type="submit">Cadastrar</button>
             </form>
@@ -93,4 +95,46 @@
             
             )}
     }
+    function ajustar_texto(i){
+        var texto = i
+        var texto_ajustado = texto.replace(/\-/g,'')
+        texto_ajustado = texto_ajustado.replace(/\./g,'')
+        texto_ajustado = texto_ajustado.replace(/\//g,'')
+
+        return(texto_ajustado)
+    }
+    function mascara(i,campo){
+        var a = i.value
+        if (a.length < 8){
+            alert("Por Favor, Verifique todos os campos e os digite no formato Certo")
+            i.value = ""
+            return(false)
+        }
+        var texto = ajustar_texto(i.value)
+        if(campo == "CNPJ"){
+            var p1 = texto.slice(0,2)
+            var p2 = texto.slice(2,5)
+            var p3 = texto.slice(5,8)
+            var p4 = texto.slice(8,12)
+            var p5 = texto.slice(12,14)
+            texto = p1 + "." + p2 + "." + p3 + "/" + p4 + "-" + p5
+        }
+        else if (campo == "CEP"){
+            var p1 = texto.slice(0,5)
+            var p2 = texto.slice(5,8)
+            texto = p1 + "-" + p2
+        }
+        else if(campo == 'Tel'){
+            var p1 = texto.slice(0,4)
+            var p2 = texto.slice(4,8)
+            texto = p1 + "-" + p2
+        }
+        else if(campo == 'cel'){
+            var p1 = texto.slice(0,5)
+            var p2 = texto.slice(5,9)
+            texto = p1 + "-" + p2
+        }
+        i.value = texto
+    }
+    
 </script>

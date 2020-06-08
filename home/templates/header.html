@@ -43,7 +43,7 @@
                 <h4 class="menu_login_itens">Olá {{user.first_name}}</h4>
                 <div class="menu_login_itens menu" onclick="dropdown()">
                         <img height="30px" src=" {% static 'imagens/icone perfil e seta.png'%}">
-                        <ul id="id_menu" style="padding: 0; text-align: left;">
+                        <ul id="id_menu" style="padding: 0; text-align: left; z-index: 2;">
                             <a class="menu-item" href="{% url 'meus_pedidos' %}" id="meus_pedidos">Meus Pedidos</a>
                             <a class="menu-item" href="{% url 'meus_dados'%}">Meus Dados</a>
                             <a class="menu-item" href="{% url 'problemas' %}">Relatar um Problema</a>
