@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Cadastro</title>
     <!--<link rel="stylesheet" href="{% static 'css/formularios.css'%}">-->
     <link rel="stylesheet" media="screen and (min-width: 700px)" href="{% static 'css/formularios.css' %}">
     <link rel="stylesheet" media="screen and (max-width: 699px)" href="{% static 'css/formularios-responsivo.css' %}">
@@ -15,6 +15,7 @@
         <div id="div_form">
             <form method="POST" onsubmit="form_submit(this); return false" enctype="multipart/form-data"> 
                 {% csrf_token %}
+                <p id="verifica_email" hidden>{% url 'verifica_email' %}</p>
                 <p>
                     <label for="">Primeiro Nome:</label>            
                     <input type="text" name="Primeiro_nome" maxlength="50" id="id_primeiro_nome" required placeholder="Digite Seu Primeiro Nome">
@@ -25,7 +26,8 @@
                 </p>
                 <p>
                     <label for="">Email:</label>
-                    <input type="email" name="email" required id="id_email" placeholder="Digite seu email">
+                    <input type="email" name="email" required id="id_email" placeholder="Digite seu email"
+                    onchange="verifica_email(this.value)">
                 </p>
                 <p>          
                     <label for="">Senha:</label>
@@ -63,3 +65,32 @@
 {% include 'footer.html'%}
 <script src="{% static 'js/formularios.js'%}"></script>
 </html>
+<script>
+    function verifica_email(e){
+        var email = document.getElementById("id_email")
+        if(email){
+            var url = "{% url 'verifica_email' %}"
+            v = e
+            addEventListener("",function(event){
+                event.preventDefault();
+            })
+            console.log(email)
+            var dados = {'email':v}
+            fetch(url,{
+                method:'POST',
+                body:JSON.stringify(dados)
+            }).then(function(response){
+                return response.json()
+            }).then(function(response){
+                    var resposta =  response['resposta']
+                    console.log(resposta)
+                    if (resposta == false){
+                        email.focus()
+                        email.style.borderColor = "red"
+                        alert('Por favor, insira outro email, este email ja esta sendo usado')
+                    }
+                }
+            
+            )}
+    }
+</script>

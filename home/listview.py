@@ -1,5 +1,6 @@
-from django.shortcuts import render,get_list_or_404,get_list_or_404
+from django.shortcuts import render,get_list_or_404,get_list_or_404,redirect
 from django.http import HttpResponse,JsonResponse
+from datetime import datetime,timedelta,date,time
 
 from produtos.models import Produtos
 from cadastros.models import Lojas
@@ -24,6 +25,13 @@ class home(ListView):
     context_object_name = 'lojas'
     template_name = 'home/testes/inicio.html'
     ordering = ['nome']
+    
+    def get(req,page):
+        hoje = datetime.today().date().strftime('%Y-%m-%d')
+        d = datetime.strptime(hoje, '%Y-%m-%d')
+        dia_final = datetime.strptime("2020-6-15",'%Y-%m-%d')
+        if d <  dia_final:
+            return redirect('lancamento')
     
     def get_queryset(self):
         lojas = ""

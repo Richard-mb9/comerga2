@@ -20,6 +20,17 @@
                 <button id="btn-cadastrar">Cadastre Sua Loja Agora!</button>
             </a>
         </div>
+        <div class="img" style="background-color: white;">
+            <p class="link-whats">
+                <!--https://api.whatsapp.com/send?phone=5521969386632&text=Gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20sua%20plataforma-->
+                <a href="https://bit.ly/2ARoAz4">
+                    <button class="btn-whats">
+                        <img class="icone whats-item" src="{%static 'imagens/icone-whatsapp.png' %}">
+                        <span class="whats-item">Fale Conosco Pelo whatsapp</span>
+                    </button>
+                </a>
+            </p>
+        </div>
     </div>
     
 </body>
@@ -33,13 +44,35 @@
     a,a:link{
         text-decoration: none;
     }
+    .icone{
+        width: 50px;
+    }
+    .link-whats{
+        width: max-content;
+        display: block;
+        margin-right: auto;
+        margin-left: auto;
+    }
+    .whats-item{
+        display: inline-block;
+        vertical-align: middle;
+    }
+    .btn-whats{
+        background-color: black;
+        color: yellow;
+        font-weight: bold;
+        border-radius: 10px;
+        width: max-content;
+        padding: 10px;
+        border: none;
+        cursor: pointer;
+    }
      @media(min-width: 700px){
         #div_conteudo{
             width: 600px;
             display: block;
             margin-right: auto;
             margin-left: auto;
-        
         }
         .img{
             width: 600px;

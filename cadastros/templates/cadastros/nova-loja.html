@@ -14,6 +14,17 @@
 <body>
     <div id="div_conteudo">
         <div id="div_form">
+            <div>
+                <h3 style="font-family: Arial;">Qualquer Duvida entre em Contato</h3>
+                <p class="link-whats">
+                    <!--https://api.whatsapp.com/send?phone=5521969386632&text=Gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20sua%20plataforma-->
+                    <a href="https://bit.ly/2ARoAz4">
+                        <button class="btn-whats">
+                            <img class="icone whats-item" src="{%static 'imagens/icone-whatsapp.png' %}">
+                            <span class="whats-item">Fale Conosco Pelo whatsapp</span>
+                        </button>
+                    </a>
+            </div>
             <form method="POST" onsubmit="form_submit(this); return false" enctype="multipart/form-data"> 
                 {% csrf_token %}
                 <p>
@@ -26,7 +37,8 @@
                 </p>
                 <p>
                     <label id="label_emal">email:</label>
-                    <input type="email" name="email" id="id_email" required placeholder="Seu email">
+                    <input type="email" name="email" id="id_email" required placeholder="Seu email"
+                    onchange="verifica_email(this.value)">
                 </p>
                 <p>
                     <label id="label_senha">Senha:</label>
@@ -570,18 +582,18 @@
                         
                         <h3>Dados Bancarios</h3>
                         <legend>A conta deve Pertencer ao CNPJ Cadastrado</legend><br>
-                        <p>
+                        <p class="banco-item">
                             <label style="width: max-content;">Nome do Banco</label>
                             <input type="text" name="Banco" id="id_input_banco" style="width: 150px;">
                         </p>
-                        <p>
+                        <p class="banco-item">
                             <label style="width: 70px;">agencia</label>
                             <input type="number" name="agencia" id="id_input_agencia" style="width: 50px;">
                             <label style="width: max-content;">Digito</label>
                             <input type="number" name="digito_agencia" id="id_input_digito_agencia" style="width: 30px;">
                             <legend> Caso não possua digito deixe em Branco</legend>
                         </p>
-                        <p>
+                        <p class="banco-item">
                             <label style="width: 70px;">Conta</label>
                             <input type="number" name="conta" id="id_input_conta" style="width: 50px;">
                             <label style="width: max-content;">Digito</label>
@@ -604,6 +616,43 @@
 <script src="{% static 'js/formularios.js' %}"></script>
 <script src="{% static 'js/viacep.js' %}"></script>
 </html>
+<style>
+    @media(min-width: 700px){
+        .banco-item{
+            padding-bottom: 10px;
+            padding-top: 10px;
+        }
+        p{
+            padding-bottom: 5px;
+            padding-top: 5px;
+        }
+    }
+    .icone{
+        width: 50px;
+    }
+    .link-whats{
+        width: max-content;
+        display: block;
+        margin-right: auto;
+        margin-left: auto;
+    }
+    .whats-item{
+        display: inline-block;
+        vertical-align: middle;
+    }
+    .btn-whats{
+        margin-top: 10px;
+        margin-bottom: 10px;
+        background-color: black;
+        color: yellow;
+        font-weight: bold;
+        border-radius: 10px;
+        width: max-content;
+        padding: 10px;
+        border: none;
+        cursor: pointer;
+    }
+</style>
 <script>
     var distancia = document.getElementById("distancia_frete")
     var valor_frete = document.getElementById("valor_frete")
@@ -622,7 +671,34 @@
             frete.style.display = 'block'
         }
     }
-
+    
+    function verifica_email(e){
+        var email = document.getElementById("id_email")
+        if(email){
+            var url = "{% url 'verifica_email' %}"
+            v = e
+            addEventListener("",function(event){
+                event.preventDefault();
+            })
+            console.log(email)
+            var dados = {'email':v}
+            fetch(url,{
+                method:'POST',
+                body:JSON.stringify(dados)
+            }).then(function(response){
+                return response.json()
+            }).then(function(response){
+                    var resposta =  response['resposta']
+                    console.log(resposta)
+                    if (resposta == false){
+                        email.focus()
+                        email.style.borderColor = "red"
+                        alert('Por favor, insira outro email, este email ja esta sendo usado')
+                    }
+                }
+            
+            )}
+    }
 </script>
 <!--<script type="text/javascript" >
     
