@@ -114,9 +114,6 @@ def verificar_horario(loja,horario):
 
 #inicio da aplicação
 def index(req):
-    hoje = datetime.today().date().strftime('%Y-%m-%d')
-    d = datetime.strptime(hoje, '%Y-%m-%d')
-    dia_final = datetime.strptime("2020-6-15",'%Y-%m-%d')
     is_loja = False
     if req.user.is_authenticated:
         try:
@@ -138,20 +135,10 @@ def index(req):
                 else:
                     return redirect('index')
         except:
-            if d <  dia_final:
-                    return redirect('lancamento')
-            else:
-                return redirect('index')
+            pass
     return redirect('index')
 @csrf_exempt
 def home(req,page):
-    hoje = datetime.today().date().strftime('%Y-%m-%d')
-    d = datetime.strptime(hoje, '%Y-%m-%d')
-    dia_final = datetime.strptime("2020-6-15",'%Y-%m-%d')
-    if d <  dia_final:
-        return redirect('lancamento')
-        
-        
     #primeiro faz a verifição se o usuario é uma loja
     is_loja = False
     pagina = page

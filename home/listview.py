@@ -26,13 +26,6 @@ class home(ListView):
     template_name = 'home/testes/inicio.html'
     ordering = ['nome']
     
-    def get(req,page):
-        hoje = datetime.today().date().strftime('%Y-%m-%d')
-        d = datetime.strptime(hoje, '%Y-%m-%d')
-        dia_final = datetime.strptime("2020-6-15",'%Y-%m-%d')
-        if d <  dia_final:
-            return redirect('lancamento')
-    
     def get_queryset(self):
         lojas = ""
         cat = ""
